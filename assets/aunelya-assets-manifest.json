@@ -1,0 +1,29 @@
+{
+  "brand": "Aunelya",
+  "usage": "Shopify Horizon theme assets",
+  "production": {
+    "hero": "aunelya-hero-desktop.webp",
+    "products": {
+      "pink": "aunelya-product-pink.webp",
+      "white": "aunelya-product-white.webp",
+      "included": "aunelya-whats-included.webp"
+    },
+    "lifestyle": {
+      "routine_main": "aunelya-lifestyle-routine-main.webp",
+      "home": "aunelya-lifestyle-home.webp",
+      "movement": "aunelya-lifestyle-movement.webp",
+      "routine": "aunelya-lifestyle-routine.webp",
+      "when_needed": "aunelya-lifestyle-when-needed.webp"
+    },
+    "technology": "aunelya-technology-product.webp"
+  },
+  "references": {
+    "home_hero": "aunelya-ref-home-hero.png",
+    "home_product": "aunelya-ref-home-product.png"
+  },
+  "notes": [
+    "Files prefixed aunelya-ref- are design references only and should not be rendered in production.",
+    "Use the pink product as the visual hero variant; pink and white are the two commercial color variants.",
+    "All runtime image files are intentionally flat under assets/ for simple Liquid asset_url usage."
+  ]
+}
