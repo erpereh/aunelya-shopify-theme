@@ -22,12 +22,41 @@
     "aunelya_trust": {
       "type": "aunelya-trust-bar",
       "blocks": {
-        "shipping": { "type": "item", "settings": { "icon": "shipping", "label": "Envíos a México" } },
-        "returns": { "type": "item", "settings": { "icon": "returns", "label": "Devoluciones fáciles" } },
-        "secure": { "type": "item", "settings": { "icon": "secure", "label": "Compra segura" } },
-        "support": { "type": "item", "settings": { "icon": "support", "label": "Atención al cliente" } }
+        "shipping": {
+          "type": "item",
+          "settings": {
+            "icon": "shipping",
+            "label": "Envíos a México"
+          }
+        },
+        "returns": {
+          "type": "item",
+          "settings": {
+            "icon": "returns",
+            "label": "Devoluciones fáciles"
+          }
+        },
+        "secure": {
+          "type": "item",
+          "settings": {
+            "icon": "secure",
+            "label": "Compra segura"
+          }
+        },
+        "support": {
+          "type": "item",
+          "settings": {
+            "icon": "support",
+            "label": "Atención al cliente"
+          }
+        }
       },
-      "block_order": ["shipping", "returns", "secure", "support"],
+      "block_order": [
+        "shipping",
+        "returns",
+        "secure",
+        "support"
+      ],
       "settings": {}
     },
     "aunelya_product": {
@@ -40,6 +69,7 @@
             "option_value": "Rosa",
             "fallback_price": "MX$799",
             "asset_key": "pink",
+            "image_alt": "",
             "card_color": "#f5e7e4",
             "swatch_color": "#e9b8b5"
           }
@@ -51,13 +81,18 @@
             "option_value": "Blanco",
             "fallback_price": "MX$799",
             "asset_key": "white",
+            "image_alt": "",
             "card_color": "#f2f1ef",
             "swatch_color": "#f7f7f5"
           }
         }
       },
-      "block_order": ["pink", "white"],
+      "block_order": [
+        "pink",
+        "white"
+      ],
       "settings": {
+        "product": "",
         "heading": "Disponible en dos colores",
         "subheading": "El mismo bienestar. Elige el tuyo.",
         "included_heading": "Qué incluye",
@@ -67,12 +102,49 @@
     "aunelya_lifestyle": {
       "type": "aunelya-lifestyle",
       "blocks": {
-        "home": { "type": "moment", "settings": { "asset_key": "home", "label": "En casa" } },
-        "movement": { "type": "moment", "settings": { "asset_key": "movement", "label": "En movimiento" } },
-        "routine": { "type": "moment", "settings": { "asset_key": "routine", "label": "En tu rutina" } },
-        "when_needed": { "type": "moment", "settings": { "asset_key": "when-needed", "label": "Cuando lo necesitas" } }
+        "home": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "home",
+            "label": "En casa",
+            "link": "",
+            "image_alt": ""
+          }
+        },
+        "movement": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "movement",
+            "label": "En movimiento",
+            "link": "",
+            "image_alt": ""
+          }
+        },
+        "routine": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "routine",
+            "label": "En tu rutina",
+            "link": "",
+            "image_alt": ""
+          }
+        },
+        "when_needed": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "when-needed",
+            "label": "Cuando lo necesitas",
+            "link": "",
+            "image_alt": ""
+          }
+        }
       },
-      "block_order": ["home", "movement", "routine", "when_needed"],
+      "block_order": [
+        "home",
+        "movement",
+        "routine",
+        "when_needed"
+      ],
       "settings": {
         "heading": "Bienestar en tu rutina",
         "main_label": "A tu ritmo",
@@ -82,12 +154,41 @@
     "aunelya_technology": {
       "type": "aunelya-technology",
       "blocks": {
-        "heat": { "type": "feature", "settings": { "icon": "heat", "label": "5 niveles de calor" } },
-        "vibration": { "type": "feature", "settings": { "icon": "vibration", "label": "4 niveles de vibración" } },
-        "portable": { "type": "feature", "settings": { "icon": "portable", "label": "Portátil" } },
-        "adjustable": { "type": "feature", "settings": { "icon": "adjustable", "label": "Correa ajustable" } }
+        "heat": {
+          "type": "feature",
+          "settings": {
+            "icon": "heat",
+            "label": "5 niveles de calor"
+          }
+        },
+        "vibration": {
+          "type": "feature",
+          "settings": {
+            "icon": "vibration",
+            "label": "4 niveles de vibración"
+          }
+        },
+        "portable": {
+          "type": "feature",
+          "settings": {
+            "icon": "portable",
+            "label": "Portátil"
+          }
+        },
+        "adjustable": {
+          "type": "feature",
+          "settings": {
+            "icon": "adjustable",
+            "label": "Correa ajustable"
+          }
+        }
       },
-      "block_order": ["heat", "vibration", "portable", "adjustable"],
+      "block_order": [
+        "heat",
+        "vibration",
+        "portable",
+        "adjustable"
+      ],
       "settings": {
         "heading": "Tecnología pensada para tu comodidad",
         "image_alt": "Detalle del cinturón térmico portátil Aunelya"
@@ -95,8 +196,6 @@
     },
     "aunelya_reviews": {
       "type": "aunelya-reviews",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "enabled": false,
         "heading": "Opiniones"
