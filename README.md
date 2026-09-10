@@ -1,0 +1,2 @@
+# aunelya-shopify-theme
+
