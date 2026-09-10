@@ -1,0 +1,41 @@
+{% doc %}
+  Renders a decorative Aunelya line icon.
+
+  @param {string} icon - Icon name.
+  @param {string} [class] - Optional CSS class.
+{% enddoc %}
+
+<svg
+  class="{{ class | default: 'aunelya-icon' }}"
+  aria-hidden="true"
+  focusable="false"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  {% case icon %}
+    {% when 'shipping' %}
+      <path d="M3 6h11v10H3zM14 9h3l4 4v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
+    {% when 'returns' %}
+      <path d="M4 7h12a4 4 0 0 1 4 4v1M8 3 4 7l4 4M20 17H8a4 4 0 0 1-4-4v-1M16 21l4-4-4-4"/>
+    {% when 'secure' %}
+      <path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-4"/>
+    {% when 'support' %}
+      <path d="M4 14v-3a8 8 0 0 1 16 0v3"/><path d="M4 14a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2zM20 14a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM17 18c-1 2-3 3-5 3"/>
+    {% when 'heat' %}
+      <path d="M8 3c3 3-3 5 0 8s-1 5-1 7M13 3c3 3-3 5 0 8s-1 5-1 7M18 3c3 3-3 5 0 8s-1 5-1 7"/>
+    {% when 'vibration' %}
+      <path d="M8 6c-3 3-3 9 0 12M4 3c-5 5-5 13 0 18M16 6c3 3 3 9 0 12M20 3c5 5 5 13 0 18"/>
+    {% when 'portable' %}
+      <path d="M5 8h14v11H5zM9 8V5h6v3"/><path d="M5 12h14M10 12v2h4v-2"/>
+    {% when 'adjustable' %}
+      <path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="white"/><circle cx="15" cy="17" r="2" fill="white"/>
+    {% when 'check' %}
+      <path d="m6 12 4 4 8-9"/>
+    {% when 'star' %}
+      <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>
+  {% endcase %}
+</svg>

@@ -1,0 +1,75 @@
+<section class="aunelya-home-section aunelya-hero" aria-labelledby="AunelyaHero-{{ section.id }}">
+  <div class="aunelya-shell">
+    <div class="aunelya-hero__frame">
+      <div class="aunelya-hero__media">
+        {% render 'aunelya-image',
+          image: section.settings.image,
+          asset_name: 'aunelya-hero-desktop.webp',
+          alt: section.settings.image_alt,
+          class: 'aunelya-hero__image',
+          width: 1672,
+          height: 941,
+          sizes: '(min-width: 1600px) 1440px, calc(100vw - 2rem)',
+          loading: 'eager',
+          fetchpriority: 'high'
+        %}
+      </div>
+      <div class="aunelya-hero__content">
+        <h1 id="AunelyaHero-{{ section.id }}" class="aunelya-hero__title">{{ section.settings.heading }}</h1>
+        <p class="aunelya-hero__text">{{ section.settings.subheading }}</p>
+        {% if section.settings.cta_label != blank %}
+          <a class="aunelya-button" href="{{ section.settings.cta_link | default: '#aunelya-shop' }}">
+            {{ section.settings.cta_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Comodidad que se adapta a ti."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Texto",
+      "default": "Calor, comodidad y libertad para acompañarte en tu rutina, estés donde estés."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del botón",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen alternativa"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Texto alternativo",
+      "default": "Cinturón térmico Aunelya rosa en una rutina de descanso"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aunelya hero"
+    }
+  ]
+}
+{% endschema %}

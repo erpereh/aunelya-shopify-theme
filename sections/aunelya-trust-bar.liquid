@@ -1,0 +1,56 @@
+<section class="aunelya-home-section aunelya-trust" aria-label="Información de compra">
+  <div class="aunelya-shell">
+    <ul class="aunelya-trust__list" role="list">
+      {% for block in section.blocks %}
+        <li class="aunelya-trust__item" {{ block.shopify_attributes }}>
+          {% render 'aunelya-icon', icon: block.settings.icon %}
+          <span>{{ block.settings.label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya confianza",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Elemento",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "options": [
+            { "value": "shipping", "label": "Envío" },
+            { "value": "returns", "label": "Devoluciones" },
+            { "value": "secure", "label": "Compra segura" },
+            { "value": "support", "label": "Atención" }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Envíos a México"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aunelya confianza",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "shipping", "label": "Envíos a México" } },
+        { "type": "item", "settings": { "icon": "returns", "label": "Devoluciones fáciles" } },
+        { "type": "item", "settings": { "icon": "secure", "label": "Compra segura" } },
+        { "type": "item", "settings": { "icon": "support", "label": "Atención al cliente" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

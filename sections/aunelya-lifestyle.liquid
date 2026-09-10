@@ -1,0 +1,106 @@
+<section class="aunelya-home-section aunelya-lifestyle aunelya-section-space" aria-labelledby="AunelyaLifestyle-{{ section.id }}">
+  <div class="aunelya-shell">
+    <header class="aunelya-lifestyle__header">
+      <h2 id="AunelyaLifestyle-{{ section.id }}" class="aunelya-section-heading">{{ section.settings.heading }}</h2>
+    </header>
+
+    <div class="aunelya-lifestyle__grid">
+      <div class="aunelya-lifestyle__main">
+        {% render 'aunelya-image',
+          image: section.settings.main_image,
+          asset_name: 'aunelya-lifestyle-routine-main.webp',
+          alt: section.settings.main_image_alt,
+          class: 'aunelya-lifestyle__image',
+          width: 1448,
+          height: 1086,
+          sizes: '(min-width: 768px) 52vw, 100vw'
+        %}
+        <span class="aunelya-lifestyle__label">{{ section.settings.main_label }}</span>
+      </div>
+
+      <div class="aunelya-lifestyle__cards" role="list">
+        {% for block in section.blocks %}
+          {% liquid
+            case block.settings.asset_key
+              when 'movement'
+                assign asset_name = 'aunelya-lifestyle-movement.webp'
+                assign default_alt = 'Cinturón térmico Aunelya preparado para llevar'
+              when 'routine'
+                assign asset_name = 'aunelya-lifestyle-routine.webp'
+                assign default_alt = 'Cinturón térmico Aunelya durante la rutina'
+              when 'when-needed'
+                assign asset_name = 'aunelya-lifestyle-when-needed.webp'
+                assign default_alt = 'Detalle del cinturón térmico Aunelya'
+              else
+                assign asset_name = 'aunelya-lifestyle-home.webp'
+                assign default_alt = 'Cinturón térmico Aunelya en casa'
+            endcase
+            assign image_alt = block.settings.image_alt | default: default_alt
+          %}
+          <article class="aunelya-lifestyle-card" role="listitem" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}<a class="aunelya-card-link" href="{{ block.settings.link }}">{% endif %}
+              {% render 'aunelya-image',
+                image: block.settings.image,
+                asset_name: asset_name,
+                alt: image_alt,
+                class: 'aunelya-lifestyle__image',
+                width: 1448,
+                height: 1086,
+                sizes: '(min-width: 768px) 24vw, 50vw'
+              %}
+              <span class="aunelya-lifestyle__label">{{ block.settings.label }}</span>
+            {% if block.settings.link != blank %}</a>{% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya lifestyle",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Bienestar en tu rutina" },
+    { "type": "text", "id": "main_label", "label": "Etiqueta principal", "default": "A tu ritmo" },
+    { "type": "image_picker", "id": "main_image", "label": "Imagen principal alternativa" },
+    { "type": "text", "id": "main_image_alt", "label": "Texto alternativo", "default": "Mujer usando el cinturón térmico Aunelya en su rutina" }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Momento",
+      "settings": [
+        {
+          "type": "select",
+          "id": "asset_key",
+          "label": "Asset",
+          "options": [
+            { "value": "home", "label": "En casa" },
+            { "value": "movement", "label": "En movimiento" },
+            { "value": "routine", "label": "En tu rutina" },
+            { "value": "when-needed", "label": "Cuando lo necesitas" }
+          ],
+          "default": "home"
+        },
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "En casa" },
+        { "type": "url", "id": "link", "label": "Enlace opcional" },
+        { "type": "image_picker", "id": "image", "label": "Imagen alternativa" },
+        { "type": "text", "id": "image_alt", "label": "Texto alternativo" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aunelya lifestyle",
+      "blocks": [
+        { "type": "moment", "settings": { "asset_key": "home", "label": "En casa" } },
+        { "type": "moment", "settings": { "asset_key": "movement", "label": "En movimiento" } },
+        { "type": "moment", "settings": { "asset_key": "routine", "label": "En tu rutina" } },
+        { "type": "moment", "settings": { "asset_key": "when-needed", "label": "Cuando lo necesitas" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

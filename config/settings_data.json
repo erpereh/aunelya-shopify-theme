@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "aunelya_wordmark": "aunelya",
     "logo_height": 36,
     "logo_height_mobile": 28,
     "page_background_color": "{{ settings.color_palette.background }}",
@@ -111,6 +112,7 @@
   },
   "presets": {
     "Horizon": {
+      "aunelya_wordmark": "aunelya",
       "logo_height": 36,
       "logo_height_mobile": 28,
       "page_background_color": "{{ settings.color_palette.background }}",

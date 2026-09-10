@@ -15,6 +15,12 @@
         "content": "t:content.manage_store_name"
       },
       {
+        "type": "text",
+        "id": "aunelya_wordmark",
+        "label": "Wordmark textual",
+        "default": "aunelya"
+      },
+      {
         "type": "image_picker",
         "id": "logo",
         "label": "t:settings.default_logo"

@@ -1,0 +1,32 @@
+<section class="aunelya-home-section aunelya-final" aria-labelledby="AunelyaFinal-{{ section.id }}">
+  <div class="aunelya-shell">
+    <div class="aunelya-final__panel">
+      <div>
+        <h2 id="AunelyaFinal-{{ section.id }}" class="aunelya-final__title">{{ section.settings.heading }}</h2>
+        <p class="aunelya-final__text">{{ section.settings.text }}</p>
+      </div>
+      {% if section.settings.cta_label != blank %}
+        <a class="aunelya-button" href="{{ section.settings.cta_link | default: '#aunelya-shop' }}">
+          {{ section.settings.cta_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya CTA final",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Aunelya contigo, en tu rutina." },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Bienestar y comodidad para cada momento del día." },
+    { "type": "text", "id": "cta_label", "label": "Texto del botón", "default": "Comprar ahora" },
+    { "type": "url", "id": "cta_link", "label": "Enlace del botón" }
+  ],
+  "presets": [
+    {
+      "name": "Aunelya CTA final"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,32 @@
+{% doc %}
+  Renders an optional merchant image with a canonical theme asset fallback.
+
+  @param {image} [image] - Optional image selected in the theme editor.
+  @param {string} asset_name - Canonical asset filename.
+  @param {string} alt - Accessible alternative text.
+  @param {string} class - CSS class for the image.
+  @param {number} width - Intrinsic fallback asset width.
+  @param {number} height - Intrinsic fallback asset height.
+  @param {string} [sizes] - Responsive sizes attribute.
+  @param {string} [loading] - Image loading behavior.
+  @param {string} [fetchpriority] - Fetch priority for the image.
+{% enddoc %}
+
+{% liquid
+  assign image_loading = loading | default: 'lazy'
+  assign image_sizes = sizes | default: '100vw'
+%}
+
+{% if image != blank %}
+  {% if fetchpriority == 'high' %}
+    {{ image | image_url: width: 2400 | image_tag: class: class, alt: alt, widths: '360, 540, 720, 960, 1200, 1600, 2000, 2400', sizes: image_sizes, loading: image_loading, fetchpriority: 'high' }}
+  {% else %}
+    {{ image | image_url: width: 2400 | image_tag: class: class, alt: alt, widths: '360, 540, 720, 960, 1200, 1600, 2000, 2400', sizes: image_sizes, loading: image_loading }}
+  {% endif %}
+{% else %}
+  {% if fetchpriority == 'high' %}
+    {{ asset_name | asset_url | image_tag: class: class, alt: alt, width: width, height: height, sizes: image_sizes, loading: image_loading, fetchpriority: 'high' }}
+  {% else %}
+    {{ asset_name | asset_url | image_tag: class: class, alt: alt, width: width, height: height, sizes: image_sizes, loading: image_loading }}
+  {% endif %}
+{% endif %}
