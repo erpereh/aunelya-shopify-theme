@@ -70,7 +70,6 @@
             "fallback_price": "MX$799",
             "asset_key": "pink",
             "image_alt": "",
-            "card_color": "#f5e7e4",
             "swatch_color": "#e9b8b5"
           }
         },
@@ -82,7 +81,6 @@
             "fallback_price": "MX$799",
             "asset_key": "white",
             "image_alt": "",
-            "card_color": "#f2f1ef",
             "swatch_color": "#f7f7f5"
           }
         }

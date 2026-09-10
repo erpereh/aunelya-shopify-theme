@@ -68,6 +68,27 @@ test('product cards use a Shopify product setting and real variant URLs without 
   assert.doesNotMatch(productSection, /variant[_-]?id\s*[=:]\s*["']?\d{5,}/i);
 });
 
+test('the color section uses floating product options without card surfaces', () => {
+  const productSection = read('sections/aunelya-product-showcase.liquid');
+  const template = read('templates/index.json');
+
+  assert.match(productSection, /aunelya-color-option/);
+  assert.doesNotMatch(productSection, /aunelya-variant-card/);
+  assert.doesNotMatch(productSection, /card_color/);
+  assert.doesNotMatch(template, /card_color/);
+});
+
+test('color options stack on mobile without a horizontal carousel', () => {
+  const css = read('assets/aunelya-home.css');
+
+  assert.doesNotMatch(css, /scroll-snap-type/);
+  assert.doesNotMatch(css, /aunelya-variant-card/);
+  assert.match(
+    css,
+    /@media \(max-width: 767px\)[\s\S]*?\.aunelya-product__variants\s*\{[^}]*grid-template-columns:\s*1fr;/,
+  );
+});
+
 test('reviews are disabled and empty by default', () => {
   const template = parseThemeJson('templates/index.json');
   const reviews = Object.values(template.sections).find((section) => section.type === 'aunelya-reviews');

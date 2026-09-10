@@ -11,7 +11,7 @@
       </div>
     </header>
 
-    <div class="aunelya-product__grid">
+    <div class="aunelya-product__composition">
       <div class="aunelya-product__variants" role="list" aria-label="Colores disponibles">
         {% for block in section.blocks %}
           {% liquid
@@ -61,33 +61,33 @@
           %}
 
           <article
-            class="aunelya-variant-card"
-            style="--card-accent: {{ block.settings.card_color }}; --swatch: {{ block.settings.swatch_color }};"
+            class="aunelya-color-option"
+            style="--swatch: {{ block.settings.swatch_color }};"
             role="listitem"
             {{ block.shopify_attributes }}
           >
             {% if variant_link != blank %}
-              <a class="aunelya-card-link" href="{{ variant_link }}" aria-label="Ver {{ block.settings.label }}">
+              <a class="aunelya-color-option__link" href="{{ variant_link }}" aria-label="Ver {{ block.settings.label }}">
             {% else %}
-              <div class="aunelya-card-link">
+              <div class="aunelya-color-option__link">
             {% endif %}
-              <div class="aunelya-variant-card__media">
+              <div class="aunelya-color-option__media">
                 {% render 'aunelya-image',
                   image: block.settings.image,
                   asset_name: asset_name,
                   alt: image_alt,
-                  class: 'aunelya-variant-card__image',
+                  class: 'aunelya-color-option__image',
                   width: 1254,
                   height: 1254,
-                  sizes: '(min-width: 1100px) 32vw, (min-width: 768px) 45vw, 80vw'
+                  sizes: '(min-width: 768px) 46vw, 100vw'
                 %}
               </div>
-              <div class="aunelya-variant-card__footer">
-                <span class="aunelya-variant-card__name">
-                  <span class="aunelya-variant-card__swatch" aria-hidden="true"></span>
+              <div class="aunelya-color-option__meta">
+                <span class="aunelya-color-option__name">
+                  <span class="aunelya-color-option__swatch" aria-hidden="true"></span>
                   {{ block.settings.label }}
                 </span>
-                <span class="aunelya-variant-card__price">
+                <span class="aunelya-color-option__price">
                   {% if variant != blank %}
                     {{ variant.price | money_with_currency }}
                   {% else %}
@@ -113,7 +113,7 @@
             class: 'aunelya-included__image',
             width: 1448,
             height: 1086,
-            sizes: '(min-width: 1100px) 30vw, 100vw'
+            sizes: '(min-width: 768px) 820px, 100vw'
           %}
         </div>
         <div class="aunelya-included__content">
@@ -190,7 +190,6 @@
         },
         { "type": "image_picker", "id": "image", "label": "Imagen alternativa" },
         { "type": "text", "id": "image_alt", "label": "Texto alternativo" },
-        { "type": "color", "id": "card_color", "label": "Fondo de tarjeta", "default": "#f5e7e4" },
         { "type": "color", "id": "swatch_color", "label": "Color de muestra", "default": "#e9b8b5" }
       ]
     }
@@ -199,8 +198,8 @@
     {
       "name": "Aunelya producto",
       "blocks": [
-        { "type": "variant", "settings": { "label": "Rosa", "option_value": "Rosa", "asset_key": "pink", "fallback_price": "MX$799", "card_color": "#f5e7e4", "swatch_color": "#e9b8b5" } },
-        { "type": "variant", "settings": { "label": "Blanco", "option_value": "Blanco", "asset_key": "white", "fallback_price": "MX$799", "card_color": "#f2f1ef", "swatch_color": "#f7f7f5" } }
+        { "type": "variant", "settings": { "label": "Rosa", "option_value": "Rosa", "asset_key": "pink", "fallback_price": "MX$799", "swatch_color": "#e9b8b5" } },
+        { "type": "variant", "settings": { "label": "Blanco", "option_value": "Blanco", "asset_key": "white", "fallback_price": "MX$799", "swatch_color": "#f7f7f5" } }
       ]
     }
   ]
