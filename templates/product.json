@@ -201,12 +201,20 @@
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
                   }
+                },
+                "aunelya_rating": {
+                  "type": "aunelya-rating-badge",
+                  "settings": {
+                    "count_singular": "valoración",
+                    "count_plural": "valoraciones"
+                  }
                 }
               },
               "block_order": [
                 "aunelya_brand",
                 "aunelya_title",
                 "aunelya_price",
+                "aunelya_rating",
                 "aunelya_intro"
               ]
             },
@@ -328,20 +336,6 @@
         "padding-block-end": 48
       }
     },
-    "aunelya_reviews": {
-      "type": "aunelya-product-reviews",
-      "settings": {
-        "eyebrow": "Valoraciones",
-        "heading": "Lo que dicen quienes ya lo usan",
-        "count_prefix": "Basado en",
-        "count_singular": "valoración",
-        "count_plural": "valoraciones",
-        "empty_heading": "Aún no hay valoraciones",
-        "empty_text": "Cuando recibas tu Aunelya, cuéntanos cómo te acompaña. Tu experiencia ayudará a otras personas a elegir.",
-        "write_label": "Compartir mi experiencia",
-        "write_link": "shopify://pages/contact"
-      }
-    },
     "aunelya_faq": {
       "type": "aunelya-faq",
       "blocks": {
@@ -429,7 +423,6 @@
   },
   "order": [
     "main",
-    "aunelya_reviews",
     "aunelya_faq"
   ]
 }

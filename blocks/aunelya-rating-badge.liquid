@@ -1,0 +1,73 @@
+{% doc %}
+  Renders the product's real average rating next to optional customer photos.
+  Reads the standard review metafields written by Shopify-compatible review apps
+  and renders nothing until the product has at least one review.
+{% enddoc %}
+
+{% liquid
+  assign product = closest.product
+  assign rating_metafield = product.metafields.reviews.rating.value
+  assign count_metafield = product.metafields.reviews.rating_count.value
+  assign rating_count = 0
+
+  if rating_metafield != blank and count_metafield != blank
+    if count_metafield > 0
+      assign rating_count = count_metafield
+      assign scale_max = rating_metafield.scale_max | default: 5 | times: 1.0
+      assign rating_value = rating_metafield.rating | times: 1.0 | divided_by: scale_max | times: 5
+      assign score = rating_value | round: 1 | append: '' | replace: '.', ','
+      assign score_label = score | append: ' de 5'
+    endif
+  endif
+%}
+
+{% if rating_count > 0 %}
+  <div class="aunelya-rating-badge" {{ block.shopify_attributes }}>
+    {% capture photos %}
+      {%- for i in (1..4) -%}
+        {%- assign photo_key = 'photo_' | append: i -%}
+        {%- if block.settings[photo_key] != blank -%}
+          {{ block.settings[photo_key] | image_url: width: 96 | image_tag: width: 48, height: 48, alt: '', class: 'aunelya-rating-badge__photo', loading: 'lazy' }}
+        {%- endif -%}
+      {%- endfor -%}
+    {% endcapture %}
+    {% assign photos = photos | strip %}
+    {% if photos != blank %}
+      <div class="aunelya-rating-badge__photos" aria-hidden="true">{{ photos }}</div>
+    {% endif %}
+
+    <div class="aunelya-rating-badge__text">
+      <p class="aunelya-rating-badge__score">
+        {% render 'aunelya-stars', rating: rating_value, label: score_label %}
+        <span>{{ score }}/5</span>
+      </p>
+      <p class="aunelya-rating-badge__count">
+        {{ rating_count }}
+        {% if rating_count == 1 %}{{ block.settings.count_singular }}{% else %}{{ block.settings.count_plural }}{% endif %}
+      </p>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Aunelya valoración",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Muestra la nota media real que guarda tu app de valoraciones. No aparece hasta que el producto tenga al menos una valoración."
+    },
+    { "type": "text", "id": "count_singular", "label": "Texto (singular)", "default": "valoración" },
+    { "type": "text", "id": "count_plural", "label": "Texto (plural)", "default": "valoraciones" },
+    { "type": "header", "content": "Fotos de clientas", "info": "Usa solo fotos reales de clientas que te hayan dado permiso." },
+    { "type": "image_picker", "id": "photo_1", "label": "Foto 1" },
+    { "type": "image_picker", "id": "photo_2", "label": "Foto 2" },
+    { "type": "image_picker", "id": "photo_3", "label": "Foto 3" },
+    { "type": "image_picker", "id": "photo_4", "label": "Foto 4" }
+  ],
+  "presets": [
+    { "name": "Aunelya valoración" }
+  ]
+}
+{% endschema %}

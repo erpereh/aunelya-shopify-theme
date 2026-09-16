@@ -116,7 +116,7 @@ test('the color section links whole cards and no longer renders what is included
   assert.doesNotMatch(productSection, /all_products_collection_url/);
 });
 
-const pdpSectionTypes = ['product-information', 'aunelya-product-reviews', 'aunelya-faq'];
+const pdpSectionTypes = ['product-information', 'aunelya-faq'];
 
 test('the product template is a native Horizon PDP followed by Aunelya sections', () => {
   const template = parseThemeJson('templates/product.json');
@@ -240,10 +240,16 @@ test('the FAQ page template stays available without being linked from the footer
   assert.doesNotMatch(footer, /preguntas-frecuentes/);
 });
 
-test('product reviews only render real data and never ship invented reviews', () => {
+test('product ratings only render real data and never ship invented reviews', () => {
   const template = parseThemeJson('templates/product.json');
-  const reviews = Object.values(template.sections).find((section) => section.type === 'aunelya-product-reviews');
-  assert.deepEqual(reviews.blocks ?? {}, {}, 'the template must not contain review blocks');
+  assert.equal(Object.values(template.sections).some((section) => section.type === 'aunelya-product-reviews'), false);
+  const header = template.sections.main.blocks['product-details'].blocks.aunelya_header;
+  assert.equal(header.blocks.aunelya_rating.type, 'aunelya-rating-badge');
+  assert.doesNotMatch(JSON.stringify(header), /\d+[.,]\d+\s*\/\s*5|\+?\d[\d.]*\s*clientas/i);
+
+  const badge = read('blocks/aunelya-rating-badge.liquid');
+  assert.match(badge, /metafields\.reviews\.rating_count/);
+  assert.match(badge, /if rating_count > 0/);
 
   const section = read('sections/aunelya-product-reviews.liquid');
   assert.match(section, /metafields\.reviews\.rating/);
