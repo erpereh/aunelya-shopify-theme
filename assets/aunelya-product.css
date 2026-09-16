@@ -39,6 +39,14 @@
   position: static;
 }
 
+/* Horizon sizes the gallery from the live header height, which changes once the
+   sticky header kicks in. Use a fixed offset so the image never resizes on scroll. */
+@media screen and (min-width: 750px) {
+  .product-information .product-media-container.constrain-height {
+    --viewport-offset: 160px;
+  }
+}
+
 /* Gallery */
 .product-information__media .product-media-container {
   background: var(--aunelya-pdp-media-bg);
