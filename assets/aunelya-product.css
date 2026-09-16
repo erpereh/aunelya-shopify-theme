@@ -34,6 +34,11 @@
   }
 }
 
+/* Gallery: keep the product image still while the page scrolls */
+.product-information media-gallery.sticky-content {
+  position: static;
+}
+
 /* Gallery */
 .product-information__media .product-media-container {
   background: var(--aunelya-pdp-media-bg);
