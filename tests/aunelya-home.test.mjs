@@ -116,7 +116,7 @@ test('the color section links whole cards and no longer renders what is included
   assert.doesNotMatch(productSection, /all_products_collection_url/);
 });
 
-const pdpSectionTypes = ['product-information', 'aunelya-technology', 'aunelya-lifestyle', 'aunelya-included', 'aunelya-faq'];
+const pdpSectionTypes = ['product-information'];
 
 test('the product template is a native Horizon PDP followed by Aunelya sections', () => {
   const template = parseThemeJson('templates/product.json');
@@ -230,12 +230,12 @@ test('the contact page renders an editorial hero, optional details and accessibl
   assert.match(layout, /aunelya-contact\.css/);
 });
 
-test('the FAQ page reuses the Aunelya FAQ section with a page-level heading', () => {
+test('the FAQ page template stays available without being linked from the footer', () => {
   const template = parseThemeJson('templates/page.faq.json');
   assert.deepEqual(template.order.map((id) => template.sections[id].type), ['aunelya-faq']);
   assert.equal(template.sections[template.order[0]].settings.heading_tag, 'h1');
   assert.match(read('layout/theme.liquid'), /template\.suffix == 'faq'/);
 
   const footer = JSON.stringify(parseThemeJson('sections/footer-group.json'));
-  assert.match(footer, /shopify:\/\/pages\/preguntas-frecuentes/);
+  assert.doesNotMatch(footer, /preguntas-frecuentes/);
 });
