@@ -1,0 +1,29 @@
+{% doc %}
+  Renders a five-star rating with partial fill.
+
+  @param {number} rating - Rating value between 0 and 5.
+  @param {string} [class] - Optional CSS class.
+  @param {string} [label] - Accessible label. Defaults to "X de 5".
+{% enddoc %}
+
+{% liquid
+  assign rating_value = rating | default: 0 | at_least: 0 | at_most: 5
+  assign fill = rating_value | times: 20.0
+  assign rounded = rating_value | round: 1
+  assign fallback_label = rounded | append: ' de 5'
+%}
+
+<span
+  class="aunelya-stars {{ class }}"
+  role="img"
+  aria-label="{{ label | default: fallback_label | escape }}"
+  style="--aunelya-stars-fill: {{ fill }}%;"
+>
+  {%- for i in (1..2) -%}
+    <span class="aunelya-stars__row{% if i == 2 %} aunelya-stars__row--fill{% endif %}" aria-hidden="true">
+      {%- for star in (1..5) -%}
+        <svg viewBox="0 0 24 24" focusable="false"><path d="m12 2.8 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3L12 17.1l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/></svg>
+      {%- endfor -%}
+    </span>
+  {%- endfor -%}
+</span>

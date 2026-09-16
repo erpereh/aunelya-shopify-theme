@@ -116,7 +116,7 @@ test('the color section links whole cards and no longer renders what is included
   assert.doesNotMatch(productSection, /all_products_collection_url/);
 });
 
-const pdpSectionTypes = ['product-information'];
+const pdpSectionTypes = ['product-information', 'aunelya-product-reviews', 'aunelya-faq'];
 
 test('the product template is a native Horizon PDP followed by Aunelya sections', () => {
   const template = parseThemeJson('templates/product.json');
@@ -238,4 +238,17 @@ test('the FAQ page template stays available without being linked from the footer
 
   const footer = JSON.stringify(parseThemeJson('sections/footer-group.json'));
   assert.doesNotMatch(footer, /preguntas-frecuentes/);
+});
+
+test('product reviews only render real data and never ship invented reviews', () => {
+  const template = parseThemeJson('templates/product.json');
+  const reviews = Object.values(template.sections).find((section) => section.type === 'aunelya-product-reviews');
+  assert.deepEqual(reviews.blocks ?? {}, {}, 'the template must not contain review blocks');
+
+  const section = read('sections/aunelya-product-reviews.liquid');
+  assert.match(section, /metafields\.reviews\.rating/);
+  assert.match(section, /metafields\.reviews\.rating_count/);
+  assert.match(section, /"type": "@app"/);
+  assert.match(section, /aunelya-reviews-pdp__empty/);
+  assert.doesNotMatch(section, /"presets": \[\s*\{[^\]]*"blocks"/);
 });

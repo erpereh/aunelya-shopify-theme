@@ -1,0 +1,185 @@
+{% liquid
+  assign rating_value = 0
+  assign rating_count = 0
+
+  # Standard review metafields, written by Shopify-compatible review apps
+  assign rating_metafield = product.metafields.reviews.rating.value
+  assign count_metafield = product.metafields.reviews.rating_count.value
+
+  if rating_metafield != blank and count_metafield != blank
+    if count_metafield > 0
+      assign scale_max = rating_metafield.scale_max | default: 5 | times: 1.0
+      assign rating_value = rating_metafield.rating | times: 1.0 | divided_by: scale_max | times: 5
+      assign rating_count = count_metafield
+    endif
+  endif
+
+  # Otherwise, summarize the real reviews added as blocks
+  assign manual_count = 0
+  assign manual_total = 0
+  for block in section.blocks
+    if block.type == 'review' and block.settings.text != blank and block.settings.author != blank
+      assign manual_count = manual_count | plus: 1
+      assign manual_total = manual_total | plus: block.settings.rating
+    endif
+  endfor
+
+  if rating_count == 0 and manual_count > 0
+    assign rating_value = manual_total | times: 1.0 | divided_by: manual_count
+    assign rating_count = manual_count
+  endif
+
+  assign has_app_blocks = false
+  for block in section.blocks
+    if block.type == '@app'
+      assign has_app_blocks = true
+    endif
+  endfor
+
+  assign has_reviews = false
+  if rating_count > 0 or has_app_blocks
+    assign has_reviews = true
+  endif
+
+  assign score = rating_value | round: 1 | append: '' | replace: '.', ','
+  unless score contains ','
+    assign score = score | append: ',0'
+  endunless
+  assign score_label = score | append: ' de 5'
+%}
+
+<section
+  class="aunelya-home-section aunelya-reviews-pdp aunelya-section-space{% unless has_reviews %} aunelya-reviews-pdp--empty{% endunless %}"
+  aria-labelledby="AunelyaReviewsTitle-{{ section.id }}"
+>
+  <div class="aunelya-shell aunelya-reviews-pdp__layout">
+    <header class="aunelya-reviews-pdp__summary">
+      {% if section.settings.eyebrow != blank %}
+        <p class="aunelya-reviews-pdp__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h2 id="AunelyaReviewsTitle-{{ section.id }}" class="aunelya-section-heading">{{ section.settings.heading }}</h2>
+
+      {% if rating_count > 0 %}
+        <div class="aunelya-reviews-pdp__score">
+          <span class="aunelya-reviews-pdp__score-value">{{ score }}</span>
+          <div>
+            {% render 'aunelya-stars', rating: rating_value, class: 'aunelya-stars--large', label: score_label %}
+            <p class="aunelya-reviews-pdp__score-count">
+              {{ section.settings.count_prefix }}
+              {{ rating_count }}
+              {% if rating_count == 1 %}{{ section.settings.count_singular }}{% else %}{{ section.settings.count_plural }}{% endif %}
+            </p>
+          </div>
+        </div>
+      {% elsif has_reviews == false %}
+        <div class="aunelya-reviews-pdp__empty">
+          {% render 'aunelya-stars', rating: 0, class: 'aunelya-stars--large', label: section.settings.empty_heading %}
+          <p class="aunelya-reviews-pdp__empty-title">{{ section.settings.empty_heading }}</p>
+          {% if section.settings.empty_text != blank %}
+            <p class="aunelya-section-copy">{{ section.settings.empty_text }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.write_label != blank and section.settings.write_link != blank %}
+        <a class="aunelya-reviews-pdp__write" href="{{ section.settings.write_link }}">
+          <span>{{ section.settings.write_label }}</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      {% endif %}
+    </header>
+
+    {% if has_reviews %}
+      <div class="aunelya-reviews-pdp__list" role="list">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when '@app' %}
+              <div class="aunelya-reviews-pdp__app" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+            {% when 'review' %}
+              {% if block.settings.text != blank and block.settings.author != blank %}
+                {% liquid
+                  assign name_parts = block.settings.author | strip | split: ' '
+                  assign initials = name_parts.first | slice: 0 | upcase
+                  if name_parts.size > 1
+                    assign last_initial = name_parts.last | slice: 0 | upcase
+                    assign initials = initials | append: last_initial
+                  endif
+                %}
+                <article class="aunelya-review-card" role="listitem" {{ block.shopify_attributes }}>
+                  <header class="aunelya-review-card__header">
+                    <span class="aunelya-review-card__avatar" aria-hidden="true">{{ initials }}</span>
+                    <div class="aunelya-review-card__person">
+                      <p class="aunelya-review-card__name">{{ block.settings.author }}</p>
+                      {% if block.settings.location != blank or block.settings.date != blank %}
+                        <p class="aunelya-review-card__meta">
+                          {{ block.settings.location }}
+                          {%- if block.settings.location != blank and block.settings.date != blank %} · {% endif -%}
+                          {{ block.settings.date }}
+                        </p>
+                      {% endif %}
+                    </div>
+                  </header>
+
+                  {% render 'aunelya-stars', rating: block.settings.rating, class: 'aunelya-review-card__stars' %}
+
+                  {% if block.settings.title != blank %}
+                    <h3 class="aunelya-review-card__title">{{ block.settings.title }}</h3>
+                  {% endif %}
+                  <p class="aunelya-review-card__text">{{ block.settings.text }}</p>
+
+                  {% if block.settings.variant != blank %}
+                    <p class="aunelya-review-card__variant">{{ block.settings.variant }}</p>
+                  {% endif %}
+                </article>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya valoraciones",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Valoraciones" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Lo que dicen quienes ya lo usan" },
+    {
+      "type": "paragraph",
+      "content": "La puntuación se lee de los metacampos de valoraciones (reviews.rating y reviews.rating_count) que escriben las apps de valoraciones compatibles con Shopify. Si no hay app, se calcula con las valoraciones añadidas como bloques. Añade solo opiniones reales de clientas."
+    },
+    { "type": "text", "id": "count_prefix", "label": "Texto antes del número", "default": "Basado en" },
+    { "type": "text", "id": "count_singular", "label": "Valoración (singular)", "default": "valoración" },
+    { "type": "text", "id": "count_plural", "label": "Valoraciones (plural)", "default": "valoraciones" },
+    { "type": "header", "content": "Sin valoraciones" },
+    { "type": "text", "id": "empty_heading", "label": "Título", "default": "Aún no hay valoraciones" },
+    { "type": "text", "id": "empty_text", "label": "Texto", "default": "Cuando recibas tu Aunelya, cuéntanos cómo te acompaña. Tu experiencia ayudará a otras personas a elegir." },
+    { "type": "header", "content": "Enlace" },
+    { "type": "text", "id": "write_label", "label": "Texto del enlace", "default": "Compartir mi experiencia" },
+    { "type": "url", "id": "write_link", "label": "Enlace" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "review",
+      "name": "Valoración real",
+      "settings": [
+        { "type": "paragraph", "content": "Copia aquí únicamente valoraciones reales de clientas." },
+        { "type": "text", "id": "author", "label": "Nombre", "info": "Por ejemplo, nombre e inicial del apellido." },
+        { "type": "text", "id": "location", "label": "Ciudad" },
+        { "type": "text", "id": "date", "label": "Fecha" },
+        { "type": "range", "id": "rating", "label": "Puntuación", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Titular" },
+        { "type": "textarea", "id": "text", "label": "Opinión" },
+        { "type": "text", "id": "variant", "label": "Variante comprada", "info": "Por ejemplo, Color: Rosa." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Aunelya valoraciones" }
+  ]
+}
+{% endschema %}

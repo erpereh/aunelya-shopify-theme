@@ -327,9 +327,109 @@
         "padding-block-start": 16,
         "padding-block-end": 48
       }
+    },
+    "aunelya_reviews": {
+      "type": "aunelya-product-reviews",
+      "settings": {
+        "eyebrow": "Valoraciones",
+        "heading": "Lo que dicen quienes ya lo usan",
+        "count_prefix": "Basado en",
+        "count_singular": "valoración",
+        "count_plural": "valoraciones",
+        "empty_heading": "Aún no hay valoraciones",
+        "empty_text": "Cuando recibas tu Aunelya, cuéntanos cómo te acompaña. Tu experiencia ayudará a otras personas a elegir.",
+        "write_label": "Compartir mi experiencia",
+        "write_link": "shopify://pages/contact"
+      }
+    },
+    "aunelya_faq": {
+      "type": "aunelya-faq",
+      "blocks": {
+        "usage": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo se usa?",
+            "answer": "<p>Colócalo alrededor de la zona donde quieras sentir calor, ajusta la correa a tu medida y elige el nivel que te resulte cómodo. Consulta el manual incluido antes del primer uso.</p>",
+            "policy_link": "none"
+          }
+        },
+        "heat": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo ajustar el calor?",
+            "answer": "<p>Sí. Tiene 5 niveles de calor para que elijas la sensación que prefieras. Te recomendamos empezar por el nivel más bajo e ir subiendo poco a poco.</p>",
+            "policy_link": "none"
+          }
+        },
+        "vibration": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo funciona la vibración?",
+            "answer": "<p>Tiene 4 niveles de vibración que puedes ajustar según lo que te resulte más agradable en cada momento. El manual incluido explica cómo cambiar de nivel.</p>",
+            "policy_link": "none"
+          }
+        },
+        "charging": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo se carga?",
+            "answer": "<p>Incluye un cable de carga. Sigue las indicaciones del manual para cargarlo correctamente.</p>",
+            "policy_link": "none"
+          }
+        },
+        "movement": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo usarlo mientras me muevo?",
+            "answer": "<p>Sí. Es portátil y su correa ajustable te permite llevarlo contigo durante tu rutina.</p>",
+            "policy_link": "none"
+          }
+        },
+        "shipping": {
+          "type": "question",
+          "settings": {
+            "question": "¿Hacen envíos a México?",
+            "answer": "<p>Sí. Durante el checkout verás las opciones de envío disponibles para tu dirección.</p>",
+            "policy_link": "shipping"
+          }
+        },
+        "returns": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo devolver mi pedido?",
+            "answer": "<p>Sí. Consulta nuestra política de reembolso para conocer las condiciones y cómo solicitarlo.</p>",
+            "policy_link": "refund"
+          }
+        },
+        "medical": {
+          "type": "question",
+          "settings": {
+            "question": "¿Es un producto médico?",
+            "answer": "<p>No. Es un accesorio de bienestar pensado para brindarte calor y una sensación de confort. No sustituye la consulta con un profesional de la salud; si tienes dudas sobre su uso, consúltalo con tu médico.</p>",
+            "policy_link": "none"
+          }
+        }
+      },
+      "block_order": [
+        "usage",
+        "heat",
+        "vibration",
+        "charging",
+        "movement",
+        "shipping",
+        "returns",
+        "medical"
+      ],
+      "settings": {
+        "heading": "Preguntas frecuentes",
+        "subheading": "Lo esencial antes de elegir el tuyo.",
+        "heading_tag": "h2"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "aunelya_reviews",
+    "aunelya_faq"
   ]
 }
