@@ -303,6 +303,19 @@ a.aunelya-color-option__link:active .aunelya-color-option__image {
   transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.aunelya-color-option__cta-label {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 320ms ease;
+}
+
+a.aunelya-color-option__link:hover .aunelya-color-option__cta-label,
+a.aunelya-color-option__link:focus-visible .aunelya-color-option__cta-label {
+  text-decoration-color: currentColor;
+}
+
 a.aunelya-color-option__link:hover .aunelya-color-option__arrow,
 a.aunelya-color-option__link:focus-visible .aunelya-color-option__arrow {
   transform: translateX(4px);
@@ -968,6 +981,7 @@ details[open] > summary .aunelya-faq-item__toggle::after {
 @media (prefers-reduced-motion: reduce) {
   .aunelya-button,
   .aunelya-color-option__arrow,
+  .aunelya-color-option__cta-label,
   .aunelya-color-option__image,
   .aunelya-faq-item__toggle::before,
   .aunelya-faq-item__toggle::after,

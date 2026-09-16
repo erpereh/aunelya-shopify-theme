@@ -137,10 +137,16 @@
             <span class="svg-wrapper">
               {{- 'icon-add-to-cart.svg' | inline_asset_content -}}
             </span>
-            <span class="add-to-cart-text__short">
-              {{- 'products.product.add_to_cart' | t | split: ' ' | first -}}
-            </span>
           {% endif %}
+          <span class="add-to-cart-text__short">
+            {%- if current_variant.available -%}
+              {{- 'products.product.add_to_cart' | t | split: ' ' | first -}}
+            {%- elsif current_variant == blank -%}
+              {{- 'products.product.unavailable' | t -}}
+            {%- else -%}
+              {{- 'products.product.sold_out' | t -}}
+            {%- endif -%}
+          </span>
           <span class="add-to-cart-text__content">
             <span>
               {%- if current_variant.available -%}

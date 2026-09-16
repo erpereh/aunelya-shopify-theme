@@ -165,3 +165,22 @@ test('the contact page avoids invented contact details and response times', () =
   const runtime = [read('sections/aunelya-contact.liquid'), read('templates/page.contact.json')].join('\n');
   assert.doesNotMatch(runtime, /@[a-z0-9-]+\.[a-z]{2,}|\+?\d[\d\s-]{7,}|\d+\s*(horas|minutos|d[ií]as)|24\s*\/\s*7|whatsapp/i);
 });
+
+test('the mobile sticky add to cart always renders a visible short label', () => {
+  const section = read('sections/product-information.liquid');
+  const short = section.match(/<span class="add-to-cart-text__short">[\s\S]*?<\/span>/);
+  assert.ok(short, 'short label is missing');
+  assert.match(short[0], /products\.product\.add_to_cart/);
+  assert.match(short[0], /products\.product\.sold_out/);
+  assert.match(short[0], /products\.product\.unavailable/);
+});
+
+test('shared sections used by home and PDP avoid medical, review and urgency claims', () => {
+  const runtime = [
+    'sections/aunelya-product-showcase.liquid',
+    'sections/aunelya-lifestyle.liquid',
+    'sections/aunelya-technology.liquid',
+  ].map(read).join('\n');
+
+  assert.doesNotMatch(runtime, /\bcura\b|tratamiento|elimina (el )?dolor|medicaci[oó]n|best ?seller|estrellas|[uú]ltimas unidades|stock bajo|descuento/i);
+});
