@@ -6,34 +6,33 @@
 
 <div class="aunelya-footer">
   <div class="aunelya-footer__inner">
-    <div class="aunelya-final__panel aunelya-footer__panel">
-      <div class="aunelya-footer__panel-bg" aria-hidden="true">
+    <div class="aunelya-footer-banner">
+      <div class="aunelya-footer-banner__bg" aria-hidden="true">
         {% render 'aunelya-image',
           image: section.settings.background_image,
           asset_name: 'aunelya-footer-background.webp',
           alt: '',
-          class: 'aunelya-footer__panel-bg-image',
+          class: 'aunelya-footer-banner__bg-image',
           width: 2048,
           height: 682,
           sizes: '100vw'
         %}
       </div>
 
-      <div class="aunelya-footer__panel-content">
+      <div class="aunelya-footer-banner__content">
         {% if section.settings.heading != blank %}
-          <h2 class="aunelya-final__title">{{ section.settings.heading }}</h2>
+          <h2 class="aunelya-footer-banner__title">{{ section.settings.heading }}</h2>
         {% endif %}
         {% if section.settings.text != blank %}
-          <p class="aunelya-final__text">{{ section.settings.text }}</p>
+          <p class="aunelya-footer-banner__text">{{ section.settings.text }}</p>
+        {% endif %}
+        {% if featured_product != blank and section.settings.cta_label != blank %}
+          <a class="aunelya-footer-banner__cta" href="{{ featured_product.url }}">
+            <span>{{ section.settings.cta_label }}</span>
+            <span class="aunelya-footer-banner__arrow" aria-hidden="true">&rarr;</span>
+          </a>
         {% endif %}
       </div>
-
-      {% if featured_product != blank and section.settings.cta_label != blank %}
-        <a class="aunelya-button aunelya-footer__cta" href="{{ featured_product.url }}">
-          <span>{{ section.settings.cta_label }}</span>
-          <span class="aunelya-footer__cta-arrow" aria-hidden="true">&rarr;</span>
-        </a>
-      {% endif %}
     </div>
 
     {% if section.blocks.size > 0 %}
