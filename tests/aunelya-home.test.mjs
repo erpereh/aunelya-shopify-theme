@@ -229,3 +229,13 @@ test('the contact page renders an editorial hero, optional details and accessibl
   const layout = read('layout/theme.liquid');
   assert.match(layout, /aunelya-contact\.css/);
 });
+
+test('the FAQ page reuses the Aunelya FAQ section with a page-level heading', () => {
+  const template = parseThemeJson('templates/page.faq.json');
+  assert.deepEqual(template.order.map((id) => template.sections[id].type), ['aunelya-faq']);
+  assert.equal(template.sections[template.order[0]].settings.heading_tag, 'h1');
+  assert.match(read('layout/theme.liquid'), /template\.suffix == 'faq'/);
+
+  const footer = JSON.stringify(parseThemeJson('sections/footer-group.json'));
+  assert.match(footer, /shopify:\/\/pages\/preguntas-frecuentes/);
+});

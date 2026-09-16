@@ -1,7 +1,8 @@
 <section class="aunelya-home-section aunelya-pdp-faq aunelya-section-space" aria-labelledby="AunelyaFaq-{{ section.id }}">
   <div class="aunelya-shell aunelya-pdp-faq__layout">
     <header class="aunelya-pdp-faq__header">
-      <h2 id="AunelyaFaq-{{ section.id }}" class="aunelya-section-heading">{{ section.settings.heading }}</h2>
+      {%- assign heading_tag = section.settings.heading_tag | default: 'h2' -%}
+      <{{ heading_tag }} id="AunelyaFaq-{{ section.id }}" class="aunelya-section-heading">{{ section.settings.heading }}</{{ heading_tag }}>
       {% if section.settings.subheading != blank %}
         <p class="aunelya-section-copy">{{ section.settings.subheading }}</p>
       {% endif %}
@@ -42,7 +43,18 @@
   "name": "Aunelya preguntas",
   "settings": [
     { "type": "text", "id": "heading", "label": "Título", "default": "Preguntas frecuentes" },
-    { "type": "text", "id": "subheading", "label": "Subtítulo" }
+    { "type": "text", "id": "subheading", "label": "Subtítulo" },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Nivel del título",
+      "info": "Usa H1 cuando la sección sea el contenido principal de la página.",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h2"
+    }
   ],
   "max_blocks": 12,
   "blocks": [
