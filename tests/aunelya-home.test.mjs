@@ -102,3 +102,47 @@ test('header and footer defaults avoid announcements and invented social profile
   assert.equal(Object.values(header.sections).some((section) => section.type === 'header-announcements'), false);
   assert.doesNotMatch(JSON.stringify(footer), /https?:\/\/(?:www\.)?(?:facebook|instagram|youtube|tiktok|x)\.com\/?["']/i);
 });
+
+test('the color section links whole cards and no longer renders what is included', () => {
+  const productSection = read('sections/aunelya-product-showcase.liquid');
+  const template = parseThemeJson('templates/index.json');
+  const showcase = Object.values(template.sections).find((section) => section.type === 'aunelya-product-showcase');
+
+  assert.doesNotMatch(productSection, /aunelya-included|whats-included|included_/);
+  assert.doesNotMatch(JSON.stringify(showcase), /included_/);
+  assert.match(productSection, /aunelya-color-option__cta/);
+  assert.match(productSection, /featured_product\.url/);
+  assert.equal(showcase.settings.cta_label, 'Ver producto');
+});
+
+const pdpSectionTypes = ['product-information', 'aunelya-technology', 'aunelya-lifestyle', 'aunelya-included', 'aunelya-faq'];
+
+test('the product template is a native Horizon PDP followed by Aunelya sections', () => {
+  const template = parseThemeJson('templates/product.json');
+  assert.deepEqual(template.order.map((id) => template.sections[id].type), pdpSectionTypes);
+
+  const main = template.sections.main;
+  const details = main.blocks['product-details'];
+  const types = details.block_order.map((id) => details.blocks[id].type);
+  assert.deepEqual(types, ['group', 'variant-picker', 'buy-buttons', 'aunelya-trust-list', 'aunelya-product-description']);
+  assert.equal(main.settings.enable_sticky_add_to_cart, true);
+
+  const header = details.blocks.aunelya_header.blocks;
+  assert.match(header.aunelya_title.settings.text, /closest\.product\.title/);
+  assert.equal(header.aunelya_price.type, 'price');
+});
+
+test('the product page never hardcodes product data or unsupported claims', () => {
+  const runtime = [
+    'templates/product.json',
+    'sections/aunelya-included.liquid',
+    'sections/aunelya-faq.liquid',
+    'blocks/aunelya-trust-list.liquid',
+    'blocks/aunelya-product-description.liquid',
+    'assets/aunelya-product.css',
+  ].map(read).join('\n');
+
+  assert.doesNotMatch(runtime, /MX\$|799|variant[_-]?id\s*[=:]\s*["']?\d{5,}/i);
+  assert.doesNotMatch(runtime, /\bcura\b|tratamiento|elimina (el )?dolor|medicaci[oó]n|best ?seller|estrellas|rese[nñ]as|\d+\s*°|\d+\s*(horas|minutos|d[ií]as)/i);
+  assert.doesNotMatch(runtime, /aunelya-ref-/i);
+});

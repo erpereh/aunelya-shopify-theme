@@ -88,7 +88,7 @@
     "show_submenu": "Mostrar submenú de {{ title }}"
   },
   "actions": {
-    "add_to_cart": "Agregar al carrito",
+    "add_to_cart": "Añadir al carrito",
     "clear_all": "Borrar todo",
     "remove": "Eliminar",
     "view_in_your_space": "Ver en tu espacio",
@@ -320,9 +320,9 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Agregar al carrito",
-      "added_to_cart": "Agregado al carrito",
-      "adding_to_cart": "Agregando...",
+      "add_to_cart": "Añadir al carrito",
+      "added_to_cart": "Añadido al carrito",
+      "adding_to_cart": "Añadiendo...",
       "add_to_cart_error": "Error al agregar al carrito",
       "sold_out": "Agotado",
       "unavailable": "No disponible",

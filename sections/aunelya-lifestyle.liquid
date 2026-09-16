@@ -2,6 +2,9 @@
   <div class="aunelya-shell">
     <header class="aunelya-lifestyle__header">
       <h2 id="AunelyaLifestyle-{{ section.id }}" class="aunelya-section-heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="aunelya-section-copy">{{ section.settings.subheading }}</p>
+      {% endif %}
     </header>
 
     <div class="aunelya-lifestyle__grid">
@@ -62,6 +65,7 @@
   "name": "Aunelya lifestyle",
   "settings": [
     { "type": "text", "id": "heading", "label": "Título", "default": "Bienestar en tu rutina" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo" },
     { "type": "text", "id": "main_label", "label": "Etiqueta principal", "default": "A tu ritmo" },
     { "type": "image_picker", "id": "main_image", "label": "Imagen principal alternativa" },
     { "type": "text", "id": "main_image_alt", "label": "Texto alternativo", "default": "Mujer usando el cinturón térmico Aunelya en su rutina" }

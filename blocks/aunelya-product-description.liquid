@@ -1,0 +1,30 @@
+{% doc %}
+  Renders the Shopify product description in a quiet disclosure. Hidden when the description is empty.
+{% enddoc %}
+
+{% assign product = closest.product %}
+
+{% if product.description != blank %}
+  <details class="aunelya-pdp-description" {{ block.shopify_attributes }}>
+    <summary class="aunelya-pdp-description__summary">
+      <span>{{ block.settings.heading }}</span>
+      <span class="aunelya-faq-item__toggle" aria-hidden="true"></span>
+    </summary>
+    <div class="aunelya-pdp-description__content rte">
+      {{ product.description }}
+    </div>
+  </details>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Aunelya descripción",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Descripción" }
+  ],
+  "presets": [
+    { "name": "Aunelya descripción" }
+  ]
+}
+{% endschema %}

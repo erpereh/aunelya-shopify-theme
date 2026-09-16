@@ -48,10 +48,26 @@
     assign product_has_media = false
   endif
 
+  # Aunelya: keep the two-column layout with a brand image while the product has no media yet
+  assign aunelya_media_fallback = false
+  if product_has_media == false and request.page_type == 'product' and template.name == 'product'
+    assign aunelya_media_fallback = true
+    assign aunelya_fallback_color = 'pink'
+    for product_option in product.options_with_values
+      assign option_name = product_option.name | handleize
+      if option_name contains 'color' or option_name contains 'colour'
+        assign selected_color = product_option.selected_value | handleize
+        if selected_color contains 'blanc' or selected_color contains 'white'
+          assign aunelya_fallback_color = 'white'
+        endif
+      endif
+    endfor
+  endif
+
   # Build product grid class
   assign product_grid_class = 'product-information__grid'
 
-  if product_has_media == false
+  if product_has_media == false and aunelya_media_fallback == false
     assign product_grid_class = product_grid_class | append: ' product-information--media-none'
   elsif settings.desktop_media_position == 'right'
     assign product_grid_class = product_grid_class | append: ' product-information--media-right'
@@ -114,6 +130,34 @@
     {% for block in render_order_array %}
       {% if block == 'media' and product_has_media %}
         {{ media }}
+      {% elsif block == 'media' and aunelya_media_fallback %}
+        <div
+          class="product-information__media aunelya-pdp-fallback"
+          data-aunelya-media-fallback
+        >
+          <div class="aunelya-pdp-fallback__frame" data-color="pink" {% if aunelya_fallback_color != 'pink' %}hidden{% endif %}>
+            {% render 'aunelya-image',
+              asset_name: 'aunelya-product-pink.webp',
+              alt: product.title,
+              class: 'aunelya-pdp-fallback__image',
+              width: 1254,
+              height: 1254,
+              sizes: '(min-width: 750px) 56vw, 100vw',
+              loading: 'eager',
+              fetchpriority: 'high'
+            %}
+          </div>
+          <div class="aunelya-pdp-fallback__frame" data-color="white" {% if aunelya_fallback_color != 'white' %}hidden{% endif %}>
+            {% render 'aunelya-image',
+              asset_name: 'aunelya-product-white.webp',
+              alt: product.title,
+              class: 'aunelya-pdp-fallback__image',
+              width: 1254,
+              height: 1254,
+              sizes: '(min-width: 750px) 56vw, 100vw'
+            %}
+          </div>
+        </div>
       {% elsif block == 'product-details' %}
         {{ product_details }}
       {% endif %}
@@ -122,6 +166,26 @@
 
   {{ additional_blocks }}
 </div>
+
+{% if aunelya_media_fallback %}
+  <script type="module">
+    const fallback = document.querySelector('[data-aunelya-media-fallback]');
+
+    document.addEventListener('change', (event) => {
+      const field = event.target;
+      if (!fallback || !(field instanceof HTMLInputElement || field instanceof HTMLSelectElement)) return;
+      if (!field.closest('variant-picker')) return;
+
+      const optionName = field.dataset.optionName || field.name || '';
+      if (!/colou?r/i.test(optionName)) return;
+
+      const color = /blanc|white/i.test(field.value) ? 'white' : 'pink';
+      for (const frame of fallback.querySelectorAll('[data-color]')) {
+        frame.hidden = frame.dataset.color !== color;
+      }
+    });
+  </script>
+{% endif %}
 
 {% stylesheet %}
   .product-information {

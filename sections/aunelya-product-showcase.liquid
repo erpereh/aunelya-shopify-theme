@@ -11,121 +11,103 @@
       </div>
     </header>
 
-    <div class="aunelya-product__composition">
-      <div class="aunelya-product__variants" role="list" aria-label="Colores disponibles">
-        {% for block in section.blocks %}
-          {% liquid
-            assign desired_value = block.settings.option_value | handleize
-            assign variant_match = blank
+    <div class="aunelya-product__variants" role="list" aria-label="Colores disponibles">
+      {% for block in section.blocks %}
+        {% liquid
+          assign desired_value = block.settings.option_value | handleize
+          assign variant_match = blank
 
-            if featured_product != blank
-              for candidate in featured_product.variants
-                assign candidate_title = candidate.title | handleize
-                if candidate_title == desired_value
-                  assign variant_match = candidate
-                endif
+          if featured_product != blank
+            for candidate in featured_product.variants
+              assign candidate_title = candidate.title | handleize
+              if candidate_title == desired_value
+                assign variant_match = candidate
+              endif
 
-                if variant_match == blank
-                  for option in candidate.options
-                    assign candidate_option = option | handleize
-                    if candidate_option == desired_value
-                      assign variant_match = candidate
-                      break
-                    endif
-                  endfor
-                endif
+              if variant_match == blank
+                for option in candidate.options
+                  assign candidate_option = option | handleize
+                  if candidate_option == desired_value
+                    assign variant_match = candidate
+                    break
+                  endif
+                endfor
+              endif
 
-                if variant_match != blank
-                  break
-                endif
-              endfor
-            endif
+              if variant_match != blank
+                break
+              endif
+            endfor
+          endif
 
-            assign variant = variant_match
-            assign variant_link = blank
-            if variant != blank
-              assign variant_link = variant.url
-            elsif featured_product != blank
-              assign variant_link = featured_product.url
-            endif
+          assign variant = variant_match
+          assign variant_link = blank
+          if variant != blank
+            assign variant_link = variant.url
+          elsif featured_product != blank
+            assign variant_link = featured_product.url
+          endif
 
-            if block.settings.asset_key == 'white'
-              assign asset_name = 'aunelya-product-white.webp'
-              assign default_alt = 'Cinturón térmico Aunelya blanco'
-            else
-              assign asset_name = 'aunelya-product-pink.webp'
-              assign default_alt = 'Cinturón térmico Aunelya rosa'
-            endif
+          if block.settings.asset_key == 'white'
+            assign asset_name = 'aunelya-product-white.webp'
+            assign default_alt = 'Cinturón térmico Aunelya blanco'
+          else
+            assign asset_name = 'aunelya-product-pink.webp'
+            assign default_alt = 'Cinturón térmico Aunelya rosa'
+          endif
 
-            assign image_alt = block.settings.image_alt | default: default_alt
-          %}
+          assign image_alt = block.settings.image_alt | default: default_alt
+          assign option_tag = 'div'
+          if variant_link != blank
+            assign option_tag = 'a'
+          endif
+        %}
 
-          <article
-            class="aunelya-color-option"
-            style="--swatch: {{ block.settings.swatch_color }};"
-            role="listitem"
-            {{ block.shopify_attributes }}
+        <article
+          class="aunelya-color-option"
+          style="--swatch: {{ block.settings.swatch_color }};"
+          role="listitem"
+          {{ block.shopify_attributes }}
+        >
+          <{{ option_tag }}
+            class="aunelya-color-option__link"
+            {% if variant_link != blank %}
+              href="{{ variant_link }}"
+            {% endif %}
           >
-            {% if variant_link != blank %}
-              <a class="aunelya-color-option__link" href="{{ variant_link }}" aria-label="Ver {{ block.settings.label }}">
-            {% else %}
-              <div class="aunelya-color-option__link">
-            {% endif %}
-              <div class="aunelya-color-option__media">
-                {% render 'aunelya-image',
-                  image: block.settings.image,
-                  asset_name: asset_name,
-                  alt: image_alt,
-                  class: 'aunelya-color-option__image',
-                  width: 1254,
-                  height: 1254,
-                  sizes: '(min-width: 768px) 46vw, 100vw'
-                %}
-              </div>
-              <div class="aunelya-color-option__meta">
-                <span class="aunelya-color-option__name">
-                  <span class="aunelya-color-option__swatch" aria-hidden="true"></span>
-                  {{ block.settings.label }}
+            <div class="aunelya-color-option__media">
+              {% render 'aunelya-image',
+                image: block.settings.image,
+                asset_name: asset_name,
+                alt: image_alt,
+                class: 'aunelya-color-option__image',
+                width: 1254,
+                height: 1254,
+                sizes: '(min-width: 768px) 46vw, 100vw'
+              %}
+            </div>
+            <div class="aunelya-color-option__meta">
+              <span class="aunelya-color-option__name">
+                <span class="aunelya-color-option__swatch" aria-hidden="true"></span>
+                {{ block.settings.label }}
+              </span>
+              <span class="aunelya-color-option__price">
+                {% if variant != blank %}
+                  {{ variant.price | money_with_currency }}
+                {% else %}
+                  {{ block.settings.fallback_price }}
+                {% endif %}
+              </span>
+              {% if variant_link != blank or request.design_mode %}
+                <span class="aunelya-color-option__cta">
+                  {{ section.settings.cta_label }}
+                  <span class="aunelya-color-option__arrow" aria-hidden="true">&rarr;</span>
                 </span>
-                <span class="aunelya-color-option__price">
-                  {% if variant != blank %}
-                    {{ variant.price | money_with_currency }}
-                  {% else %}
-                    {{ block.settings.fallback_price }}
-                  {% endif %}
-                </span>
-              </div>
-            {% if variant_link != blank %}
-              </a>
-            {% else %}
-              </div>
-            {% endif %}
-          </article>
-        {% endfor %}
-      </div>
-
-      <aside class="aunelya-included" aria-labelledby="AunelyaIncluded-{{ section.id }}">
-        <div class="aunelya-included__media">
-          {% render 'aunelya-image',
-            image: section.settings.included_image,
-            asset_name: 'aunelya-whats-included.webp',
-            alt: section.settings.included_image_alt,
-            class: 'aunelya-included__image',
-            width: 1448,
-            height: 1086,
-            sizes: '(min-width: 768px) 820px, 100vw'
-          %}
-        </div>
-        <div class="aunelya-included__content">
-          <h3 id="AunelyaIncluded-{{ section.id }}" class="aunelya-included__title">{{ section.settings.included_heading }}</h3>
-          <ul class="aunelya-included__list" role="list">
-            <li class="aunelya-included__item">{% render 'aunelya-icon', icon: 'check' %}<span>Cinturón térmico</span></li>
-            <li class="aunelya-included__item">{% render 'aunelya-icon', icon: 'check' %}<span>Cable de carga</span></li>
-            <li class="aunelya-included__item">{% render 'aunelya-icon', icon: 'check' %}<span>Manual</span></li>
-            <li class="aunelya-included__item">{% render 'aunelya-icon', icon: 'check' %}<span>Caja</span></li>
-          </ul>
-        </div>
-      </aside>
+              {% endif %}
+            </div>
+          </{{ option_tag }}>
+        </article>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -153,20 +135,9 @@
     },
     {
       "type": "text",
-      "id": "included_heading",
-      "label": "Título de contenido",
-      "default": "Qué incluye"
-    },
-    {
-      "type": "image_picker",
-      "id": "included_image",
-      "label": "Imagen de contenido alternativa"
-    },
-    {
-      "type": "text",
-      "id": "included_image_alt",
-      "label": "Texto alternativo",
-      "default": "Cinturón térmico, cable de carga, manual y caja"
+      "id": "cta_label",
+      "label": "Texto del enlace",
+      "default": "Ver producto"
     }
   ],
   "max_blocks": 2,

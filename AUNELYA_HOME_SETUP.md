@@ -20,3 +20,14 @@ La HOME queda lista para terminarse desde el editor del tema y Shopify Admin, si
 ## Preview
 
 Validar el theme conectado a la tienda antes de publicar: drawer móvil, búsqueda, cuenta, carrito, menús, producto sin asignar, coincidencias de variantes, fallback de variante y opiniones activadas/desactivadas.
+
+# Configuración de la PDP Aunelya V1
+
+La plantilla `product` usa la sección nativa de Horizon (galería, selector, formulario, carrito, checkout acelerado y sticky add to cart) y, debajo, las secciones Aunelya de tecnología, rutina, qué incluye y preguntas frecuentes.
+
+- Crear el producto con una opción llamada `Color` y valores `Rosa` y `Blanco`. El selector muestra el punto de color cuando el nombre de la opción contiene "color".
+- Subir las imágenes del producto y asignar a cada variante su imagen destacada; la galería oculta la media de la variante no seleccionada.
+- Sin media, la PDP muestra los cutouts Rosa/Blanco del tema como imagen provisional.
+- Publicar las políticas de envío y reembolso para que aparezcan los enlaces en las preguntas frecuentes.
+- Revisar las respuestas de las preguntas frecuentes antes de publicar; no incluyen autonomía, temperaturas, plazos ni certificaciones.
+- Activar Shop Pay u otros métodos de pago acelerado en Shopify Payments si se quieren mostrar bajo el botón principal.

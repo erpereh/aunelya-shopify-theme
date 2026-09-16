@@ -137,6 +137,9 @@
             <span class="svg-wrapper">
               {{- 'icon-add-to-cart.svg' | inline_asset_content -}}
             </span>
+            <span class="add-to-cart-text__short">
+              {{- 'products.product.add_to_cart' | t | split: ' ' | first -}}
+            </span>
           {% endif %}
           <span class="add-to-cart-text__content">
             <span>
@@ -289,6 +292,10 @@
   .sticky-add-to-cart__button {
     height: var(--height-buy-buttons);
     position: relative;
+  }
+
+  .sticky-add-to-cart__button .add-to-cart-text__short {
+    display: none;
   }
 
   /* Mobile adjustments */

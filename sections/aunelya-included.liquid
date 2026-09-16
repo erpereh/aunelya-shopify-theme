@@ -1,0 +1,63 @@
+<section class="aunelya-home-section aunelya-pdp-included aunelya-section-space" aria-labelledby="AunelyaIncluded-{{ section.id }}">
+  <div class="aunelya-shell aunelya-pdp-included__layout">
+    <div class="aunelya-pdp-included__media">
+      {% render 'aunelya-image',
+        image: section.settings.image,
+        asset_name: 'aunelya-whats-included.webp',
+        alt: section.settings.image_alt,
+        class: 'aunelya-pdp-included__image',
+        width: 1448,
+        height: 1086,
+        sizes: '(min-width: 990px) 52vw, 100vw'
+      %}
+    </div>
+
+    <div class="aunelya-pdp-included__content">
+      <h2 id="AunelyaIncluded-{{ section.id }}" class="aunelya-section-heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="aunelya-section-copy">{{ section.settings.subheading }}</p>
+      {% endif %}
+      <ul class="aunelya-pdp-included__list" role="list">
+        {% for block in section.blocks %}
+          <li class="aunelya-pdp-included__item" {{ block.shopify_attributes }}>
+            {% render 'aunelya-icon', icon: 'check', class: 'aunelya-icon aunelya-pdp-included__icon' %}
+            <span>{{ block.settings.label }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya qué incluye",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Qué incluye" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Todo lo necesario para empezar." },
+    { "type": "image_picker", "id": "image", "label": "Imagen alternativa" },
+    { "type": "text", "id": "image_alt", "label": "Texto alternativo", "default": "Cinturón térmico, cable de carga, manual y caja" }
+  ],
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Elemento",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Texto", "default": "Cinturón térmico" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aunelya qué incluye",
+      "blocks": [
+        { "type": "item", "settings": { "label": "Cinturón térmico" } },
+        { "type": "item", "settings": { "label": "Cable de carga" } },
+        { "type": "item", "settings": { "label": "Manual" } },
+        { "type": "item", "settings": { "label": "Caja" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

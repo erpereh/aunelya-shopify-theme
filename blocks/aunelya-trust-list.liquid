@@ -1,0 +1,39 @@
+{% doc %}
+  Renders a compact list of Aunelya purchase reassurances below the buy buttons.
+{% enddoc %}
+
+<ul class="aunelya-pdp-trust" role="list" {{ block.shopify_attributes }}>
+  {% if block.settings.shipping != blank %}
+    <li class="aunelya-pdp-trust__item">
+      {% render 'aunelya-icon', icon: 'shipping', class: 'aunelya-icon aunelya-pdp-trust__icon' %}
+      <span>{{ block.settings.shipping }}</span>
+    </li>
+  {% endif %}
+  {% if block.settings.secure != blank %}
+    <li class="aunelya-pdp-trust__item">
+      {% render 'aunelya-icon', icon: 'secure', class: 'aunelya-icon aunelya-pdp-trust__icon' %}
+      <span>{{ block.settings.secure }}</span>
+    </li>
+  {% endif %}
+  {% if block.settings.returns != blank %}
+    <li class="aunelya-pdp-trust__item">
+      {% render 'aunelya-icon', icon: 'returns', class: 'aunelya-icon aunelya-pdp-trust__icon' %}
+      <span>{{ block.settings.returns }}</span>
+    </li>
+  {% endif %}
+</ul>
+
+{% schema %}
+{
+  "name": "Aunelya confianza",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "shipping", "label": "Envío", "default": "Envíos a México" },
+    { "type": "text", "id": "secure", "label": "Pago", "default": "Compra segura" },
+    { "type": "text", "id": "returns", "label": "Devoluciones", "default": "Devoluciones fáciles" }
+  ],
+  "presets": [
+    { "name": "Aunelya confianza" }
+  ]
+}
+{% endschema %}

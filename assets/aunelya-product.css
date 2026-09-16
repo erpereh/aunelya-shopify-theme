@@ -1,0 +1,436 @@
+/* Aunelya product page. Loaded only on product templates, after aunelya-home.css. */
+
+.product-information {
+  --aunelya-pdp-media-bg: var(--aunelya-cream);
+  --height-buy-buttons: 3.5rem;
+
+  color: var(--aunelya-ink);
+}
+
+/* Layout: ~58 / 42 on desktop, stacked on mobile */
+@media screen and (min-width: 750px) {
+  .product-information .product-information__grid.product-information--media-left:not(.product-information--media-none) {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 1fr);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .product-information .product-information__grid.product-information--media-left:not(.product-information--media-none) {
+    grid-template-columns: minmax(0, 1.38fr) minmax(360px, 1fr);
+  }
+
+  .product-information .product-details {
+    padding-inline-start: clamp(1.5rem, 3vw, 3.5rem);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .product-information .product-information__media {
+    grid-column: 2 / 3;
+  }
+
+  .product-information .product-details {
+    padding-block-start: 1.5rem;
+  }
+}
+
+/* Gallery */
+.product-information__media .product-media-container {
+  background: var(--aunelya-pdp-media-bg);
+}
+
+.product-information__media .slideshow-controls__thumbnail {
+  background: var(--aunelya-pdp-media-bg);
+  opacity: 0.55;
+  transition: opacity 200ms ease;
+}
+
+.product-information__media .slideshow-controls__thumbnail:hover,
+.product-information__media .slideshow-controls__thumbnail[aria-selected='true'] {
+  opacity: 1;
+}
+
+/* Brand fallback while the product has no Shopify media */
+.aunelya-pdp-fallback__frame {
+  display: grid;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: var(--aunelya-radius);
+  background: var(--aunelya-pdp-media-bg);
+  place-items: center;
+}
+
+.aunelya-pdp-fallback__frame[hidden] {
+  display: none;
+}
+
+.aunelya-pdp-fallback__image {
+  width: 88%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Purchase column */
+.product-details .text-block--aunelya_brand p {
+  font-weight: 600;
+}
+
+.product-details h1 {
+  margin: 0;
+  font-family: var(--font-heading--family);
+  font-size: clamp(2rem, 1.3rem + 2.2vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.product-details product-price {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.product-details .text-block--aunelya_intro p {
+  max-width: 34rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+/* Color selector: swatch + name pills */
+.product-details .variant-option {
+  --options-border-radius: 999px;
+  --options-border-width: 1px;
+}
+
+.product-details .variant-option legend {
+  margin-block-end: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.product-details .variant-option--buttons {
+  gap: 0.625rem;
+}
+
+.product-details .variant-option__button-label {
+  min-height: 3rem;
+  padding-inline: 1.15rem 1.35rem;
+  font-size: 0.95rem;
+  font-weight: 550;
+}
+
+.product-details .variant-option__button-label:has(:checked)::before {
+  border-width: 1.5px;
+}
+
+.product-details .variant-option__button-label:has(input[data-option-name*='color' i], input[data-option-name*='colour' i]) .variant-option__button-label__text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.product-details .variant-option__button-label:has(input[data-option-name*='color' i], input[data-option-name*='colour' i]) .variant-option__button-label__text::before {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: 0 0 auto;
+  border: 1px solid rgb(23 23 23 / 0.14);
+  border-radius: 50%;
+  background: var(--aunelya-swatch, var(--aunelya-line));
+  content: '';
+}
+
+.product-details .variant-option__button-label:has(input[value*='rosa' i], input[value*='pink' i], input[value*='rose' i]) {
+  --aunelya-swatch: #e9b8b5;
+}
+
+.product-details .variant-option__button-label:has(input[value*='blanc' i], input[value*='white' i]) {
+  --aunelya-swatch: #f7f7f5;
+}
+
+/* Buy buttons */
+.product-details .product-form-buttons {
+  gap: 0.75rem;
+}
+
+.product-details .quantity-selector {
+  border-radius: 999px;
+}
+
+.product-details .add-to-cart-button {
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.product-details .add-to-cart-button:not([disabled]):hover {
+  background-color: #302e2c;
+}
+
+.product-details .add-to-cart-button .add-to-cart-icon {
+  display: none;
+}
+
+.product-details shopify-accelerated-checkout {
+  --shopify-accelerated-checkout-button-border-radius: 999px;
+  --shopify-accelerated-checkout-button-block-size: var(--height-buy-buttons);
+}
+
+/* Trust list */
+.aunelya-pdp-trust {
+  display: grid;
+  margin: 0.25rem 0 0;
+  padding: 1.25rem 0 0;
+  border-block-start: 1px solid var(--aunelya-line);
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.aunelya-pdp-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #4e4945;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.aunelya-pdp-trust__icon {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+  color: var(--aunelya-ink);
+}
+
+/* Disclosures (description + FAQ) */
+.aunelya-pdp-description {
+  border-block: 1px solid var(--aunelya-line);
+}
+
+.aunelya-pdp-description__summary,
+.aunelya-faq-item__question {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.aunelya-pdp-description__summary::-webkit-details-marker,
+.aunelya-faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+.aunelya-faq-item__toggle {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.aunelya-faq-item__toggle::before,
+.aunelya-faq-item__toggle::after {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  content: '';
+  transition: transform 240ms ease;
+}
+
+.aunelya-faq-item__toggle::after {
+  transform: rotate(90deg);
+}
+
+details[open] > summary .aunelya-faq-item__toggle::after {
+  transform: rotate(0deg);
+}
+
+.aunelya-pdp-description__content {
+  padding-block-end: 1.25rem;
+  color: var(--aunelya-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Sticky add to cart */
+sticky-add-to-cart .sticky-add-to-cart__bar {
+  --style-border-radius-buttons-primary: 999px;
+
+  box-shadow: 0 12px 40px rgb(23 23 23 / 0.08);
+}
+
+sticky-add-to-cart .sticky-add-to-cart__bar::before {
+  background: linear-gradient(rgb(255 255 255 / 0.92) 0 100%), linear-gradient(rgb(23 23 23 / 0.08) 0 100%);
+  background-clip: content-box, border-box;
+}
+
+sticky-add-to-cart .sticky-add-to-cart__image {
+  background: var(--aunelya-cream);
+}
+
+sticky-add-to-cart .sticky-add-to-cart__button {
+  border: 1px solid var(--aunelya-ink);
+  border-radius: 999px;
+  background: var(--aunelya-ink);
+  color: var(--aunelya-white);
+  font-weight: 600;
+}
+
+@media screen and (max-width: 749px) {
+  sticky-add-to-cart .sticky-add-to-cart__bar {
+    padding-inline: 1rem;
+    box-shadow: 0 -8px 30px rgb(23 23 23 / 0.06);
+  }
+
+  sticky-add-to-cart .sticky-add-to-cart__bar .sticky-add-to-cart__button {
+    width: auto;
+    min-width: 6.5rem;
+    padding-inline: 1.35rem;
+  }
+
+  sticky-add-to-cart .sticky-add-to-cart__button .add-to-cart-text > .svg-wrapper {
+    display: none;
+  }
+
+  sticky-add-to-cart .sticky-add-to-cart__button .add-to-cart-text__short {
+    display: inline;
+  }
+}
+
+/* Sections below the purchase area */
+.aunelya-pdp-included {
+  background: var(--aunelya-cream);
+}
+
+.aunelya-pdp-included__layout {
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.aunelya-pdp-included__media {
+  overflow: hidden;
+  border-radius: var(--aunelya-radius);
+  aspect-ratio: 4 / 3;
+  background: var(--aunelya-white);
+}
+
+.aunelya-pdp-included__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aunelya-pdp-included__list {
+  display: grid;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aunelya-pdp-included__item {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  gap: 0.85rem;
+  border-block-end: 1px solid rgb(23 23 23 / 0.1);
+  font-size: 1.02rem;
+  font-weight: 550;
+}
+
+.aunelya-pdp-included__item:first-child {
+  border-block-start: 1px solid rgb(23 23 23 / 0.1);
+}
+
+.aunelya-pdp-included__icon {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+  color: #bd7e78;
+}
+
+.aunelya-pdp-faq {
+  background: var(--aunelya-white);
+}
+
+.aunelya-pdp-faq__layout {
+  display: grid;
+  align-items: start;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.aunelya-pdp-faq__list {
+  border-block-start: 1px solid var(--aunelya-line);
+}
+
+.aunelya-faq-item {
+  border-block-end: 1px solid var(--aunelya-line);
+}
+
+.aunelya-faq-item__question {
+  min-height: 4.5rem;
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  letter-spacing: -0.01em;
+}
+
+.aunelya-faq-item__answer {
+  max-width: 40rem;
+  padding-block-end: 1.5rem;
+  color: var(--aunelya-muted);
+  line-height: 1.6;
+}
+
+.aunelya-faq-item__answer p {
+  margin: 0;
+}
+
+.aunelya-faq-item__answer p + p {
+  margin-top: 0.75rem;
+}
+
+.aunelya-faq-item__link {
+  color: var(--aunelya-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.aunelya-faq-item__link:hover {
+  text-decoration: underline;
+}
+
+.aunelya-pdp-description__summary:focus-visible,
+.aunelya-faq-item__question:focus-visible {
+  outline: 2px solid var(--aunelya-ink);
+  outline-offset: 4px;
+}
+
+@media (max-width: 989px) {
+  .aunelya-pdp-included__layout,
+  .aunelya-pdp-faq__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 749px) {
+  .product-details .variant-option__button-label {
+    min-height: 3.25rem;
+    flex: 1 1 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aunelya-faq-item__toggle::before,
+  .aunelya-faq-item__toggle::after,
+  .product-details .add-to-cart-button,
+  .product-information__media .slideshow-controls__thumbnail {
+    transition: none;
+  }
+}

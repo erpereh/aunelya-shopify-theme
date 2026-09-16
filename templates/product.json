@@ -11,42 +11,24 @@
     "main": {
       "type": "product-information",
       "blocks": {
-        "disclosures_g9mWze": {
-          "type": "disclosures",
-          "name": "t:names.disclosures",
-          "settings": {
-            "heading": "Disclosures",
-            "heading_preset": "h5",
-            "open_by_default": false,
-            "icon": "caret",
-            "disclosure_heading_preset": "h6",
-            "text_color": "",
-            "dividers": true,
-            "divider_color": "{{ settings.color_palette.color2 }}",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
         "media-gallery": {
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
-            "image_gap": 4,
+            "media_presentation": "carousel",
+            "media_columns": "one",
+            "image_gap": 16,
             "large_first_image": false,
-            "slideshow_controls_style": "counter",
+            "icons_style": "chevron",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
+            "thumbnail_position": "bottom",
+            "thumbnail_width": 56,
+            "thumbnail_radius": 14,
+            "aspect_ratio": "1",
             "constrain_to_viewport": true,
             "media_fit": "contain",
-            "media_radius": 0,
+            "media_radius": 28,
             "extend_media": false,
             "zoom": true,
             "video_loop": false,
@@ -68,7 +50,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 28,
+            "gap": 20,
             "sticky_details_desktop": true,
             "background_media": "none",
             "background_color": "",
@@ -79,15 +61,15 @@
             "border_opacity": 100,
             "border_color": "",
             "border_radius": 0,
-            "padding-block-start": 24,
+            "padding-block-start": 8,
             "padding-block-end": 24,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "group_icgrde": {
+            "aunelya_header": {
               "type": "group",
-              "name": "t:names.header",
+              "name": "Encabezado",
               "settings": {
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -96,7 +78,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 10,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -124,7 +106,32 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_xrnftG": {
+                "aunelya_brand": {
+                  "type": "text",
+                  "name": "Marca",
+                  "settings": {
+                    "text": "<p>Aunelya</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.875rem",
+                    "line_height": "normal",
+                    "letter_spacing": "loose",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "#8a6f6b",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "aunelya_title": {
                   "type": "text",
                   "name": "t:names.product_title",
                   "settings": {
@@ -132,13 +139,13 @@
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h3",
+                    "type_preset": "h2",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
-                    "wrap": "pretty",
+                    "wrap": "balance",
                     "text_color": "",
                     "background": false,
                     "background_color": "#00000026",
@@ -147,16 +154,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  },
-                  "blocks": {}
+                  }
                 },
-                "price_tVjtKg": {
+                "aunelya_price": {
                   "type": "price",
                   "settings": {
                     "show_sale_price_first": true,
                     "show_installments": false,
                     "show_tax_info": false,
-                    "type_preset": "paragraph",
+                    "type_preset": "h5",
                     "width": "100%",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
@@ -165,55 +171,67 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "text_color": "",
-                    "padding-block-start": 4,
+                    "padding-block-start": 2,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  },
-                  "blocks": {}
+                  }
+                },
+                "aunelya_intro": {
+                  "type": "text",
+                  "name": "Texto corto",
+                  "settings": {
+                    "text": "<p>Calor y vibración ajustables en un cinturón portátil, pensado para acompañarte con comodidad en tu rutina.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "paragraph",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "#706963",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 6,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
                 }
               },
               "block_order": [
-                "text_xrnftG",
-                "price_tVjtKg"
+                "aunelya_brand",
+                "aunelya_title",
+                "aunelya_price",
+                "aunelya_intro"
               ]
             },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "variant_picker_R3rGDr": {
+            "aunelya_variant_picker": {
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
                 "show_swatches": false,
                 "option_label_text_color": "",
-                "variant_style_class": "default",
-                "custom_variant_background": "{{ settings.color_palette.background }}",
-                "custom_variant_text": "{{ settings.color_palette.foreground }}",
-                "custom_variant_border": "{{ settings.color_palette.foreground }}",
-                "selected_variant_style_class": "default",
-                "custom_selected_variant_background": "{{ settings.color_palette.foreground }}",
-                "custom_selected_variant_text": "{{ settings.color_palette.background }}",
-                "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
+                "variant_style_class": "custom",
+                "custom_variant_background": "#ffffff",
+                "custom_variant_text": "#171717",
+                "custom_variant_border": "#e8e0d9",
+                "selected_variant_style_class": "custom",
+                "custom_selected_variant_background": "#ffffff",
+                "custom_selected_variant_text": "#171717",
+                "custom_selected_variant_border": "#171717",
                 "alignment": "left",
-                "padding-block-start": 0,
+                "padding-block-start": 8,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             },
-            "buy_buttons_eYQEYi": {
+            "aunelya_buy_buttons": {
               "type": "buy-buttons",
               "settings": {
                 "stacking": true,
@@ -228,13 +246,13 @@
                 "selected_recipient_button_background": "{{ settings.color_palette.foreground }}",
                 "selected_recipient_button_text": "{{ settings.color_palette.background }}",
                 "selected_recipient_button_border": "{{ settings.color_palette.foreground }}",
-                "input_style": "default",
-                "input_background_color": "{{ settings.color_palette.background }}",
-                "input_text_color": "{{ settings.color_palette.foreground }}",
-                "input_border_color": "{{ settings.color_palette.foreground }}",
+                "input_style": "custom",
+                "input_background_color": "#ffffff",
+                "input_text_color": "#171717",
+                "input_border_color": "#e8e0d9",
                 "border_width": 1,
-                "border_radius": 0,
-                "padding-block-start": 0,
+                "border_radius": 50,
+                "padding-block-start": 4,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -244,12 +262,12 @@
                   "type": "quantity",
                   "static": true,
                   "settings": {
-                    "input_style": "default",
-                    "input_background_color": "{{ settings.color_palette.background }}",
-                    "input_text_color": "{{ settings.color_palette.foreground }}",
-                    "input_border_color": "{{ settings.color_palette.foreground }}",
+                    "input_style": "custom",
+                    "input_background_color": "#ffffff",
+                    "input_text_color": "#171717",
+                    "input_border_color": "#e8e0d9",
                     "border_width": 1,
-                    "border_radius": 0
+                    "border_radius": 50
                   },
                   "blocks": {}
                 },
@@ -257,10 +275,10 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button",
-                    "custom_button_background": "{{ settings.color_palette.foreground }}",
-                    "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "{{ settings.color_palette.background }}"
+                    "style_class": "button-custom",
+                    "custom_button_background": "#171717",
+                    "custom_button_text": "#ffffff",
+                    "custom_button_border": "#171717"
                   },
                   "blocks": {}
                 },
@@ -273,45 +291,31 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
+            "aunelya_trust": {
+              "type": "aunelya-trust-list",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
+                "shipping": "Envíos a México",
+                "secure": "Compra segura",
+                "returns": "Devoluciones fáciles"
+              }
+            },
+            "aunelya_description": {
+              "type": "aunelya-product-description",
+              "settings": {
+                "heading": "Descripción"
+              }
             }
           },
           "block_order": [
-            "group_icgrde",
-            "divider_VJhene",
-            "variant_picker_R3rGDr",
-            "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "aunelya_header",
+            "aunelya_variant_picker",
+            "aunelya_buy_buttons",
+            "aunelya_trust",
+            "aunelya_description"
           ]
         }
       },
-      "block_order": [
-        "disclosures_g9mWze"
-      ],
+      "block_order": [],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
@@ -319,156 +323,236 @@
         "limit_details_width": false,
         "gap": 48,
         "enable_sticky_add_to_cart": true,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "background_color": "",
+        "padding-block-start": 16,
+        "padding-block-end": 48
       }
     },
-    "product_recommendations_qggXJq": {
-      "type": "product-recommendations",
+    "aunelya_technology": {
+      "type": "aunelya-technology",
       "blocks": {
-        "text_cbcgyb": {
-          "type": "text",
-          "name": "t:names.header",
+        "heat": {
+          "type": "feature",
           "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "heat",
+            "label": "5 niveles de calor"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "vibration": {
+          "type": "feature",
           "settings": {
-            "product_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_DNizbJ": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_M7MJkb": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_gLWgA6": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_DNizbJ",
-            "product_title_M7MJkb",
-            "price_gLWgA6"
-          ]
+            "icon": "vibration",
+            "label": "4 niveles de vibración"
+          }
+        },
+        "portable": {
+          "type": "feature",
+          "settings": {
+            "icon": "portable",
+            "label": "Portátil"
+          }
+        },
+        "adjustable": {
+          "type": "feature",
+          "settings": {
+            "icon": "adjustable",
+            "label": "Correa ajustable"
+          }
         }
       },
       "block_order": [
-        "text_cbcgyb"
+        "heat",
+        "vibration",
+        "portable",
+        "adjustable"
       ],
-      "name": "t:names.product_recommendations",
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "related",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 12,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "heading": "Tecnología pensada para tu comodidad",
+        "image_alt": "Detalle del cinturón térmico portátil Aunelya"
+      }
+    },
+    "aunelya_lifestyle": {
+      "type": "aunelya-lifestyle",
+      "blocks": {
+        "home": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "home",
+            "label": "En casa",
+            "link": "",
+            "image_alt": ""
+          }
+        },
+        "movement": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "movement",
+            "label": "En movimiento",
+            "link": "",
+            "image_alt": ""
+          }
+        },
+        "routine": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "routine",
+            "label": "En tu rutina",
+            "link": "",
+            "image_alt": ""
+          }
+        },
+        "when_needed": {
+          "type": "moment",
+          "settings": {
+            "asset_key": "when-needed",
+            "label": "Cuando lo necesitas",
+            "link": "",
+            "image_alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "home",
+        "movement",
+        "routine",
+        "when_needed"
+      ],
+      "settings": {
+        "heading": "Diseñado para acompañar tu rutina",
+        "subheading": "Ligero y ajustable, para llevar la sensación de calor contigo.",
+        "main_label": "A tu ritmo",
+        "main_image_alt": "Mujer usando el cinturón térmico Aunelya en su rutina"
+      }
+    },
+    "aunelya_included": {
+      "type": "aunelya-included",
+      "blocks": {
+        "belt": {
+          "type": "item",
+          "settings": {
+            "label": "Cinturón térmico"
+          }
+        },
+        "cable": {
+          "type": "item",
+          "settings": {
+            "label": "Cable de carga"
+          }
+        },
+        "manual": {
+          "type": "item",
+          "settings": {
+            "label": "Manual"
+          }
+        },
+        "box": {
+          "type": "item",
+          "settings": {
+            "label": "Caja"
+          }
+        }
+      },
+      "block_order": [
+        "belt",
+        "cable",
+        "manual",
+        "box"
+      ],
+      "settings": {
+        "heading": "Qué incluye",
+        "subheading": "Todo lo necesario para empezar.",
+        "image_alt": "Cinturón térmico, cable de carga, manual y caja"
+      }
+    },
+    "aunelya_faq": {
+      "type": "aunelya-faq",
+      "blocks": {
+        "usage": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo se usa?",
+            "answer": "<p>Colócalo alrededor de la zona donde quieras sentir calor, ajusta la correa a tu medida y elige el nivel que te resulte cómodo. Consulta el manual incluido antes del primer uso.</p>",
+            "policy_link": "none"
+          }
+        },
+        "heat": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo ajustar el calor?",
+            "answer": "<p>Sí. Tiene 5 niveles de calor para que elijas la sensación que prefieras. Te recomendamos empezar por el nivel más bajo e ir subiendo poco a poco.</p>",
+            "policy_link": "none"
+          }
+        },
+        "vibration": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo funciona la vibración?",
+            "answer": "<p>Tiene 4 niveles de vibración que puedes ajustar según lo que te resulte más agradable en cada momento. El manual incluido explica cómo cambiar de nivel.</p>",
+            "policy_link": "none"
+          }
+        },
+        "charging": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo se carga?",
+            "answer": "<p>Incluye un cable de carga. Sigue las indicaciones del manual para cargarlo correctamente.</p>",
+            "policy_link": "none"
+          }
+        },
+        "movement": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo usarlo mientras me muevo?",
+            "answer": "<p>Sí. Es portátil y su correa ajustable te permite llevarlo contigo durante tu rutina.</p>",
+            "policy_link": "none"
+          }
+        },
+        "shipping": {
+          "type": "question",
+          "settings": {
+            "question": "¿Hacen envíos a México?",
+            "answer": "<p>Sí. Durante el checkout verás las opciones de envío disponibles para tu dirección.</p>",
+            "policy_link": "shipping"
+          }
+        },
+        "returns": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo devolver mi pedido?",
+            "answer": "<p>Sí. Consulta nuestra política de reembolso para conocer las condiciones y cómo solicitarlo.</p>",
+            "policy_link": "refund"
+          }
+        },
+        "medical": {
+          "type": "question",
+          "settings": {
+            "question": "¿Es un producto médico?",
+            "answer": "<p>No. Es un accesorio de bienestar pensado para brindarte calor y una sensación de confort. No sustituye la consulta con un profesional de la salud; si tienes dudas sobre su uso, consúltalo con tu médico.</p>",
+            "policy_link": "none"
+          }
+        }
+      },
+      "block_order": [
+        "usage",
+        "heat",
+        "vibration",
+        "charging",
+        "movement",
+        "shipping",
+        "returns",
+        "medical"
+      ],
+      "settings": {
+        "heading": "Preguntas frecuentes",
+        "subheading": "Lo esencial antes de elegir el tuyo."
       }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "aunelya_technology",
+    "aunelya_lifestyle",
+    "aunelya_included",
+    "aunelya_faq"
   ]
 }
