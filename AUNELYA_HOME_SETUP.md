@@ -31,3 +31,13 @@ La plantilla `product` usa la sección nativa de Horizon (galería, selector, fo
 - Publicar las políticas de envío y reembolso para que aparezcan los enlaces en las preguntas frecuentes.
 - Revisar las respuestas de las preguntas frecuentes antes de publicar; no incluyen autonomía, temperaturas, plazos ni certificaciones.
 - Activar Shop Pay u otros métodos de pago acelerado en Shopify Payments si se quieren mostrar bajo el botón principal.
+
+# Configuración de Contacto Aunelya
+
+La plantilla `page.contact` usa la sección **Aunelya contacto** (formulario nativo `contact` de Shopify) y una FAQ breve.
+
+- Asignar la plantilla `contact` a la página de Contacto en Shopify Admin > Tienda online > Páginas.
+- Los mensajes llegan al correo de contacto de la tienda (Configuración > Tienda > Correo de atención al cliente).
+- El selector "Motivo" se envía como campo adicional; sus opciones se editan desde la sección, una por línea.
+- Los temas de Envíos y Devoluciones enlazan a sus políticas sólo si están publicadas.
+- No se muestran correo, teléfono, WhatsApp ni tiempos de respuesta: añadirlos sólo cuando estén confirmados.

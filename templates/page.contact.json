@@ -8,138 +8,109 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "main": {
-      "type": "main-page",
+    "aunelya_contact": {
+      "type": "aunelya-contact",
       "blocks": {
-        "title": {
-          "type": "text",
-          "name": "t:names.title",
+        "orders": {
+          "type": "topic",
           "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "shipping",
+            "title": "Pedidos y envíos",
+            "text": "Incluye tu número de pedido para ayudarte más rápido.",
+            "link": "",
+            "link_label": ""
+          }
         },
-        "content": {
-          "type": "text",
-          "name": "t:names.content",
+        "returns": {
+          "type": "topic",
           "settings": {
-            "text": "{{ closest.page.content }}",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "returns",
+            "title": "Devoluciones",
+            "text": "Revisa las condiciones antes de escribirnos.",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "product": {
+          "type": "topic",
+          "settings": {
+            "icon": "support",
+            "title": "Uso del producto",
+            "text": "Resolvemos tus dudas sobre calor, vibración y carga.",
+            "link": "",
+            "link_label": ""
+          }
         }
       },
       "block_order": [
-        "title",
-        "content"
+        "orders",
+        "returns",
+        "product"
       ],
       "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 0
+        "eyebrow": "Contacto",
+        "heading": "Estamos para ayudarte.",
+        "subheading": "Escríbenos sobre tu pedido, el uso del producto o cualquier duda. Te responderemos por correo.",
+        "show_page_content": true,
+        "topic_label": "Motivo",
+        "topics": "Mi pedido\nEnvíos\nUso del producto\nDevoluciones\nOtro",
+        "optional_label": "(opcional)",
+        "message_label": "Mensaje",
+        "submit_label": "Enviar mensaje",
+        "success_message": "Gracias por escribirnos. Te responderemos por correo lo antes posible.",
+        "note": "Usaremos tus datos sólo para responder a tu mensaje."
       }
     },
-    "form": {
-      "type": "section",
+    "aunelya_faq": {
+      "type": "aunelya-faq",
       "blocks": {
-        "contact_form_UwiCkQ": {
-          "type": "contact-form",
+        "shipping": {
+          "type": "question",
           "settings": {
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "input_style": "default",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "question": "¿Hacen envíos a México?",
+            "answer": "<p>Sí. Durante el checkout verás las opciones de envío disponibles para tu dirección.</p>",
+            "policy_link": "shipping"
+          }
+        },
+        "returns": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo devolver mi pedido?",
+            "answer": "<p>Sí. Consulta nuestra política de reembolso para conocer las condiciones y cómo solicitarlo.</p>",
+            "policy_link": "refund"
+          }
+        },
+        "usage": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo se usa?",
+            "answer": "<p>Colócalo alrededor de la zona donde quieras sentir calor, ajusta la correa a tu medida y elige el nivel que te resulte cómodo. Consulta el manual incluido antes del primer uso.</p>",
+            "policy_link": "none"
+          }
+        },
+        "charging": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo se carga?",
+            "answer": "<p>Incluye un cable de carga. Sigue las indicaciones del manual para cargarlo correctamente.</p>",
+            "policy_link": "none"
+          }
         }
       },
       "block_order": [
-        "contact_form_UwiCkQ"
+        "shipping",
+        "returns",
+        "usage",
+        "charging"
       ],
-      "name": "t:names.contact_form",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 32,
-        "padding-block-end": 84
+        "heading": "Antes de escribirnos",
+        "subheading": "Quizá tu respuesta ya esté aquí."
       }
     }
   },
   "order": [
-    "main",
-    "form"
+    "aunelya_contact",
+    "aunelya_faq"
   ]
 }

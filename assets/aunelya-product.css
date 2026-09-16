@@ -203,13 +203,12 @@
   color: var(--aunelya-ink);
 }
 
-/* Disclosures (description + FAQ) */
+/* Product description disclosure (toggle icon shared from aunelya-home.css) */
 .aunelya-pdp-description {
   border-block: 1px solid var(--aunelya-line);
 }
 
-.aunelya-pdp-description__summary,
-.aunelya-faq-item__question {
+.aunelya-pdp-description__summary {
   display: flex;
   min-height: 3.5rem;
   align-items: center;
@@ -220,35 +219,8 @@
   list-style: none;
 }
 
-.aunelya-pdp-description__summary::-webkit-details-marker,
-.aunelya-faq-item__question::-webkit-details-marker {
+.aunelya-pdp-description__summary::-webkit-details-marker {
   display: none;
-}
-
-.aunelya-faq-item__toggle {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
-}
-
-.aunelya-faq-item__toggle::before,
-.aunelya-faq-item__toggle::after {
-  position: absolute;
-  inset: 50% 0 auto;
-  height: 1.5px;
-  border-radius: 1px;
-  background: currentColor;
-  content: '';
-  transition: transform 240ms ease;
-}
-
-.aunelya-faq-item__toggle::after {
-  transform: rotate(90deg);
-}
-
-details[open] > summary .aunelya-faq-item__toggle::after {
-  transform: rotate(0deg);
 }
 
 .aunelya-pdp-description__content {
@@ -356,65 +328,13 @@ sticky-add-to-cart .sticky-add-to-cart__button {
   color: #bd7e78;
 }
 
-.aunelya-pdp-faq {
-  background: var(--aunelya-white);
-}
-
-.aunelya-pdp-faq__layout {
-  display: grid;
-  align-items: start;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(2rem, 6vw, 6rem);
-}
-
-.aunelya-pdp-faq__list {
-  border-block-start: 1px solid var(--aunelya-line);
-}
-
-.aunelya-faq-item {
-  border-block-end: 1px solid var(--aunelya-line);
-}
-
-.aunelya-faq-item__question {
-  min-height: 4.5rem;
-  font-size: clamp(1rem, 1.2vw, 1.12rem);
-  letter-spacing: -0.01em;
-}
-
-.aunelya-faq-item__answer {
-  max-width: 40rem;
-  padding-block-end: 1.5rem;
-  color: var(--aunelya-muted);
-  line-height: 1.6;
-}
-
-.aunelya-faq-item__answer p {
-  margin: 0;
-}
-
-.aunelya-faq-item__answer p + p {
-  margin-top: 0.75rem;
-}
-
-.aunelya-faq-item__link {
-  color: var(--aunelya-ink);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.aunelya-faq-item__link:hover {
-  text-decoration: underline;
-}
-
-.aunelya-pdp-description__summary:focus-visible,
-.aunelya-faq-item__question:focus-visible {
+.aunelya-pdp-description__summary:focus-visible {
   outline: 2px solid var(--aunelya-ink);
   outline-offset: 4px;
 }
 
 @media (max-width: 989px) {
-  .aunelya-pdp-included__layout,
-  .aunelya-pdp-faq__layout {
+  .aunelya-pdp-included__layout {
     grid-template-columns: 1fr;
   }
 }
@@ -427,8 +347,6 @@ sticky-add-to-cart .sticky-add-to-cart__button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aunelya-faq-item__toggle::before,
-  .aunelya-faq-item__toggle::after,
   .product-details .add-to-cart-button,
   .product-information__media .slideshow-controls__thumbnail {
     transition: none;

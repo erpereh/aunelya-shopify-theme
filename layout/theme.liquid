@@ -24,7 +24,15 @@
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
 
-    {% if template.name == 'index' or template.name == 'product' %}
+    {% liquid
+      assign aunelya_styles = false
+      if template.name == 'index' or template.name == 'product'
+        assign aunelya_styles = true
+      elsif template.name == 'page' and template.suffix == 'contact'
+        assign aunelya_styles = true
+      endif
+    %}
+    {% if aunelya_styles %}
       {{ 'aunelya-home.css' | asset_url | stylesheet_tag }}
     {% endif %}
     {% if template.name == 'product' %}

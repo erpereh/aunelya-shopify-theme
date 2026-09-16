@@ -1,0 +1,229 @@
+{% liquid
+  assign form_id = 'AunelyaContact-' | append: section.id
+%}
+
+<section class="aunelya-home-section aunelya-contact aunelya-section-space" aria-labelledby="AunelyaContactTitle-{{ section.id }}">
+  <div class="aunelya-shell aunelya-contact__layout">
+    <div class="aunelya-contact__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="aunelya-contact__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h1 id="AunelyaContactTitle-{{ section.id }}" class="aunelya-contact__title">{{ section.settings.heading }}</h1>
+      {% if section.settings.subheading != blank %}
+        <p class="aunelya-section-copy">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+      {% if section.settings.show_page_content and page.content != blank %}
+        <div class="aunelya-contact__page-content rte">{{ page.content }}</div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <ul class="aunelya-contact__topics" role="list">
+          {% for block in section.blocks %}
+            {% liquid
+              assign topic_link = block.settings.link
+              assign topic_link_label = block.settings.link_label
+              if topic_link == blank
+                assign policy = blank
+                case block.settings.icon
+                  when 'returns'
+                    assign policy = shop.refund_policy
+                  when 'shipping'
+                    assign policy = shop.shipping_policy
+                endcase
+                if policy != blank
+                  assign topic_link = policy.url
+                  assign topic_link_label = policy.title
+                endif
+              endif
+            %}
+            <li class="aunelya-contact__topic" {{ block.shopify_attributes }}>
+              {% render 'aunelya-icon', icon: block.settings.icon, class: 'aunelya-icon aunelya-contact__topic-icon' %}
+              <div>
+                <p class="aunelya-contact__topic-title">{{ block.settings.title }}</p>
+                {% if block.settings.text != blank %}
+                  <p class="aunelya-contact__topic-text">{{ block.settings.text }}</p>
+                {% endif %}
+                {% if topic_link != blank and topic_link_label != blank %}
+                  <a class="aunelya-contact__topic-link" href="{{ topic_link }}">
+                    {{ topic_link_label }} <span aria-hidden="true">&rarr;</span>
+                  </a>
+                {% endif %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="aunelya-contact__panel">
+      {%- form 'contact', id: form_id, class: 'aunelya-contact__form' -%}
+        <input type="hidden" name="contact[id]" value="{{ form_id }}">
+
+        {% liquid
+          assign form_matches = false
+          if form.id == form_id or form.id == blank
+            assign form_matches = true
+          endif
+        %}
+
+        {%- if form.posted_successfully? and form_matches -%}
+          <div class="aunelya-contact__status aunelya-contact__status--success" role="status" tabindex="-1" autofocus>
+            {% render 'aunelya-icon', icon: 'check', class: 'aunelya-icon aunelya-contact__status-icon' %}
+            <span>
+              {%- if section.settings.success_message != blank -%}
+                {{ section.settings.success_message }}
+              {%- else -%}
+                {{ 'blocks.contact_form.post_success' | t }}
+              {%- endif -%}
+            </span>
+          </div>
+        {%- elsif form.errors and form_matches -%}
+          <div class="aunelya-contact__status aunelya-contact__status--error" role="alert" tabindex="-1" autofocus>
+            <span>{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</span>
+          </div>
+        {%- endif -%}
+
+        <div class="aunelya-contact__row">
+          <div class="aunelya-field">
+            <label class="aunelya-field__label" for="{{ form_id }}-name">{{ 'blocks.contact_form.name' | t }}</label>
+            <input
+              class="aunelya-field__input"
+              type="text"
+              id="{{ form_id }}-name"
+              name="contact[name]"
+              autocomplete="name"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            >
+          </div>
+
+          <div class="aunelya-field">
+            <label class="aunelya-field__label" for="{{ form_id }}-email">
+              {{- 'blocks.contact_form.email' | t }} <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="aunelya-field__input"
+              type="email"
+              id="{{ form_id }}-email"
+              name="contact[email]"
+              autocomplete="email"
+              spellcheck="false"
+              autocapitalize="off"
+              required
+              aria-required="true"
+              {% if form.errors contains 'email' and form_matches %}
+                aria-invalid="true"
+              {% endif %}
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            >
+          </div>
+        </div>
+
+        <div class="aunelya-contact__row">
+          <div class="aunelya-field">
+            <label class="aunelya-field__label" for="{{ form_id }}-phone">
+              {{- 'blocks.contact_form.phone' | t }} <span class="aunelya-field__optional">{{ section.settings.optional_label }}</span>
+            </label>
+            <input
+              class="aunelya-field__input"
+              type="tel"
+              id="{{ form_id }}-phone"
+              name="contact[phone]"
+              autocomplete="tel"
+              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            >
+          </div>
+
+          {% if section.settings.topics != blank %}
+            {% assign topics = section.settings.topics | newline_to_br | split: '<br />' %}
+            <div class="aunelya-field">
+              <label class="aunelya-field__label" for="{{ form_id }}-topic">{{ section.settings.topic_label }}</label>
+              <div class="aunelya-field__select">
+                <select class="aunelya-field__input" id="{{ form_id }}-topic" name="contact[{{ section.settings.topic_label | escape }}]">
+                  {% for topic in topics %}
+                    {% assign topic_value = topic | strip %}
+                    {% if topic_value != blank %}
+                      <option value="{{ topic_value | escape }}">{{ topic_value }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="aunelya-field">
+          <label class="aunelya-field__label" for="{{ form_id }}-body">{{ section.settings.message_label }}</label>
+          <textarea
+            class="aunelya-field__input aunelya-field__input--textarea"
+            id="{{ form_id }}-body"
+            name="contact[body]"
+            rows="6"
+          >{{- form.body -}}</textarea>
+        </div>
+
+        <div class="aunelya-contact__actions">
+          <button type="submit" class="aunelya-button aunelya-contact__submit">{{ section.settings.submit_label }}</button>
+          {% if section.settings.note != blank %}
+            <p class="aunelya-contact__note">{{ section.settings.note }}</p>
+          {% endif %}
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aunelya contacto",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Contacto" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Estamos para ayudarte." },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Escríbenos sobre tu pedido, el uso del producto o cualquier duda. Te responderemos por correo." },
+    { "type": "checkbox", "id": "show_page_content", "label": "Mostrar el contenido de la página", "default": true },
+    { "type": "header", "content": "Formulario" },
+    { "type": "text", "id": "topic_label", "label": "Etiqueta del motivo", "default": "Motivo" },
+    { "type": "textarea", "id": "topics", "label": "Motivos", "info": "Uno por línea. Déjalo vacío para ocultar el selector.", "default": "Mi pedido\nEnvíos\nUso del producto\nDevoluciones\nOtro" },
+    { "type": "text", "id": "optional_label", "label": "Texto de campo opcional", "default": "(opcional)" },
+    { "type": "text", "id": "message_label", "label": "Etiqueta del mensaje", "default": "Mensaje" },
+    { "type": "text", "id": "submit_label", "label": "Texto del botón", "default": "Enviar mensaje" },
+    { "type": "text", "id": "success_message", "label": "Mensaje de envío correcto", "info": "Si se deja vacío se usa el mensaje del tema." },
+    { "type": "text", "id": "note", "label": "Nota bajo el botón", "default": "Usaremos tus datos sólo para responder a tu mensaje." }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Tema de ayuda",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icono",
+          "options": [
+            { "value": "shipping", "label": "Envío" },
+            { "value": "returns", "label": "Devoluciones" },
+            { "value": "secure", "label": "Compra segura" },
+            { "value": "support", "label": "Atención" }
+          ],
+          "default": "support"
+        },
+        { "type": "text", "id": "title", "label": "Título", "default": "Atención al cliente" },
+        { "type": "text", "id": "text", "label": "Texto" },
+        { "type": "url", "id": "link", "label": "Enlace" },
+        { "type": "text", "id": "link_label", "label": "Texto del enlace", "info": "Sin enlace, los temas de envío y devoluciones enlazan a su política si está publicada." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aunelya contacto",
+      "blocks": [
+        { "type": "topic", "settings": { "icon": "shipping", "title": "Pedidos y envíos", "text": "Cuéntanos tu número de pedido para ayudarte más rápido." } },
+        { "type": "topic", "settings": { "icon": "returns", "title": "Devoluciones", "text": "Consulta las condiciones en nuestra política de reembolso." } },
+        { "type": "topic", "settings": { "icon": "support", "title": "Uso del producto", "text": "Resolvemos tus dudas sobre calor, vibración y carga." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

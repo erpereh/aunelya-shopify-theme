@@ -146,3 +146,22 @@ test('the product page never hardcodes product data or unsupported claims', () =
   assert.doesNotMatch(runtime, /\bcura\b|tratamiento|elimina (el )?dolor|medicaci[oó]n|best ?seller|estrellas|rese[nñ]as|\d+\s*°|\d+\s*(horas|minutos|d[ií]as)/i);
   assert.doesNotMatch(runtime, /aunelya-ref-/i);
 });
+
+test('the contact page uses the native Shopify contact form in the Aunelya style', () => {
+  const template = parseThemeJson('templates/page.contact.json');
+  assert.deepEqual(template.order.map((id) => template.sections[id].type), ['aunelya-contact', 'aunelya-faq']);
+
+  const section = read('sections/aunelya-contact.liquid');
+  assert.match(section, /\{%-?\s*form 'contact'/);
+  assert.match(section, /name="contact\[email\]"/);
+  assert.match(section, /name="contact\[body\]"/);
+  assert.match(section, /form\.posted_successfully\?/);
+
+  const layout = read('layout/theme.liquid');
+  assert.match(layout, /template\.suffix == 'contact'/);
+});
+
+test('the contact page avoids invented contact details and response times', () => {
+  const runtime = [read('sections/aunelya-contact.liquid'), read('templates/page.contact.json')].join('\n');
+  assert.doesNotMatch(runtime, /@[a-z0-9-]+\.[a-z]{2,}|\+?\d[\d\s-]{7,}|\d+\s*(horas|minutos|d[ií]as)|24\s*\/\s*7|whatsapp/i);
+});
