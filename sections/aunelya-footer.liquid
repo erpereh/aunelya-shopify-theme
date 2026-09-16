@@ -26,22 +26,14 @@
         {% if section.settings.text != blank %}
           <p class="aunelya-final__text">{{ section.settings.text }}</p>
         {% endif %}
-        {% if featured_product != blank and section.settings.cta_label != blank %}
-          <a class="aunelya-button" href="{{ featured_product.url }}">{{ section.settings.cta_label }}</a>
-        {% endif %}
       </div>
 
-      <div class="aunelya-footer__media">
-        {% render 'aunelya-image',
-          image: section.settings.image,
-          asset_name: 'aunelya-footer-lifestyle.webp',
-          alt: section.settings.image_alt,
-          class: 'aunelya-footer__image',
-          width: 800,
-          height: 1000,
-          sizes: '(min-width: 768px) 30vw, 90vw'
-        %}
-      </div>
+      {% if featured_product != blank and section.settings.cta_label != blank %}
+        <a class="aunelya-button aunelya-footer__cta" href="{{ featured_product.url }}">
+          <span>{{ section.settings.cta_label }}</span>
+          <span class="aunelya-footer__cta-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      {% endif %}
     </div>
 
     {% if section.blocks.size > 0 %}
@@ -130,8 +122,6 @@
     { "type": "text", "id": "text", "label": "Texto", "default": "Bienestar y comodidad para cada momento del día." },
     { "type": "text", "id": "cta_label", "label": "Texto del botón", "default": "Comprar ahora" },
     { "type": "image_picker", "id": "background_image", "label": "Fondo alternativo" },
-    { "type": "image_picker", "id": "image", "label": "Imagen alternativa" },
-    { "type": "text", "id": "image_alt", "label": "Texto alternativo", "default": "Mujer leyendo en casa con el cinturón térmico Aunelya rosa" },
     { "type": "header", "content": "Navegación" },
     { "type": "text", "id": "nav_label", "label": "Etiqueta accesible de la navegación", "default": "Pie de página" },
     { "type": "header", "content": "Redes sociales" },
