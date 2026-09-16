@@ -501,7 +501,7 @@
       },
       "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"],
       "settings": {
-        "eyebrow": "Valoraciones",
+        "eyebrow": "",
         "heading": "Lo que dicen quienes ya lo usan",
         "count_prefix": "Basado en",
         "count_singular": "valoración",
@@ -516,7 +516,7 @@
       "type": "aunelya-review-form",
       "settings": {
         "anchor_id": "aunelya-review-form",
-        "eyebrow": "Tu opinión",
+        "eyebrow": "",
         "heading": "Comparte tu experiencia",
         "subheading": "Cuéntanos cómo te acompaña tu Aunelya. La publicamos de forma anónima tras revisarla.",
         "step_1": "Escríbela aquí, tarda 1 minuto.",
