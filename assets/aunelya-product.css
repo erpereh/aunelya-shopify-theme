@@ -39,11 +39,26 @@
   position: static;
 }
 
-/* Horizon sizes the gallery from the live header height, which changes once the
-   sticky header kicks in. Use a fixed offset so the image never resizes on scroll. */
-@media screen and (min-width: 750px) {
-  .product-information .product-media-container.constrain-height {
-    --viewport-offset: 160px;
+/* Landscape frame: the belt is wide, so a 4:3 stage keeps it large and centred
+   and leaves the thumbnails visible below it */
+.product-information slideshow-slide.product-media-container {
+  --gallery-aspect-ratio: 4 / 3;
+}
+
+.product-information .product-media-container .product-media__image {
+  object-fit: contain;
+  object-position: center;
+}
+
+.product-information media-gallery slideshow-controls[thumbnails] {
+  --thumbnail-width: 5.25rem;
+
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 749px) {
+  .product-information media-gallery slideshow-controls[thumbnails] {
+    --thumbnail-width: 3.75rem;
   }
 }
 
@@ -53,9 +68,18 @@
 }
 
 .product-information__media .slideshow-controls__thumbnail {
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 14px;
   background: var(--aunelya-pdp-media-bg);
-  opacity: 0.55;
-  transition: opacity 200ms ease;
+  opacity: 0.6;
+  transition:
+    opacity 200ms ease,
+    border-color 200ms ease;
+}
+
+.product-information__media .slideshow-controls__thumbnail[aria-selected='true'] {
+  border-color: var(--aunelya-ink);
 }
 
 .product-information__media .slideshow-controls__thumbnail:hover,
