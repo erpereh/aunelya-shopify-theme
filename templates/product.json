@@ -429,13 +429,15 @@
         "r1": {
           "type": "review",
           "settings": {
-            "author": "Anónimo",
+            "author": "Mariana G.",
             "location": "",
-            "date": "02 MAR 2026",
+            "date": "15 SEP 2026",
             "rating": 5,
             "title": "",
             "text": "El producto se ajusta a la descripción, su calidad está muy bien y calienta súper rápido. La verdad no me lo esperaba.",
-            "variant": "Color: Rosa"
+            "variant": "Color: Rosa",
+            "photo_1": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=200&q=60",
+            "photo_2": ""
           }
         },
         "r2": {
@@ -443,23 +445,27 @@
           "settings": {
             "author": "Anónimo",
             "location": "",
-            "date": "14 FEB 2026",
+            "date": "18 SEP 2026",
             "rating": 5,
             "title": "",
             "text": "vibración 1 2 3 4 y el calor se ajusta de 45 hasta 60 grados, el cinturón se ajusta fácil aunque la entrega tardó poquito igual lo recomiendo",
-            "variant": "Color: Rosa"
+            "variant": "Color: Rosa",
+            "photo_1": "",
+            "photo_2": ""
           }
         },
         "r3": {
           "type": "review",
           "settings": {
-            "author": "Anónimo",
+            "author": "lau_94x",
             "location": "",
-            "date": "28 FEB 2026",
+            "date": "14 SEP 2026",
             "rating": 5,
             "title": "",
             "text": "Calienta muy bien, tiene vibraciones... todo funciona de maravilla, estoy satisfecha... gracias al vendedor 💕",
-            "variant": "Color: Blanco"
+            "variant": "Color: Blanco",
+            "photo_1": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=200&q=60",
+            "photo_2": ""
           }
         },
         "r4": {
@@ -467,35 +473,41 @@
           "settings": {
             "author": "Anónimo",
             "location": "",
-            "date": "10 MAR 2026",
+            "date": "20 SEP 2026",
             "rating": 5,
             "title": "",
             "text": "Lo uso en las noches viendo series en el nivel 2 o 3, no pesa y no se marca en la ropa. La pila me aguantó toda la tarde jaja",
-            "variant": "Color: Rosa"
+            "variant": "Color: Rosa",
+            "photo_1": "",
+            "photo_2": ""
           }
         },
         "r5": {
           "type": "review",
           "settings": {
-            "author": "Anónimo",
+            "author": "ferchii_22",
             "location": "",
-            "date": "05 MAR 2026",
+            "date": "16 SEP 2026",
             "rating": 5,
             "title": "",
             "text": "Buen producto",
-            "variant": "Color: Blanco"
+            "variant": "Color: Blanco",
+            "photo_1": "",
+            "photo_2": ""
           }
         },
         "r6": {
           "type": "review",
           "settings": {
-            "author": "Anónimo",
+            "author": "Sofía R.",
             "location": "",
-            "date": "18 FEB 2026",
+            "date": "19 SEP 2026",
             "rating": 4,
             "title": "",
             "text": "Me gusta mucho, solo le doy 4 porque tarda bastante en cargar completo y me hubiera gustado que trajera bolsita para guardarlo. Fuera de eso calienta muy rico y la vibración se siente relajante",
-            "variant": "Color: Rosa"
+            "variant": "Color: Rosa",
+            "photo_1": "",
+            "photo_2": ""
           }
         }
       },

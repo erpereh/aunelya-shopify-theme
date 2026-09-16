@@ -250,13 +250,25 @@ test('product ratings render curated anonymous reviews averaging 4.8 with manual
   assert.equal(blocks.length, 6, 'expected 6 curated review blocks');
 
   let total = 0;
+  let anonymous = 0;
+  let named = 0;
+  let withPhoto = 0;
   for (const block of blocks) {
-    assert.equal(block.settings.author, 'Anónimo');
-    assert.match(block.settings.date, /\d{2} [A-Z]{3} \d{4}/);
+    assert.ok(block.settings.author.length > 0, 'review author is missing');
+    if (/^anónimo$/i.test(block.settings.author.trim())) {
+      anonymous += 1;
+    } else {
+      named += 1;
+    }
+    assert.match(block.settings.date, /(14|15|16|17|18|19|20) SEP 2026/);
     assert.match(block.settings.variant, /^Color: (Rosa|Blanco)$/);
     assert.ok(block.settings.text.length > 5, 'review text is missing');
+    if (block.settings.photo_1) withPhoto += 1;
     total += block.settings.rating;
   }
+  assert.ok(anonymous >= 2, `expected at least 2 anonymous reviews, got ${anonymous}`);
+  assert.ok(named >= 2, `expected at least 2 named reviews, got ${named}`);
+  assert.equal(withPhoto, 2, `expected 2 reviews with photos, got ${withPhoto}`);
   const average = Math.round((total / blocks.length) * 10) / 10;
   assert.equal(average, 4.8, `expected 4.8 average, got ${average}`);
 
@@ -281,6 +293,8 @@ test('product ratings render curated anonymous reviews averaging 4.8 with manual
   assert.match(section, /metafields\.reviews\.rating_count/);
   assert.match(section, /"type": "@app"/);
   assert.match(section, /aunelya-reviews-pdp__empty/);
+  assert.match(section, /photo_1/);
+  assert.match(section, /aunelya-review-card__photos/);
   assert.doesNotMatch(section, /"presets": \[\s*\{[^\]]*"blocks"/);
 
   // Curated test reviews must stay free of medical promises.
