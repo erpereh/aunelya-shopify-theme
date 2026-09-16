@@ -69,6 +69,7 @@
             "option_value": "Rosa",
             "fallback_price": "MX$799",
             "asset_key": "pink",
+            "image": "shopify://shop_images/aunelya-rosa-01-frontal.webp",
             "image_alt": "",
             "swatch_color": "#e9b8b5"
           }
@@ -80,6 +81,7 @@
             "option_value": "Blanco",
             "fallback_price": "MX$799",
             "asset_key": "white",
+            "image": "shopify://shop_images/aunelya-blanco-01-frontal.webp",
             "image_alt": "",
             "swatch_color": "#f7f7f5"
           }
@@ -144,6 +146,7 @@
       ],
       "settings": {
         "heading": "Bienestar en tu rutina",
+        "subheading": "",
         "main_label": "A tu ritmo",
         "main_image_alt": "Mujer usando el cinturón térmico Aunelya en su rutina"
       }
