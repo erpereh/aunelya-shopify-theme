@@ -48,6 +48,11 @@
             assign variant_link = featured_product.url
           endif
 
+          assign option_tag = 'div'
+          if variant_link != blank
+            assign option_tag = 'a'
+          endif
+
           if block.settings.asset_key == 'white'
             assign asset_name = 'aunelya-product-white.webp'
             assign default_alt = 'Cinturón térmico Aunelya blanco'
@@ -57,10 +62,6 @@
           endif
 
           assign image_alt = block.settings.image_alt | default: default_alt
-          assign option_tag = 'div'
-          if variant_link != blank
-            assign option_tag = 'a'
-          endif
         %}
 
         <article
@@ -98,12 +99,10 @@
                   {{ block.settings.fallback_price }}
                 {% endif %}
               </span>
-              {% if variant_link != blank or request.design_mode %}
-                <span class="aunelya-color-option__cta">
-                  <span class="aunelya-color-option__cta-label">{{ section.settings.cta_label }}</span>
-                  <span class="aunelya-color-option__arrow" aria-hidden="true">&rarr;</span>
-                </span>
-              {% endif %}
+              <span class="aunelya-color-option__cta">
+                <span class="aunelya-color-option__cta-label">{{ section.settings.cta_label }}</span>
+                <span class="aunelya-color-option__arrow" aria-hidden="true">&rarr;</span>
+              </span>
             </div>
           </{{ option_tag }}>
         </article>
@@ -137,7 +136,7 @@
       "type": "text",
       "id": "cta_label",
       "label": "Texto del enlace",
-      "default": "Ver producto"
+      "default": "Ir al producto"
     }
   ],
   "max_blocks": 2,

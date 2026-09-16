@@ -112,7 +112,9 @@ test('the color section links whole cards and no longer renders what is included
   assert.doesNotMatch(JSON.stringify(showcase), /included_/);
   assert.match(productSection, /aunelya-color-option__cta/);
   assert.match(productSection, /featured_product\.url/);
-  assert.equal(showcase.settings.cta_label, 'Ver producto');
+  assert.equal(showcase.settings.cta_label, 'Ir al producto');
+  assert.equal(showcase.settings.product, 'cinturon-termico-aunelya');
+  assert.doesNotMatch(productSection, /all_products_collection_url/);
 });
 
 const pdpSectionTypes = ['product-information', 'aunelya-technology', 'aunelya-lifestyle', 'aunelya-included', 'aunelya-faq'];
