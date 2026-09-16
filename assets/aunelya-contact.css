@@ -35,13 +35,6 @@
   text-transform: uppercase;
 }
 
-.aunelya-contact__eyebrow::before {
-  width: 2rem;
-  height: 1px;
-  background: currentColor;
-  content: '';
-}
-
 .aunelya-contact__title {
   margin: 0;
   font-family: var(--font-heading--family);
