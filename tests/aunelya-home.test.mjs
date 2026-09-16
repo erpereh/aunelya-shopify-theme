@@ -186,3 +186,24 @@ test('shared sections used by home and PDP avoid medical, review and urgency cla
 
   assert.doesNotMatch(runtime, /\bcura\b|tratamiento|elimina (el )?dolor|medicaci[oó]n|best ?seller|estrellas|[uú]ltimas unidades|stock bajo|descuento/i);
 });
+
+test('the footer uses the Aunelya section with real store links only', () => {
+  const group = parseThemeJson('sections/footer-group.json');
+  const types = group.order.map((id) => group.sections[id].type);
+  assert.deepEqual(types, ['aunelya-footer']);
+
+  const footer = group.sections[group.order[0]];
+  const serialized = JSON.stringify(footer);
+  assert.doesNotMatch(serialized, /collections\/all|https?:\/\//i);
+  assert.match(serialized, /shopify:\/\/pages\/contact/);
+
+  const section = read('sections/aunelya-footer.liquid');
+  assert.match(section, /shop\.policies/);
+  assert.match(section, /variant\.url/);
+  assert.match(section, /routes\.cart_url/);
+  assert.doesNotMatch(section, /t[ée]rminos|\/pages\/(?!contact)|collections\/all|href="https?:/i);
+
+  const layout = read('layout/theme.liquid');
+  assert.match(layout, /aunelya-tokens\.css/);
+  assert.match(layout, /aunelya-footer\.css/);
+});

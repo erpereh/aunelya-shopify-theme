@@ -11,90 +11,58 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
-    "footer_aunelya": {
-      "type": "footer",
+    "aunelya_footer": {
+      "type": "aunelya-footer",
       "blocks": {
-        "brand": {
-          "type": "logo",
+        "product": {
+          "type": "product",
           "settings": {
-            "inverse": false,
-            "unit": "pixel",
-            "pixel_height": 32,
-            "custom_mobile_size": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "heading": "Producto"
+          }
         },
-        "links": {
-          "type": "menu",
+        "help": {
+          "type": "links",
           "settings": {
-            "menu": "footer",
-            "heading": "Aunelya",
-            "menu_spacing": 10,
-            "show_as_accordion": false,
-            "accordion_icon": "plus",
-            "accordion_dividers": false,
-            "heading_preset": "h6",
-            "link_preset": "paragraph",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "heading": "Ayuda",
+            "label_1": "Contacto",
+            "link_1": "shopify://pages/contact",
+            "label_2": "Buscar",
+            "link_2": "/search",
+            "label_3": "",
+            "link_3": "",
+            "label_4": "",
+            "link_4": "",
+            "label_5": "",
+            "link_5": ""
+          }
         },
-        "social": {
-          "type": "social-links",
-          "settings": {},
-          "blocks": {}
+        "account": {
+          "type": "account",
+          "settings": {
+            "heading": "Tu cuenta",
+            "account_label": "Mi cuenta",
+            "cart_label": "Carrito"
+          }
+        },
+        "legal": {
+          "type": "policies",
+          "settings": {
+            "heading": "Legal"
+          }
         }
       },
-      "block_order": ["brand", "links", "social"],
-      "name": "t:names.footer",
+      "block_order": ["product", "help", "account", "legal"],
       "settings": {
-        "section_width": "page-width",
-        "gap": 32,
-        "background_color": "#ffffff",
-        "padding-block-start": 56,
-        "padding-block-end": 32
-      }
-    },
-    "footer_utilities": {
-      "type": "footer-utilities",
-      "blocks": {
-        "copyright": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": false,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "policies": {
-          "type": "footer-policy-list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": ["copyright", "policies"],
-      "name": "t:names.utilities",
-      "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 1,
-        "divider_color": "#e8e0d9",
-        "background_color": "#ffffff",
-        "padding-block-start": 20,
-        "padding-block-end": 36
+        "tagline": "Comodidad que se adapta a ti.",
+        "product": "cinturon-termico-aunelya",
+        "cta_label": "Comprar ahora",
+        "nav_label": "Pie de página",
+        "instagram_url": "",
+        "tiktok_url": "",
+        "facebook_url": "",
+        "youtube_url": ""
       }
     }
   },
-  "order": ["footer_aunelya", "footer_utilities"]
+  "order": ["aunelya_footer"]
 }

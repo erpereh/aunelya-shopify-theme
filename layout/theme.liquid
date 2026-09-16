@@ -24,6 +24,9 @@
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
 
+    {{ 'aunelya-tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'aunelya-footer.css' | asset_url | stylesheet_tag }}
+
     {% liquid
       assign aunelya_styles = false
       if template.name == 'index' or template.name == 'product'

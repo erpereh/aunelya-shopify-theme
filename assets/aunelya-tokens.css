@@ -1,0 +1,14 @@
+/* Aunelya design tokens. Loaded on every template. */
+
+:root {
+  --aunelya-ink: #171717;
+  --aunelya-muted: #706963;
+  --aunelya-cream: #f7f3ee;
+  --aunelya-blush: #ead0cc;
+  --aunelya-blush-soft: #f5e7e4;
+  --aunelya-line: #e8e0d9;
+  --aunelya-white: #ffffff;
+  --aunelya-radius: clamp(1.25rem, 1rem + 0.8vw, 2rem);
+  --aunelya-section-gap: clamp(4rem, 7vw, 7.5rem);
+  --aunelya-page: min(1440px, calc(100vw - clamp(1.25rem, 4vw, 4rem)));
+}
