@@ -981,11 +981,67 @@ sticky-add-to-cart .sticky-add-to-cart__button {
 }
 
 .aunelya-review-form__panel .aunelya-contact__submit {
+  align-items: center;
+  gap: 0.75rem;
   min-height: 3.5rem;
   padding-inline: 1.75rem;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+.aunelya-review-form__panel .aunelya-contact__submit:active {
+  transform: scale(0.98);
+}
+
+.aunelya-review-form__panel .aunelya-contact__submit-arrow {
+  display: inline-block;
+}
+
+.aunelya-review-form__panel .aunelya-contact__spinner {
+  display: none;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgb(255 255 255 / 0.35);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: aunelya-review-form-spin 700ms linear infinite;
+}
+
+.aunelya-review-form__panel .aunelya-contact__submit[aria-busy='true'] {
+  pointer-events: none;
+}
+
+.aunelya-review-form__panel .aunelya-contact__submit[aria-busy='true'] .aunelya-contact__submit-label {
+  opacity: 0.7;
+}
+
+.aunelya-review-form__panel .aunelya-contact__submit[aria-busy='true'] .aunelya-contact__submit-arrow {
+  display: none;
+}
+
+.aunelya-review-form__panel .aunelya-contact__submit[aria-busy='true'] .aunelya-contact__spinner {
+  display: inline-block;
+}
+
+@keyframes aunelya-review-form-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (hover: hover) {
+  .aunelya-review-form__panel .aunelya-contact__submit:hover .aunelya-contact__submit-arrow {
+    transform: translateX(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aunelya-review-form__panel .aunelya-contact__submit-arrow,
+  .aunelya-review-form__panel .aunelya-contact__spinner {
+    animation: none;
+    transition: none;
+  }
 }
 
 .aunelya-review-form__panel .aunelya-contact__note {
