@@ -3,16 +3,6 @@
   font-family: var(--font-body--family);
 }
 
-.header-logo {
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
-  font-weight: 700;
-  letter-spacing: -0.055em;
-}
-
-#header-group .header__row {
-  border-color: transparent;
-}
-
 .aunelya-shell {
   width: var(--aunelya-page);
   margin-inline: auto;

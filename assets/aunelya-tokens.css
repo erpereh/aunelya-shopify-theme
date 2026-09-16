@@ -13,6 +13,17 @@
   --aunelya-page: min(1440px, calc(100vw - clamp(1.25rem, 4vw, 4rem)));
 }
 
+/* Header */
+.header-logo {
+  font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+#header-group .header__row {
+  border-color: transparent;
+}
+
 .aunelya-button {
   display: inline-flex;
   min-height: 48px;
