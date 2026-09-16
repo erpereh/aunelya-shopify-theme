@@ -24,13 +24,17 @@
       <div class="aunelya-lifestyle__cards" role="list">
         {% for block in section.blocks %}
           {% liquid
+            assign asset_width = 1448
+            assign asset_height = 1086
             case block.settings.asset_key
               when 'movement'
                 assign asset_name = 'aunelya-lifestyle-movement.webp'
                 assign default_alt = 'Cinturón térmico Aunelya preparado para llevar'
               when 'routine'
-                assign asset_name = 'aunelya-lifestyle-routine.webp'
-                assign default_alt = 'Cinturón térmico Aunelya durante la rutina'
+                assign asset_name = 'aunelya-lifestyle-routine-bus.webp'
+                assign asset_width = 900
+                assign asset_height = 1125
+                assign default_alt = 'Mujer usando el cinturón térmico Aunelya rosa en el autobús'
               when 'when-needed'
                 assign asset_name = 'aunelya-lifestyle-when-needed.webp'
                 assign default_alt = 'Detalle del cinturón térmico Aunelya'
@@ -47,8 +51,8 @@
                 asset_name: asset_name,
                 alt: image_alt,
                 class: 'aunelya-lifestyle__image',
-                width: 1448,
-                height: 1086,
+                width: asset_width,
+                height: asset_height,
                 sizes: '(min-width: 768px) 24vw, 50vw'
               %}
               <span class="aunelya-lifestyle__label">{{ block.settings.label }}</span>

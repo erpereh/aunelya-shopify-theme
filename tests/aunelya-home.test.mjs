@@ -25,7 +25,7 @@ const productionAssets = [
   'aunelya-lifestyle-routine-main.webp',
   'aunelya-lifestyle-home.webp',
   'aunelya-lifestyle-movement.webp',
-  'aunelya-lifestyle-routine.webp',
+  'aunelya-lifestyle-routine-bus.webp',
   'aunelya-lifestyle-when-needed.webp',
   'aunelya-technology-product.webp',
 ];
