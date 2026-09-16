@@ -39,8 +39,10 @@
                 assign asset_name = 'aunelya-lifestyle-when-needed.webp'
                 assign default_alt = 'Detalle del cinturón térmico Aunelya'
               else
-                assign asset_name = 'aunelya-lifestyle-home.webp'
-                assign default_alt = 'Cinturón térmico Aunelya en casa'
+                assign asset_name = 'aunelya-lifestyle-home-reading.webp'
+                assign asset_width = 900
+                assign asset_height = 1125
+                assign default_alt = 'Mujer leyendo en casa con el cinturón térmico Aunelya rosa'
             endcase
             assign image_alt = block.settings.image_alt | default: default_alt
           %}
