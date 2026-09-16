@@ -15,7 +15,6 @@ const sectionTypes = [
   'aunelya-lifestyle',
   'aunelya-technology',
   'aunelya-reviews',
-  'aunelya-final-cta',
 ];
 
 const productionAssets = [
@@ -198,6 +197,10 @@ test('the footer uses the Aunelya section with real store links only', () => {
   assert.match(serialized, /shopify:\/\/pages\/contact/);
 
   const section = read('sections/aunelya-footer.liquid');
+  assert.match(section, /aunelya-final__panel/);
+  assert.match(section, /aunelya-image/);
+  assert.equal((section.match(/shop\.name/g) ?? []).length, 1, 'shop.name is only used in the copyright');
+  assert.match(read('assets/aunelya-tokens.css'), /\.aunelya-button \{/);
   assert.match(section, /shop\.policies/);
   assert.match(section, /variant\.url/);
   assert.match(section, /routes\.cart_url/);

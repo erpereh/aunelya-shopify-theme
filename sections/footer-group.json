@@ -53,9 +53,11 @@
       },
       "block_order": ["product", "help", "account", "legal"],
       "settings": {
-        "tagline": "Comodidad que se adapta a ti.",
         "product": "cinturon-termico-aunelya",
+        "heading": "Aunelya contigo, en tu rutina.",
+        "text": "Bienestar y comodidad para cada momento del día.",
         "cta_label": "Comprar ahora",
+        "image_alt": "Cinturón térmico Aunelya rosa",
         "nav_label": "Pie de página",
         "instagram_url": "",
         "tiktok_url": "",

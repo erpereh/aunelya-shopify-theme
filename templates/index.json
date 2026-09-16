@@ -197,15 +197,6 @@
         "enabled": false,
         "heading": "Opiniones"
       }
-    },
-    "aunelya_final": {
-      "type": "aunelya-final-cta",
-      "settings": {
-        "heading": "Aunelya contigo, en tu rutina.",
-        "text": "Bienestar y comodidad para cada momento del día.",
-        "cta_label": "Comprar ahora",
-        "cta_link": "#aunelya-shop"
-      }
     }
   },
   "order": [
@@ -214,7 +205,6 @@
     "aunelya_product",
     "aunelya_lifestyle",
     "aunelya_technology",
-    "aunelya_reviews",
-    "aunelya_final"
+    "aunelya_reviews"
   ]
 }

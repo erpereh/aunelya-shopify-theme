@@ -41,29 +41,6 @@
   line-height: 1.55;
 }
 
-.aunelya-button {
-  display: inline-flex;
-  min-height: 48px;
-  align-items: center;
-  justify-content: center;
-  padding: 0.8rem 1.5rem;
-  border: 1px solid var(--aunelya-ink);
-  border-radius: 999px;
-  background: var(--aunelya-ink);
-  color: var(--aunelya-white);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 180ms ease, background-color 180ms ease;
-}
-
-.aunelya-button:hover {
-  background: #302e2c;
-  color: var(--aunelya-white);
-  transform: translateY(-1px);
-}
-
-.aunelya-button:focus-visible,
 .aunelya-card-link:focus-visible,
 .aunelya-color-option__link:focus-visible {
   outline: 2px solid var(--aunelya-ink);
@@ -463,30 +440,6 @@ a.aunelya-color-option__link:focus-visible .aunelya-color-option__arrow {
 
 .aunelya-final {
   padding-block: clamp(2rem, 4vw, 4rem);
-}
-
-.aunelya-final__panel {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: clamp(2rem, 5vw, 5rem);
-  border-radius: var(--aunelya-radius);
-  background: var(--aunelya-blush-soft);
-}
-
-.aunelya-final__title {
-  margin: 0;
-  font-family: var(--font-heading--family);
-  font-size: clamp(2rem, 4vw, 4.25rem);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 1;
-}
-
-.aunelya-final__text {
-  margin: 0.75rem 0 0;
-  color: var(--aunelya-muted);
 }
 
 /* Shared FAQ (product and contact pages) */
@@ -925,11 +878,6 @@ details[open] > summary .aunelya-faq-item__toggle::after {
 
   .aunelya-reviews__grid {
     grid-template-columns: 1fr;
-  }
-
-  .aunelya-final__panel {
-    align-items: flex-start;
-    flex-direction: column;
   }
 }
 

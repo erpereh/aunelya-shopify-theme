@@ -6,26 +6,30 @@
 
 <div class="aunelya-footer">
   <div class="aunelya-footer__inner">
-    <div class="aunelya-footer__top">
-      <div class="aunelya-footer__brand">
-        <a class="aunelya-footer__wordmark" href="{{ routes.root_url }}">
-          {%- if settings.logo != blank -%}
-            {{ settings.logo | image_url: height: 64 | image_tag: height: 32, alt: shop.name, class: 'aunelya-footer__logo' }}
-          {%- else -%}
-            {{ shop.name }}
-          {%- endif -%}
-        </a>
-        {% if section.settings.tagline != blank %}
-          <p class="aunelya-footer__tagline">{{ section.settings.tagline }}</p>
+    <div class="aunelya-final__panel aunelya-footer__panel">
+      <div class="aunelya-footer__panel-content">
+        {% if section.settings.heading != blank %}
+          <h2 class="aunelya-final__title">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <p class="aunelya-final__text">{{ section.settings.text }}</p>
+        {% endif %}
+        {% if featured_product != blank and section.settings.cta_label != blank %}
+          <a class="aunelya-button" href="{{ featured_product.url }}">{{ section.settings.cta_label }}</a>
         {% endif %}
       </div>
 
-      {% if featured_product != blank and section.settings.cta_label != blank %}
-        <a class="aunelya-footer__cta" href="{{ featured_product.url }}">
-          <span class="aunelya-footer__cta-label">{{ section.settings.cta_label }}</span>
-          <span class="aunelya-footer__arrow" aria-hidden="true">&rarr;</span>
-        </a>
-      {% endif %}
+      <div class="aunelya-footer__media">
+        {% render 'aunelya-image',
+          image: section.settings.image,
+          asset_name: 'aunelya-product-pink.webp',
+          alt: section.settings.image_alt,
+          class: 'aunelya-footer__image',
+          width: 1254,
+          height: 1254,
+          sizes: '(min-width: 768px) 32vw, 80vw'
+        %}
+      </div>
     </div>
 
     {% if section.blocks.size > 0 %}
@@ -108,9 +112,14 @@
   "class": "aunelya-footer-section",
   "enabled_on": { "groups": ["footer"] },
   "settings": [
-    { "type": "text", "id": "tagline", "label": "Frase de marca", "default": "Comodidad que se adapta a ti." },
     { "type": "product", "id": "product", "label": "Producto principal" },
-    { "type": "text", "id": "cta_label", "label": "Texto del enlace principal", "default": "Comprar ahora" },
+    { "type": "header", "content": "Bloque de marca" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Aunelya contigo, en tu rutina." },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Bienestar y comodidad para cada momento del día." },
+    { "type": "text", "id": "cta_label", "label": "Texto del botón", "default": "Comprar ahora" },
+    { "type": "image_picker", "id": "image", "label": "Imagen alternativa" },
+    { "type": "text", "id": "image_alt", "label": "Texto alternativo", "default": "Cinturón térmico Aunelya rosa" },
+    { "type": "header", "content": "Navegación" },
     { "type": "text", "id": "nav_label", "label": "Etiqueta accesible de la navegación", "default": "Pie de página" },
     { "type": "header", "content": "Redes sociales" },
     { "type": "url", "id": "instagram_url", "label": "Instagram" },

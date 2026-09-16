@@ -1,4 +1,4 @@
-/* Aunelya design tokens. Loaded on every template. */
+/* Aunelya design tokens and shared primitives. Loaded on every template. */
 
 :root {
   --aunelya-ink: #171717;
@@ -11,4 +11,37 @@
   --aunelya-radius: clamp(1.25rem, 1rem + 0.8vw, 2rem);
   --aunelya-section-gap: clamp(4rem, 7vw, 7.5rem);
   --aunelya-page: min(1440px, calc(100vw - clamp(1.25rem, 4vw, 4rem)));
+}
+
+.aunelya-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--aunelya-ink);
+  border-radius: 999px;
+  background: var(--aunelya-ink);
+  color: var(--aunelya-white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.aunelya-button:hover {
+  background: #302e2c;
+  color: var(--aunelya-white);
+  transform: translateY(-1px);
+}
+
+.aunelya-button:focus-visible {
+  outline: 2px solid var(--aunelya-ink);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aunelya-button {
+    transition: none;
+  }
 }
