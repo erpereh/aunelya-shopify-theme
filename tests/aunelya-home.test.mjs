@@ -19,16 +19,16 @@ const sectionTypes = [
 
 const productionAssets = [
   'aunelya-hero-desktop.webp',
-  'aunelya-product-pink.webp',
-  'aunelya-product-white.webp',
-  'aunelya-whats-included.webp',
+  'aunelya-product-pink-kit.webp',
+  'aunelya-product-white-kit.webp',
+  'aunelya-product-pink-kit-alt.webp',
   'aunelya-lifestyle-routine-main.webp',
   'aunelya-lifestyle-home.webp',
   'aunelya-lifestyle-home-reading.webp',
   'aunelya-lifestyle-movement.webp',
   'aunelya-lifestyle-routine-bus.webp',
   'aunelya-lifestyle-when-needed.webp',
-  'aunelya-technology-product.webp',
+  'aunelya-product-white-kit-alt.webp',
 ];
 
 test('the home template contains the complete Aunelya sequence', () => {

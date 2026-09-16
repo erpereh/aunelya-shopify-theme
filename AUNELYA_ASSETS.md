@@ -5,15 +5,15 @@ The Aunelya-specific images used by the Shopify theme live flat under `assets/` 
 ## Production assets
 
 - `assets/aunelya-hero-desktop.webp` — main desktop hero image.
-- `assets/aunelya-product-pink.webp` — isolated pink product cutout.
-- `assets/aunelya-product-white.webp` — isolated white product cutout.
-- `assets/aunelya-whats-included.webp` — packaging / included-items composition.
+- `assets/aunelya-product-pink-kit.webp` — pink kit composition with transparent background.
+- `assets/aunelya-product-white-kit.webp` — white kit composition with transparent background.
+- `assets/aunelya-product-pink-kit-alt.webp` — alternate pink kit composition with transparent background.
 - `assets/aunelya-lifestyle-routine-main.webp` — large editorial lifestyle image.
 - `assets/aunelya-lifestyle-home.webp` — small lifestyle card: En casa.
 - `assets/aunelya-lifestyle-movement.webp` — small lifestyle card: En movimiento.
 - `assets/aunelya-lifestyle-routine.webp` — small lifestyle card: En tu rutina.
 - `assets/aunelya-lifestyle-when-needed.webp` — small lifestyle card: Cuando lo necesitas.
-- `assets/aunelya-technology-product.webp` — technology/features beauty shot.
+- `assets/aunelya-product-white-kit-alt.webp` — alternate white kit composition with transparent background.
 
 ## Design references
 
