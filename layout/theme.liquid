@@ -41,6 +41,9 @@
     {% if template.name == 'product' %}
       {{ 'aunelya-product.css' | asset_url | stylesheet_tag }}
     {% endif %}
+    {% if template.name == 'page' and template.suffix == 'contact' %}
+      {{ 'aunelya-contact.css' | asset_url | stylesheet_tag }}
+    {% endif %}
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}

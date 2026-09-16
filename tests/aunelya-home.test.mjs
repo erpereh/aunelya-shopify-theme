@@ -210,3 +210,22 @@ test('the footer uses the Aunelya section with real store links only', () => {
   assert.match(layout, /aunelya-tokens\.css/);
   assert.match(layout, /aunelya-footer\.css/);
 });
+
+test('the contact page renders an editorial hero, optional details and accessible form states', () => {
+  const section = read('sections/aunelya-contact.liquid');
+  assert.match(section, /aunelya-contact__hero/);
+  assert.match(section, /aunelya-lifestyle-home\.webp/);
+  assert.match(section, /section\.settings\.email != blank/);
+  assert.match(section, /aria-invalid="true"/);
+  assert.match(section, /aria-busy/);
+  assert.match(section, /aunelya-contact__success/);
+
+  const template = parseThemeJson('templates/page.contact.json');
+  const settings = template.sections.aunelya_contact.settings;
+  for (const key of ['email', 'phone', 'location', 'hours']) {
+    assert.equal(settings[key], '', `${key} must stay empty until the merchant fills it`);
+  }
+
+  const layout = read('layout/theme.liquid');
+  assert.match(layout, /aunelya-contact\.css/);
+});
