@@ -100,6 +100,11 @@
             {% when 'review' %}
               {% if block.settings.text != blank and block.settings.author != blank %}
                 {% liquid
+                  assign author_handle = block.settings.author | strip | downcase
+                  assign is_anonymous = false
+                  if author_handle == 'anónimo' or author_handle == 'anonimo' or author_handle == 'anonymous'
+                    assign is_anonymous = true
+                  endif
                   assign name_parts = block.settings.author | strip | split: ' '
                   assign initials = name_parts.first | slice: 0 | upcase
                   if name_parts.size > 1
@@ -107,17 +112,25 @@
                     assign initials = initials | append: last_initial
                   endif
                 %}
-                <article class="aunelya-review-card" role="listitem" {{ block.shopify_attributes }}>
+                <article class="aunelya-review-card{% if is_anonymous %} aunelya-review-card--anonymous{% endif %}" role="listitem" {{ block.shopify_attributes }}>
                   <header class="aunelya-review-card__header">
-                    <span class="aunelya-review-card__avatar" aria-hidden="true">{{ initials }}</span>
+                    {% if is_anonymous %}
+                      <span class="aunelya-review-card__avatar aunelya-review-card__avatar--generic" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2.2c-4 0-7.4 2-7.4 4.4v1.2h14.8v-1.2c0-2.4-3.4-4.4-7.4-4.4Z"/></svg>
+                      </span>
+                    {% else %}
+                      <span class="aunelya-review-card__avatar" aria-hidden="true">{{ initials }}</span>
+                    {% endif %}
                     <div class="aunelya-review-card__person">
                       <p class="aunelya-review-card__name">{{ block.settings.author }}</p>
-                      {% if block.settings.location != blank or block.settings.date != blank %}
+                      {% if block.settings.variant != blank or block.settings.date != blank %}
                         <p class="aunelya-review-card__meta">
-                          {{ block.settings.location }}
-                          {%- if block.settings.location != blank and block.settings.date != blank %} · {% endif -%}
-                          {{ block.settings.date }}
+                          {{- block.settings.variant -}}
+                          {%- if block.settings.variant != blank and block.settings.date != blank %} | {% endif -%}
+                          {{- block.settings.date -}}
                         </p>
+                      {% elsif block.settings.location != blank %}
+                        <p class="aunelya-review-card__meta">{{ block.settings.location }}</p>
                       {% endif %}
                     </div>
                   </header>
@@ -129,7 +142,7 @@
                   {% endif %}
                   <p class="aunelya-review-card__text">{{ block.settings.text }}</p>
 
-                  {% if block.settings.variant != blank %}
+                  {% if block.settings.variant != blank and is_anonymous == false %}
                     <p class="aunelya-review-card__variant">{{ block.settings.variant }}</p>
                   {% endif %}
                 </article>

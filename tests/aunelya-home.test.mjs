@@ -117,7 +117,7 @@ test('the color section links whole cards and no longer renders what is included
   assert.doesNotMatch(productSection, /all_products_collection_url/);
 });
 
-const pdpSectionTypes = ['product-information', 'aunelya-faq'];
+const pdpSectionTypes = ['product-information', 'aunelya-product-reviews', 'aunelya-review-form', 'aunelya-faq'];
 
 test('the product template is a native Horizon PDP followed by Aunelya sections', () => {
   const template = parseThemeJson('templates/product.json');
@@ -241,16 +241,40 @@ test('the FAQ page template stays available without being linked from the footer
   assert.doesNotMatch(footer, /preguntas-frecuentes/);
 });
 
-test('product ratings only render real data and never ship invented reviews', () => {
+test('product ratings render curated anonymous reviews averaging 4.8 with manual submission', () => {
   const template = parseThemeJson('templates/product.json');
-  assert.equal(Object.values(template.sections).some((section) => section.type === 'aunelya-product-reviews'), false);
+  const reviews = Object.values(template.sections).find((section) => section.type === 'aunelya-product-reviews');
+  assert.ok(reviews, 'aunelya-product-reviews section is missing from product.json');
+
+  const blocks = Object.values(reviews.blocks ?? {}).filter((block) => block.type === 'review');
+  assert.equal(blocks.length, 6, 'expected 6 curated review blocks');
+
+  let total = 0;
+  for (const block of blocks) {
+    assert.equal(block.settings.author, 'Anónimo');
+    assert.match(block.settings.date, /\d{2} [A-Z]{3} \d{4}/);
+    assert.match(block.settings.variant, /^Color: (Rosa|Blanco)$/);
+    assert.ok(block.settings.text.length > 5, 'review text is missing');
+    total += block.settings.rating;
+  }
+  const average = Math.round((total / blocks.length) * 10) / 10;
+  assert.equal(average, 4.8, `expected 4.8 average, got ${average}`);
+
+  // Manual review form follows the reviews section and links back via anchor.
+  const formSection = Object.values(template.sections).find((section) => section.type === 'aunelya-review-form');
+  assert.ok(formSection, 'aunelya-review-form section is missing from product.json');
+  assert.equal(reviews.settings.write_link, '#aunelya-review-form');
+
   const header = template.sections.main.blocks['product-details'].blocks.aunelya_header;
   assert.equal(header.blocks.aunelya_rating.type, 'aunelya-rating-badge');
-  assert.doesNotMatch(JSON.stringify(header), /\d+[.,]\d+\s*\/\s*5|\+?\d[\d.]*\s*clientas/i);
+  assert.equal(header.blocks.aunelya_rating.settings.show_manual, true);
+  assert.equal(header.blocks.aunelya_rating.settings.manual_rating, 4.8);
+  assert.equal(header.blocks.aunelya_rating.settings.manual_count, 6);
 
   const badge = read('blocks/aunelya-rating-badge.liquid');
   assert.match(badge, /metafields\.reviews\.rating_count/);
   assert.match(badge, /if rating_count > 0/);
+  assert.match(badge, /show_manual/);
 
   const section = read('sections/aunelya-product-reviews.liquid');
   assert.match(section, /metafields\.reviews\.rating/);
@@ -258,6 +282,16 @@ test('product ratings only render real data and never ship invented reviews', ()
   assert.match(section, /"type": "@app"/);
   assert.match(section, /aunelya-reviews-pdp__empty/);
   assert.doesNotMatch(section, /"presets": \[\s*\{[^\]]*"blocks"/);
+
+  // Curated test reviews must stay free of medical promises.
+  assert.doesNotMatch(JSON.stringify(reviews), /\bcura\b|tratamiento|elimina (el )?dolor|medicaci[oó]n/i);
+
+  const form = read('sections/aunelya-review-form.liquid');
+  assert.match(form, /\{%-?\s*form 'contact'/);
+  assert.match(form, /name="contact\[email\]"/);
+  assert.match(form, /form\.posted_successfully\?/);
+  assert.match(form, /aria-invalid="true"/);
+  assert.match(form, /aria-busy/);
 });
 
 test('the product gallery groups media by the selected color', () => {
