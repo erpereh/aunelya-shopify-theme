@@ -252,3 +252,12 @@ test('product reviews only render real data and never ship invented reviews', ()
   assert.match(section, /aunelya-reviews-pdp__empty/);
   assert.doesNotMatch(section, /"presets": \[\s*\{[^\]]*"blocks"/);
 });
+
+test('the product gallery groups media by the selected color', () => {
+  const gallery = read('snippets/product-media-gallery-content.liquid');
+  assert.match(gallery, /Aunelya: show only the selected color's media/);
+  assert.match(gallery, /media_alt contains value_name/);
+
+  const template = parseThemeJson('templates/product.json');
+  assert.equal(template.sections.main.blocks['media-gallery'].settings.hide_variants, true);
+});

@@ -124,6 +124,35 @@
   else
     assign sorted_media = selected_product.media
   endif
+
+  # Aunelya: show only the selected color's media. Media are grouped by the color name in their alt text;
+  # media whose alt names no color are shared by every variant.
+  if block_settings.hide_variants
+    for product_option in selected_product.options_with_values
+      assign option_handle = product_option.name | handleize
+      if option_handle contains 'color' or option_handle contains 'colour'
+        assign selected_color = product_option.selected_value | downcase
+        assign color_media = '' | split: ','
+        for media in sorted_media
+          assign media_alt = media.alt | downcase
+          assign belongs_to_color = true
+          for option_value in product_option.values
+            assign value_name = option_value | downcase
+            if value_name != selected_color and media_alt contains value_name
+              assign belongs_to_color = false
+            endif
+          endfor
+          if belongs_to_color
+            assign found_media = sorted_media | where: 'id', media.id
+            assign color_media = color_media | concat: found_media
+          endif
+        endfor
+        if color_media.size > 0
+          assign sorted_media = color_media
+        endif
+      endif
+    endfor
+  endif
   assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
   # Determine if we're in single column mode (carousel or grid with one column)
