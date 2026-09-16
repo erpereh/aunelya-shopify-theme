@@ -141,35 +141,6 @@
                     <h3 class="aunelya-review-card__title">{{ block.settings.title }}</h3>
                   {% endif %}
                   <p class="aunelya-review-card__text">{{ block.settings.text }}</p>
-
-                  {% if block.settings.photo_1 != blank or block.settings.photo_2 != blank %}
-                    <div class="aunelya-review-card__photos">
-                      {% if block.settings.photo_1 != blank %}
-                        <img
-                          src="{{ block.settings.photo_1 | escape }}"
-                          alt=""
-                          width="144"
-                          height="144"
-                          loading="lazy"
-                          onerror="this.remove()"
-                        >
-                      {% endif %}
-                      {% if block.settings.photo_2 != blank %}
-                        <img
-                          src="{{ block.settings.photo_2 | escape }}"
-                          alt=""
-                          width="144"
-                          height="144"
-                          loading="lazy"
-                          onerror="this.remove()"
-                        >
-                      {% endif %}
-                    </div>
-                  {% endif %}
-
-                  {% if block.settings.variant != blank and is_anonymous == false %}
-                    <p class="aunelya-review-card__variant">{{ block.settings.variant }}</p>
-                  {% endif %}
                 </article>
               {% endif %}
           {% endcase %}
@@ -212,10 +183,7 @@
         { "type": "range", "id": "rating", "label": "Puntuación", "min": 1, "max": 5, "step": 1, "default": 5 },
         { "type": "text", "id": "title", "label": "Titular" },
         { "type": "textarea", "id": "text", "label": "Opinión" },
-        { "type": "text", "id": "variant", "label": "Variante comprada", "info": "Por ejemplo, Color: Rosa." },
-        { "type": "header", "content": "Fotos (opcional)" },
-        { "type": "text", "id": "photo_1", "label": "Foto 1 (URL externa)", "info": "Pega la URL directa de la foto. Déjalo vacío si no hay foto." },
-        { "type": "text", "id": "photo_2", "label": "Foto 2 (URL externa)" }
+        { "type": "text", "id": "variant", "label": "Variante comprada", "info": "Por ejemplo, Color: Rosa." }
       ]
     }
   ],

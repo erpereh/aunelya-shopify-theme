@@ -586,36 +586,6 @@ sticky-add-to-cart .sticky-add-to-cart__button {
   line-height: 1.6;
 }
 
-.aunelya-review-card__variant {
-  justify-self: start;
-  margin: 0.25rem 0 0;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  background: var(--aunelya-white);
-  color: var(--aunelya-muted);
-  font-size: 0.78rem;
-  font-weight: 500;
-}
-
-.aunelya-review-card__photos {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 4.5rem));
-  gap: 0.5rem;
-  margin-top: 0.25rem;
-}
-
-.aunelya-review-card__photos:empty {
-  display: none;
-}
-
-.aunelya-review-card__photos img {
-  width: 100%;
-  height: 4.5rem;
-  border-radius: 12px;
-  background: var(--aunelya-white);
-  object-fit: cover;
-}
-
 @media (max-width: 989px) {
   .aunelya-reviews-pdp__layout {
     grid-template-columns: 1fr;
