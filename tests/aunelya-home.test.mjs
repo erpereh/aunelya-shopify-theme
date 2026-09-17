@@ -378,3 +378,25 @@ test('robots and pagination guide crawlers', () => {
   assert.match(pagination, /rel="prev"/);
   assert.match(pagination, /rel="next"/);
 });
+
+test('footer links the FAQ page and fonts prioritize LCP', () => {
+  const footer = JSON.stringify(parseThemeJson('sections/footer-group.json'));
+  assert.match(footer, /shopify:\/\/pages\/faq/);
+
+  const fonts = read('snippets/fonts.liquid');
+  assert.match(fonts, /type_body_font \| font_url \| preload_tag: as: 'font', type: 'font\/woff2', fetchpriority: 'high'/);
+  assert.match(fonts, /type_heading_font \| font_url \| preload_tag: as: 'font', type: 'font\/woff2', fetchpriority: 'high'/);
+});
+
+test('heavy modules load only on their page types', () => {
+  const scripts = read('snippets/scripts.liquid');
+  assert.match(scripts, /request\.page_type == 'product'/);
+  assert.match(scripts, /request\.design_mode/);
+  assert.match(scripts, /variant-picker\.js/);
+  assert.match(scripts, /media-gallery\.js/);
+  assert.match(scripts, /floating-panel\.js/);
+
+  const image = read('snippets/image.liquid');
+  assert.match(image, /loading: image_loading/);
+  assert.match(image, /width: tag_width, height: tag_height/);
+});

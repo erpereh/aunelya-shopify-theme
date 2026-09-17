@@ -3,11 +3,15 @@
 
   @param {object} image - image object
   @param {number} [height] - custom image height
+  @param {number} [width] - custom image width (intrinsic tag width when height is not set)
   @param {string} [class] - additional classes
   @param {string} [text_fallback] - text to display if image is blank
   @param {boolean} [unset_image_tag] - if true, ignores the image focal point
   @param {string} [style] - additional styles
+  @param {string} [alt] - explicit alt text (takes precedence over image.alt)
   @param {string} [alt_text_fallback] - Optional text to display if image alt text is blank
+  @param {string} [loading] - loading behavior (default 'lazy')
+  @param {string} [sizes] - sizes attribute (default '100vw')
 
   @example
   {% render 'image', image: product.featured_image, height: 300, class: 'product-image' %}
@@ -16,7 +20,18 @@
   {% assign image_height = height | default: image.height %}
   {% assign image_height_2x = height | default: image_height | times: 2 %}
   {% assign image_height_3x = height | default: image_height | times: 3 %}
-  {% assign image_alt_text = image.alt | default: alt_text_fallback | default: '' %}
+  {% assign image_alt_text = alt | default: image.alt | default: alt_text_fallback | default: '' %}
+  {% assign image_loading = loading | default: 'lazy' %}
+  {% assign image_sizes = sizes | default: '100vw' %}
+  {% assign tag_width = width | default: image.width %}
+  {% assign tag_height = height | default: image.height %}
+  {% if image.aspect_ratio != blank %}
+    {% if width == blank and tag_height != blank %}
+      {% assign tag_width = tag_height | times: image.aspect_ratio | round %}
+    {% elsif height == blank and tag_width != blank %}
+      {% assign tag_height = tag_width | divided_by: image.aspect_ratio | round %}
+    {% endif %}
+  {% endif %}
 
   {% capture image_srcset -%}
     {{ image | image_url: height: image_height }} 1x, {{ image | image_url: height: image_height_2x }} 2x, {{ image | image_url: height: image_height_3x }} 3x
@@ -31,7 +46,7 @@
   {{
     image
     | image_url: height: image_height
-    | image_tag: class: class, srcset: image_srcset, style: style_value, alt: image_alt_text
+    | image_tag: class: class, srcset: image_srcset, style: style_value, alt: image_alt_text, loading: image_loading, sizes: image_sizes, width: tag_width, height: tag_height
   }}
 {% elsif text_fallback %}
   {{ text_fallback }}

@@ -124,6 +124,22 @@
   href="{{ 'events.js' | asset_url }}"
   fetchpriority="low"
 >
+{%- liquid
+  # Fase 2 rendimiento (docs/SEO.md M5): divide los modulos por tipo de pagina.
+  # En el editor se cargan todos para no romper la previsualizacion.
+  assign aunelya_is_product = false
+  if request.page_type == 'product' or request.design_mode
+    assign aunelya_is_product = true
+  endif
+  assign aunelya_is_cart = false
+  if request.page_type == 'cart' or request.page_type == 'page' or request.design_mode
+    assign aunelya_is_cart = true
+  endif
+  assign aunelya_is_collection_search = false
+  if request.page_type == 'collection' or request.page_type == 'search' or request.design_mode
+    assign aunelya_is_collection_search = true
+  endif
+-%>
 <script
   src="{{ 'overflow-list.js' | asset_url }}"
   type="module"
@@ -147,11 +163,19 @@
   type="module"
   fetchpriority="low"
 ></script>
-<script
-  src="{{ 'variant-picker.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+{%- comment -%}
+  Solo PDP (y editor): <variant-picker> solo se renderiza en variant-main-picker
+  (bloque variant-picker de _product-details) y en el payload de
+  section-rendering-product-card. Las tarjetas usan
+  swatches-variant-picker-component (product-card.js, global).
+{%- endcomment -%}
+{% if aunelya_is_product %}
+  <script
+    src="{{ 'variant-picker.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 <script
   src="{{ 'product-card.js' | asset_url }}"
   type="module"
@@ -182,21 +206,33 @@
   type="module"
   fetchpriority="low"
 ></script>
-<script
-  src="{{ 'product-sku.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'product-inventory.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'show-more.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+{%- comment -%}
+  Solo PDP (y editor): <product-sku-component> y <product-inventory> solo se
+  renderizan en los bloques sku / product-inventory de _product-details.
+{%- endcomment -%}
+{% if aunelya_is_product %}
+  <script
+    src="{{ 'product-sku.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+  <script
+    src="{{ 'product-inventory.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
+{%- comment -%}
+  Solo coleccion/busqueda (y editor): <show-more-component> solo aparece en
+  list-filter (facetas).
+{%- endcomment -%}
+{% if aunelya_is_collection_search %}
+  <script
+    src="{{ 'show-more.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 <script
   src="{{ 'slideshow.js' | asset_url }}"
   type="module"
@@ -212,46 +248,76 @@
   type="module"
   fetchpriority="low"
 ></script>
-<script
-  src="{{ 'floating-panel.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+{%- comment -%}
+  Solo coleccion/busqueda (y editor): <floating-panel-component> solo aparece en
+  list-filter, price-filter, sorting y product-grid (facetas).
+{%- endcomment -%}
+{% if aunelya_is_collection_search %}
+  <script
+    src="{{ 'floating-panel.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 <script
   src="{{ 'video-background.js' | asset_url }}"
   type="module"
   fetchpriority="low"
 ></script>
-<script
-  src="{{ 'component-quantity-selector.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'media-gallery.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+{%- comment -%}
+  PDP + carrito + paginas (y editor): quantity-selector-component se usa en la
+  PDP, el carrito, quick-order-list y cart-products. Se incluye 'page' porque
+  quick-order-list vive en plantillas page (ver sections/quick-order-list.liquid:151).
+{%- endcomment -%}
+{% if aunelya_is_product or aunelya_is_cart %}
+  <script
+    src="{{ 'component-quantity-selector.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
+{%- comment -%}
+  Solo PDP (y editor): <media-gallery> solo se renderiza en
+  product-media-gallery-content via _product-media-gallery.
+{%- endcomment -%}
+{% if aunelya_is_product %}
+  <script
+    src="{{ 'media-gallery.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 <script
   src="{{ 'rte-formatter.js' | asset_url }}"
   type="module"
   fetchpriority="low"
 ></script>
-<script
-  src="{{ 'volume-pricing.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'price-per-item.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
-<script
-  src="{{ 'volume-pricing-info.js' | asset_url }}"
-  type="module"
-  fetchpriority="low"
-></script>
+{%- comment -%}
+  Solo PDP (y editor): <volume-pricing> solo se renderiza en buy-buttons.
+{%- endcomment -%}
+{% if aunelya_is_product %}
+  <script
+    src="{{ 'volume-pricing.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
+{%- comment -%}
+  PDP + carrito + paginas (y editor): <price-per-item> vive en quantity-selector y
+  <volume-pricing-info> en cart-products / quick-order-list (con volumen en PDP).
+{%- endcomment -%}
+{% if aunelya_is_product or aunelya_is_cart %}
+  <script
+    src="{{ 'price-per-item.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+  <script
+    src="{{ 'volume-pricing-info.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 
 {% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}
   <script
