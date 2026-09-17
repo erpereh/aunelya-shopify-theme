@@ -117,7 +117,7 @@ test('the color section links whole cards and no longer renders what is included
   assert.doesNotMatch(productSection, /all_products_collection_url/);
 });
 
-const pdpSectionTypes = ['product-information', 'aunelya-product-reviews', 'aunelya-review-form', 'aunelya-faq'];
+const pdpSectionTypes = ['product-information', 'aunelya-product-reviews', 'aunelya-faq'];
 
 test('the product template is a native Horizon PDP followed by Aunelya sections', () => {
   const template = parseThemeJson('templates/product.json');
@@ -241,68 +241,48 @@ test('the FAQ page template stays available without being linked from the footer
   assert.doesNotMatch(footer, /preguntas-frecuentes/);
 });
 
-test('product ratings render curated anonymous reviews averaging 4.8 with manual submission', () => {
+test('product ratings only render real metafield data with no manual fallback', () => {
   const template = parseThemeJson('templates/product.json');
   const reviews = Object.values(template.sections).find((section) => section.type === 'aunelya-product-reviews');
   assert.ok(reviews, 'aunelya-product-reviews section is missing from product.json');
 
-  const blocks = Object.values(reviews.blocks ?? {}).filter((block) => block.type === 'review');
-  assert.equal(blocks.length, 6, 'expected 6 curated review blocks');
+  // No preloaded review blocks: individual reviews belong to the review app.
+  const blocks = Object.values(reviews.blocks ?? {});
+  assert.equal(blocks.length, 0, 'expected zero preloaded review blocks');
+  assert.deepEqual(reviews.block_order ?? [], []);
 
-  let total = 0;
-  let anonymous = 0;
-  let named = 0;
-  for (const block of blocks) {
-    assert.ok(block.settings.author.length > 0, 'review author is missing');
-    if (/^anónimo$/i.test(block.settings.author.trim())) {
-      anonymous += 1;
-    } else {
-      named += 1;
-    }
-    assert.match(block.settings.date, /(14|15|16|17|18|19|20) SEP 2026/);
-    assert.match(block.settings.variant, /^Color: (Rosa|Blanco)$/);
-    assert.ok(block.settings.text.length > 5, 'review text is missing');
-    total += block.settings.rating;
-  }
-  assert.ok(anonymous >= 2, `expected at least 2 anonymous reviews, got ${anonymous}`);
-  assert.ok(named >= 2, `expected at least 2 named reviews, got ${named}`);
-  const average = Math.round((total / blocks.length) * 10) / 10;
-  assert.equal(average, 4.8, `expected 4.8 average, got ${average}`);
-
-  // Manual review form follows the reviews section and links back via anchor.
+  // No manual review form section: the app owns the submission form.
   const formSection = Object.values(template.sections).find((section) => section.type === 'aunelya-review-form');
-  assert.ok(formSection, 'aunelya-review-form section is missing from product.json');
-  assert.equal(reviews.settings.write_link, '#aunelya-review-form');
+  assert.equal(formSection, undefined, 'aunelya-review-form must not be in product.json');
+  assert.equal(existsSync(join(root, 'sections', 'aunelya-review-form.liquid')), false);
+  assert.doesNotMatch(JSON.stringify(reviews), /aunelya-review-form/);
 
   const header = template.sections.main.blocks['product-details'].blocks.aunelya_header;
   assert.equal(header.blocks.aunelya_rating.type, 'aunelya-rating-badge');
-  assert.equal(header.blocks.aunelya_rating.settings.show_manual, true);
-  assert.equal(header.blocks.aunelya_rating.settings.manual_rating, 4.8);
-  assert.equal(header.blocks.aunelya_rating.settings.manual_count, 6);
+  assert.equal(header.blocks.aunelya_rating.settings.show_manual, undefined);
+  assert.equal(header.blocks.aunelya_rating.settings.manual_rating, undefined);
+  assert.equal(header.blocks.aunelya_rating.settings.manual_count, undefined);
 
   const badge = read('blocks/aunelya-rating-badge.liquid');
   assert.match(badge, /metafields\.reviews\.rating_count/);
   assert.match(badge, /if rating_count > 0/);
-  assert.match(badge, /show_manual/);
+  assert.doesNotMatch(badge, /show_manual/);
+  assert.doesNotMatch(badge, /manual_rating/);
+  assert.doesNotMatch(badge, /manual_count/);
+  assert.doesNotMatch(badge, /photo_1/);
 
   const section = read('sections/aunelya-product-reviews.liquid');
   assert.match(section, /metafields\.reviews\.rating/);
   assert.match(section, /metafields\.reviews\.rating_count/);
   assert.match(section, /"type": "@app"/);
-  assert.match(section, /aunelya-reviews-pdp__empty/);
-  assert.doesNotMatch(section, /aunelya-review-card__photos/);
-  assert.doesNotMatch(section, /aunelya-review-card__variant/);
+  // Visibility is strictly rating_count > 0: hidden until the first real review.
+  // has_app_blocks may only gate the inner app-block container, never visibility.
+  assert.match(section, /\{% if rating_count > 0 %\}/);
+  assert.doesNotMatch(section, /or has_app_blocks/);
+  assert.doesNotMatch(section, /aunelya-reviews-pdp--empty/);
+  assert.doesNotMatch(section, /aunelya-reviews-schema/);
+  assert.doesNotMatch(section, /when 'review'/);
   assert.doesNotMatch(section, /"presets": \[\s*\{[^\]]*"blocks"/);
-
-  // Curated test reviews must stay free of medical promises.
-  assert.doesNotMatch(JSON.stringify(reviews), /\bcura\b|tratamiento|elimina (el )?dolor|medicaci[oó]n/i);
-
-  const form = read('sections/aunelya-review-form.liquid');
-  assert.match(form, /\{%-?\s*form 'contact'/);
-  assert.match(form, /name="contact\[email\]"/);
-  assert.match(form, /form\.posted_successfully\?/);
-  assert.match(form, /aria-invalid="true"/);
-  assert.match(form, /aria-busy/);
 });
 
 test('the product gallery groups media by the selected color', () => {
@@ -335,18 +315,18 @@ test('FAQ sections emit FAQPage structured data', () => {
   assert.match(faq, /render 'aunelya-faq-schema'/);
 });
 
-test('product reviews emit temporary Product schema until a review app is installed', () => {
-  assert.equal(existsSync(join(root, 'snippets', 'aunelya-reviews-schema.liquid')), true);
-
-  const schema = read('snippets/aunelya-reviews-schema.liquid');
-  assert.match(schema, /AggregateRating/);
-  assert.match(schema, /reviewCount/);
-  assert.match(schema, /datePublished/);
-  assert.match(schema, /metafields\.reviews\.rating_count/);
-  assert.match(schema, /RETIRAR|TEMPORARY|Remove this/i);
+test('product structured data stays native with no manual review schema', () => {
+  assert.equal(existsSync(join(root, 'snippets', 'aunelya-reviews-schema.liquid')), false);
 
   const section = read('sections/aunelya-product-reviews.liquid');
-  assert.match(section, /render 'aunelya-reviews-schema'/);
+  assert.doesNotMatch(section, /aunelya-reviews-schema/);
+  assert.doesNotMatch(section, /AggregateRating/);
+  assert.doesNotMatch(section, /reviewCount/);
+
+  // The native structured_data filter remains the only Product source in the
+  // theme. Review/AggregateRating schema belongs to the future review app.
+  const pdp = read('sections/product-information.liquid');
+  assert.match(pdp, /closest\.product \| structured_data/);
 });
 
 test('meta tags cover locale, social images and organization data', () => {

@@ -1,7 +1,9 @@
 {% doc %}
-  Renders the product's real average rating next to optional customer photos.
-  Reads the standard review metafields written by Shopify-compatible review apps
-  and renders nothing until the product has at least one review.
+  Renders the product's real average rating from the standard review metafields.
+
+  Reads product.metafields.reviews.rating and
+  product.metafields.reviews.rating_count, written by a compatible review app.
+  Renders nothing until the product has at least one real review.
 {% enddoc %}
 
 {% liquid
@@ -16,38 +18,16 @@
       assign scale_max = rating_metafield.scale_max | default: 5 | times: 1.0
       assign rating_value = rating_metafield.rating | times: 1.0 | divided_by: scale_max | times: 5
       assign score = rating_value | round: 1 | append: '' | replace: '.', ','
+      unless score contains ','
+        assign score = score | append: ',0'
+      endunless
       assign score_label = score | append: ' de 5'
     endif
-  endif
-
-  # Manual fallback: curated test reviews added as blocks in product.json.
-  # Lets the badge show 4,8 until a review app writes real metafields.
-  if rating_count == 0 and block.settings.show_manual
-    assign rating_count = block.settings.manual_count | default: 6 | at_least: 1
-    assign rating_value = block.settings.manual_rating | default: 4.8
-    assign score = rating_value | round: 1 | append: '' | replace: '.', ','
-    unless score contains ','
-      assign score = score | append: ',0'
-    endunless
-    assign score_label = score | append: ' de 5'
   endif
 %}
 
 {% if rating_count > 0 %}
   <div class="aunelya-rating-badge" {{ block.shopify_attributes }}>
-    {% capture photos %}
-      {%- for i in (1..4) -%}
-        {%- assign photo_key = 'photo_' | append: i -%}
-        {%- if block.settings[photo_key] != blank -%}
-          {{ block.settings[photo_key] | image_url: width: 96 | image_tag: width: 48, height: 48, alt: '', class: 'aunelya-rating-badge__photo', loading: 'lazy' }}
-        {%- endif -%}
-      {%- endfor -%}
-    {% endcapture %}
-    {% assign photos = photos | strip %}
-    {% if photos != blank %}
-      <div class="aunelya-rating-badge__photos" aria-hidden="true">{{ photos }}</div>
-    {% endif %}
-
     <div class="aunelya-rating-badge__text">
       <p class="aunelya-rating-badge__score">
         {% render 'aunelya-stars', rating: rating_value, label: score_label %}
@@ -68,19 +48,10 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Muestra la nota media real que guarda tu app de valoraciones. Si no hay app, puede mostrar la nota manual de las reseñas añadidas como bloques."
+      "content": "Muestra la nota media real de tu app de valoraciones (Judge.me, Loox o Yotpo con sincronización de metacampos). Sin reseñas reales no muestra nada."
     },
     { "type": "text", "id": "count_singular", "label": "Texto (singular)", "default": "valoración" },
-    { "type": "text", "id": "count_plural", "label": "Texto (plural)", "default": "valoraciones" },
-    { "type": "header", "content": "Nota manual (prueba)" },
-    { "type": "checkbox", "id": "show_manual", "label": "Mostrar nota manual si no hay app", "default": true },
-    { "type": "range", "id": "manual_rating", "label": "Nota manual", "min": 1, "max": 5, "step": 0.1, "default": 4.8 },
-    { "type": "number", "id": "manual_count", "label": "Nº valoraciones manual", "default": 6 },
-    { "type": "header", "content": "Fotos de clientas", "info": "Usa solo fotos reales de clientas que te hayan dado permiso." },
-    { "type": "image_picker", "id": "photo_1", "label": "Foto 1" },
-    { "type": "image_picker", "id": "photo_2", "label": "Foto 2" },
-    { "type": "image_picker", "id": "photo_3", "label": "Foto 3" },
-    { "type": "image_picker", "id": "photo_4", "label": "Foto 4" }
+    { "type": "text", "id": "count_plural", "label": "Texto (plural)", "default": "valoraciones" }
   ],
   "presets": [
     { "name": "Aunelya valoración" }

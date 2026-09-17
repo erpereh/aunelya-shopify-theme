@@ -40,7 +40,7 @@ Hay Q&A en texto en `templates/product.json:342-425` (8), `templates/page.faq.js
 
 **C3. Reviews visibles sin `AggregateRating` en JSON-LD.**
 `templates/product.json:429-501` (6 reseñas, promedio 4.8) + `blocks/aunelya-rating-badge.liquid:25-33` muestran `4,8 (6 valoraciones)`, pero el `Product` nativo (`{{ closest.product | structured_data }}`, `sections/product-information.liquid:3-5`) solo emite `aggregateRating` si existen los metafields de app (`product.metafields.reviews.rating/rating_count`, lógica prevista en `sections/aunelya-product-reviews.liquid:6-15`). Hoy el visible y el structured data no coinciden → sin estrellas en SERP.
-*Cambio:* schema manual temporal según §6.2; migrar a app (Judge.me/Loox) cuando haya volumen y retirar el manual.
+*Cambio:* ~~schema manual temporal según §6.2; migrar a app (Judge.me/Loox) cuando haya volumen y retirar el manual.~~ *(Actualización — arquitectura APP-FIRST aplicada: reseñas precargadas eliminadas, schema manual retirado y sección oculta hasta la primera reseña real. Ver §6.2 y `docs/REVIEWS.md`.)*
 
 **C4. Página FAQ huérfana.**
 `templates/page.faq.json` existe con H1 correcto (`heading_tag: h1`, `:93`), pero `sections/footer-group.json:23-37` solo enlaza Contacto + Buscar. `grep pages/faq` = 0 fuera de tests: Google solo la descubre por sitemap.
@@ -225,13 +225,23 @@ Nuevo snippet (ej. `snippets/aunelya-faq-schema.liquid`) que reciba `blocks` y e
 
 Renderizar con `{% render 'aunelya-faq-schema', blocks: section.blocks %}` al final de `sections/aunelya-faq.liquid`. Notas: solo preguntas con respuesta no vacía; `strip_html` porque `answer` es richtext; validar en Rich Results Test por template (PDP, FAQ, contacto).
 
-### 6.2 `Product` + `AggregateRating` + `Review` manual (temporal)
+### 6.2 `Product` + `AggregateRating` + `Review` — RETIRADO (arquitectura APP-FIRST)
 
-**Condición de uso:** solo mientras NO exista app de reseñas (los metafields vacíos lo garantizan). Al instalar Judge.me/Loox, **retirar este bloque** para no duplicar el `aggregateRating` nativo.
-
-Crear `snippets/aunelya-reviews-schema.liquid` que lea los bloques `review` de la sección y emita `aggregateRating` calculado + hasta 6 `Review` con fechas en ISO (mapear `15 SEP 2026` → `2026-09-15` con tabla de meses en Liquid). Campos por review: `author.name`, `datePublished`, `reviewRating { ratingValue, bestRating: 5 }`, `reviewBody` (`strip_html`, máx. ~500 caracteres).
-
-**Riesgos conocidos (asumidos):** 2 autores `Anónimo` y nickname (`lau_94x`, `ferchii_22`) pueden parecer spam a Google; las fechas 17-20 SEP 2026 son futuras a hoy; r5 (`Buen producto`, 2 palabras) es thin. Mitigación: al migrar a la app, pedir nombre/título reales y republicar. No marcar con schema la sección `aunelya-reviews` de home (desactivada).
+> Este apartado prescribía un schema manual temporal desde bloques de reseñas
+> precargadas. **Queda retirado**: las reseñas precargadas se eliminaron,
+> `snippets/aunelya-reviews-schema.liquid` se borró y el theme ya no genera
+> ningún `AggregateRating` / `Review` / `reviewRating`.
+>
+> - Fuente `Product` / `ProductGroup` única: `{{ closest.product | structured_data }}`
+>   (`sections/product-information.liquid:3-5`). No asumir que incluye
+>   `aggregateRating`; no es su responsabilidad.
+> - Fuente visual de la puntuación: `reviews.rating` y `reviews.rating_count`
+>   (badge y sección solo visibles con `rating_count > 0`).
+> - Schema de reseñas, formulario y publicación: propiedad exclusiva de la
+>   futura app. Ver `docs/REVIEWS.md` (Judge.me, Loox, Yotpo con Metafields
+>   Sync; cualquier otra app debe verificarse antes).
+> - Validación tras instalar la app: schema de la app vinculado al mismo
+>   producto/`@id`, sin ratings contradictorios, Rich Results Test.
 
 ### 6.3 Correcciones menores de schema
 
@@ -265,4 +275,4 @@ Diferenciar FAQs §5.1 → publicar artículos §5.3 (1/semana) → montar `feat
 
 ---
 
-*Documento vivo: actualizar al instalar la app de reseñas (retirar §6.2), al abrir blog y al expandir mercados (hreflang).*
+*Documento vivo: §6.2 retirado al aplicar la arquitectura APP-FIRST (ver `docs/REVIEWS.md`). Pendiente: blog, hreflang y validación con la app de reseñas instalada.*
