@@ -400,3 +400,26 @@ test('heavy modules load only on their page types', () => {
   assert.match(image, /loading: image_loading/);
   assert.match(image, /width: tag_width, height: tag_height/);
 });
+
+test('system templates speak Spanish and link lifestyle cards', () => {
+  const notFound = parseThemeJson('templates/404.json');
+  assert.doesNotMatch(JSON.stringify(notFound), /Page not found|Continue shopping|Discover something new/);
+  assert.match(JSON.stringify(notFound), /Página no encontrada/);
+
+  const collections = parseThemeJson('templates/list-collections.json');
+  assert.doesNotMatch(JSON.stringify(collections), /<h1>Collections<\/h1>/);
+  assert.match(JSON.stringify(collections), /Colecciones/);
+
+  const cart = parseThemeJson('templates/cart.json');
+  assert.doesNotMatch(JSON.stringify(cart), /You may also like|View all/);
+
+  const home = parseThemeJson('templates/index.json');
+  const lifestyle = home.sections.aunelya_lifestyle;
+  for (const id of lifestyle.block_order) {
+    assert.equal(lifestyle.blocks[id].settings.link, 'shopify://products/cinturon-termico-aunelya');
+  }
+
+  const meta = read('snippets/meta-tags.liquid');
+  assert.match(meta, /request\.page_type == 'search' or request\.page_type == 'cart'/);
+  assert.match(meta, /content="noindex, follow"/);
+});

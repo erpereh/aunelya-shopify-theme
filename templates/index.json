@@ -106,7 +106,7 @@
           "settings": {
             "asset_key": "home",
             "label": "En casa",
-            "link": "",
+            "link": "shopify://products/cinturon-termico-aunelya",
             "image_alt": ""
           }
         },
@@ -115,7 +115,7 @@
           "settings": {
             "asset_key": "movement",
             "label": "En movimiento",
-            "link": "",
+            "link": "shopify://products/cinturon-termico-aunelya",
             "image_alt": ""
           }
         },
@@ -124,7 +124,7 @@
           "settings": {
             "asset_key": "routine",
             "label": "En tu rutina",
-            "link": "",
+            "link": "shopify://products/cinturon-termico-aunelya",
             "image_alt": ""
           }
         },
@@ -133,7 +133,7 @@
           "settings": {
             "asset_key": "when-needed",
             "label": "Cuando lo necesitas",
-            "link": "",
+            "link": "shopify://products/cinturon-termico-aunelya",
             "image_alt": ""
           }
         }

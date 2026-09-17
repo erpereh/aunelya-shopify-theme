@@ -133,6 +133,13 @@
   href="{{ canonical_url }}"
 >
 
+{% if request.page_type == 'search' or request.page_type == 'cart' or request.page_type == 'password' %}
+  <meta
+    name="robots"
+    content="noindex, follow"
+  >
+{% endif %}
+
 {% if page_description %}
   <meta
     name="description"
