@@ -313,3 +313,68 @@ test('the product gallery groups media by the selected color', () => {
   const template = parseThemeJson('templates/product.json');
   assert.equal(template.sections.main.blocks['media-gallery'].settings.hide_variants, true);
 });
+
+test('the home page has a single H1 from the hero', () => {
+  const header = read('sections/header.liquid');
+  assert.doesNotMatch(header, /<h1 class="visually-hidden">/);
+  assert.match(header, /<p class="visually-hidden">/);
+
+  const hero = read('sections/aunelya-hero.liquid');
+  assert.match(hero, /<h1[^>]*class="aunelya-hero__title"/);
+});
+
+test('FAQ sections emit FAQPage structured data', () => {
+  assert.equal(existsSync(join(root, 'snippets', 'aunelya-faq-schema.liquid')), true);
+
+  const schema = read('snippets/aunelya-faq-schema.liquid');
+  assert.match(schema, /"@type":"FAQPage"/);
+  assert.match(schema, /acceptedAnswer/);
+  assert.match(schema, /strip_html/);
+
+  const faq = read('sections/aunelya-faq.liquid');
+  assert.match(faq, /render 'aunelya-faq-schema'/);
+});
+
+test('product reviews emit temporary Product schema until a review app is installed', () => {
+  assert.equal(existsSync(join(root, 'snippets', 'aunelya-reviews-schema.liquid')), true);
+
+  const schema = read('snippets/aunelya-reviews-schema.liquid');
+  assert.match(schema, /AggregateRating/);
+  assert.match(schema, /reviewCount/);
+  assert.match(schema, /datePublished/);
+  assert.match(schema, /metafields\.reviews\.rating_count/);
+  assert.match(schema, /RETIRAR|TEMPORARY|Remove this/i);
+
+  const section = read('sections/aunelya-product-reviews.liquid');
+  assert.match(section, /render 'aunelya-reviews-schema'/);
+});
+
+test('meta tags cover locale, social images and organization data', () => {
+  const meta = read('snippets/meta-tags.liquid');
+  assert.match(meta, /og:locale/);
+  assert.match(meta, /og:image:alt/);
+  assert.match(meta, /twitter:image/);
+  assert.match(meta, /content="https:\{\{ page_image/);
+  assert.doesNotMatch(meta, /content="http:\{\{ page_image/);
+  assert.doesNotMatch(meta, /name="theme-color"\s+content=""/);
+
+  const header = read('sections/header.liquid');
+  assert.match(header, /"@context": "https:\/\/schema\.org"/);
+  assert.match(header, /"url": \{\{ shop\.url \| json \}\}/);
+
+  const pdp = read('sections/product-information.liquid');
+  assert.match(pdp, /"@type": "BreadcrumbList"/);
+});
+
+test('robots and pagination guide crawlers', () => {
+  assert.equal(existsSync(join(root, 'templates', 'robots.txt.liquid')), true);
+
+  const robots = read('templates/robots.txt.liquid');
+  assert.match(robots, /robots\.default_groups/);
+  assert.match(robots, /Disallow: \/\*?\?filter\*/);
+  assert.match(robots, /Disallow: \/search/);
+
+  const pagination = read('snippets/pagination-controls.liquid');
+  assert.match(pagination, /rel="prev"/);
+  assert.match(pagination, /rel="next"/);
+});

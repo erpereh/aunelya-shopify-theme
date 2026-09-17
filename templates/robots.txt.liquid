@@ -1,0 +1,11 @@
+{% comment %}
+  Aunelya robots.txt: Shopify defaults + blocks for crawl waste
+  (filtered/sorted collection URLs and internal search).
+{% endcomment %}
+{% for group in robots.default_groups %}
+{{ group }}
+{% endfor %}
+User-agent: *
+Disallow: /*?filter*
+Disallow: /*?sort_by*
+Disallow: /search

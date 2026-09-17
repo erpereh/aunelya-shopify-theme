@@ -34,6 +34,7 @@
           {%- assign prev_params = paginate.previous.url | split: '?' | last -%}
           <a
             href="{{ paginate.previous.url }}"
+            rel="prev"
             aria-label="{{ 'content.pagination.previous' | t }}"
             class="pagination__link pagination__link--arrow"
             {% if on_click_handler != blank %}
@@ -139,6 +140,7 @@
           {%- assign next_params = paginate.next.url | split: '?' | last -%}
           <a
             href="{{ paginate.next.url }}"
+            rel="next"
             aria-label="{{ 'content.pagination.next' | t }}"
             class="pagination__link pagination__link--arrow"
             {% if on_click_handler != blank %}
