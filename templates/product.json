@@ -373,7 +373,7 @@
           "type": "question",
           "settings": {
             "question": "¿Puedo ajustar el calor?",
-            "answer": "<p>Sí. Tiene 5 niveles de calor para que elijas la sensación que prefieras. Te recomendamos empezar por el nivel más bajo e ir subiendo poco a poco.</p>",
+            "answer": "<p>Sí. Tiene 5 niveles de calor (45°C, 50°C, 55°C, 60°C y 65°C) para que elijas la sensación que prefieras. Te recomendamos empezar por el nivel más bajo e ir subiendo poco a poco.</p>",
             "policy_link": "none"
           }
         },
@@ -389,7 +389,7 @@
           "type": "question",
           "settings": {
             "question": "¿Cómo se carga?",
-            "answer": "<p>Incluye un cable de carga. Sigue las indicaciones del manual para cargarlo correctamente.</p>",
+            "answer": "<p>Incluye un cable de carga. Su batería recargable de 1800 mAh tarda aproximadamente 3 horas en cargarse por completo. Sigue las indicaciones del manual para cargarlo correctamente.</p>",
             "policy_link": "none"
           }
         },

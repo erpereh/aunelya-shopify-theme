@@ -2,9 +2,18 @@
   Aunelya robots.txt: Shopify defaults + blocks for crawl waste
   (filtered/sorted collection URLs and internal search).
 {% endcomment %}
-{% for group in robots.default_groups %}
-{{ group }}
-{% endfor %}
+{%- for group in robots.default_groups -%}
+  {{- group.user_agent }}
+
+  {%- for rule in group.rules -%}
+    {{ rule }}
+  {%- endfor -%}
+
+  {%- if group.sitemap != blank -%}
+    {{ group.sitemap }}
+  {% endif -%}
+{%- endfor -%}
+
 User-agent: *
 Disallow: /*?filter*
 Disallow: /*?sort_by*
