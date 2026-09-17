@@ -99,6 +99,7 @@
                 "border_opacity": 100,
                 "border_color": "",
                 "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "placeholder": "",
                 "padding-block-start": 0,
@@ -130,7 +131,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "aunelya_title": {
                   "type": "text",
@@ -155,7 +157,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "aunelya_price": {
                   "type": "price",
@@ -176,7 +179,19 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
+                },
+                "aunelya_rating": {
+                  "type": "aunelya-rating-badge",
+                  "settings": {
+                    "count_singular": "valoración",
+                    "count_plural": "valoraciones",
+                    "show_manual": true,
+                    "manual_rating": 4.8,
+                    "manual_count": 6
+                  },
+                  "blocks": {}
                 },
                 "aunelya_intro": {
                   "type": "text",
@@ -201,17 +216,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
-                },
-                "aunelya_rating": {
-                  "type": "aunelya-rating-badge",
-                  "settings": {
-                    "count_singular": "valoración",
-                    "count_plural": "valoraciones",
-                    "show_manual": true,
-                    "manual_rating": 4.8,
-                    "manual_count": 6
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -241,7 +247,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "aunelya_buy_buttons": {
               "type": "buy-buttons",
@@ -296,6 +303,7 @@
                 },
                 "accelerated-checkout": {
                   "type": "accelerated-checkout",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -309,13 +317,15 @@
                 "shipping": "Envíos a México",
                 "secure": "Compra segura",
                 "returns": "Devoluciones fáciles"
-              }
+              },
+              "blocks": {}
             },
             "aunelya_description": {
               "type": "aunelya-product-description",
               "settings": {
                 "heading": "Descripción"
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -337,6 +347,126 @@
         "background_color": "",
         "padding-block-start": 16,
         "padding-block-end": 48
+      }
+    },
+    "aunelya_reviews": {
+      "type": "aunelya-product-reviews",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "Mariana G.",
+            "location": "",
+            "date": "15 SEP 2026",
+            "rating": 5,
+            "title": "",
+            "text": "El producto se ajusta a la descripción, su calidad está muy bien y calienta súper rápido. La verdad no me lo esperaba.",
+            "variant": "Color: Rosa"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Anónimo",
+            "location": "",
+            "date": "18 SEP 2026",
+            "rating": 5,
+            "title": "",
+            "text": "vibración 1 2 3 4 y el calor se ajusta de 45 hasta 60 grados, el cinturón se ajusta fácil aunque la entrega tardó poquito igual lo recomiendo",
+            "variant": "Color: Rosa"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "lau_94x",
+            "location": "",
+            "date": "14 SEP 2026",
+            "rating": 5,
+            "title": "",
+            "text": "Calienta muy bien, tiene vibraciones... todo funciona de maravilla, estoy satisfecha... gracias al vendedor 💕",
+            "variant": "Color: Blanco"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "author": "Anónimo",
+            "location": "",
+            "date": "20 SEP 2026",
+            "rating": 5,
+            "title": "",
+            "text": "Lo uso en las noches viendo series en el nivel 2 o 3, no pesa y no se marca en la ropa. La pila me aguantó toda la tarde jaja",
+            "variant": "Color: Rosa"
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "author": "ferchii_22",
+            "location": "",
+            "date": "16 SEP 2026",
+            "rating": 5,
+            "title": "",
+            "text": "Buen producto",
+            "variant": "Color: Blanco"
+          }
+        },
+        "r6": {
+          "type": "review",
+          "settings": {
+            "author": "Sofía R.",
+            "location": "",
+            "date": "19 SEP 2026",
+            "rating": 4,
+            "title": "",
+            "text": "Me gusta mucho, solo le doy 4 porque tarda bastante en cargar completo y me hubiera gustado que trajera bolsita para guardarlo. Fuera de eso calienta muy rico y la vibración se siente relajante",
+            "variant": "Color: Rosa"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Lo que dicen quienes ya lo usan",
+        "count_prefix": "Basado en",
+        "count_singular": "valoración",
+        "count_plural": "valoraciones",
+        "empty_heading": "Aún no hay valoraciones",
+        "empty_text": "Cuando recibas tu Aunelya, cuéntanos cómo te acompaña. Tu experiencia ayudará a otras personas a elegir.",
+        "write_label": "Compartir mi experiencia",
+        "write_link": "#aunelya-review-form"
+      }
+    },
+    "aunelya_review_form": {
+      "type": "aunelya-review-form",
+      "settings": {
+        "anchor_id": "aunelya-review-form",
+        "eyebrow": "",
+        "heading": "Comparte tu experiencia",
+        "subheading": "Cuéntanos cómo te acompaña tu Aunelya. La publicamos de forma anónima tras revisarla.",
+        "step_1": "Escríbela aquí, tarda 1 minuto.",
+        "step_2": "La revisamos para evitar spam.",
+        "step_3": "La publicamos como Anónimo.",
+        "product_fallback": "Cinturón térmico Aunelya",
+        "rating_label": "Tu puntuación",
+        "message_label": "Tu opinión",
+        "name_label": "Nombre (opcional, no se publica)",
+        "email_label": "Email (solo para verificar)",
+        "title_label": "Titular (opcional)",
+        "consent_label": "Acepto que mi opinión se publique de forma anónima.",
+        "submit_label": "Enviar mi reseña",
+        "note": "No publicamos tu nombre ni tu email. Solo usamos tu email para verificar.",
+        "error_message": "No hemos podido enviar tu reseña. Revisa los campos marcados.",
+        "success_heading": "¡Gracias por tu reseña!",
+        "success_message": "La hemos recibido y la publicaremos como Anónimo tras revisarla."
       }
     },
     "aunelya_faq": {
@@ -422,108 +552,12 @@
         "subheading": "Lo esencial antes de elegir el tuyo.",
         "heading_tag": "h2"
       }
-    },
-    "aunelya_reviews": {
-      "type": "aunelya-product-reviews",
-      "blocks": {
-        "r1": {
-          "type": "review",
-          "settings": {
-            "author": "Mariana G.",
-            "location": "",
-            "date": "15 SEP 2026",
-            "rating": 5,
-            "title": "",
-            "text": "El producto se ajusta a la descripción, su calidad está muy bien y calienta súper rápido. La verdad no me lo esperaba.",
-            "variant": "Color: Rosa"
-          }
-        },
-        "r2": {
-          "type": "review",
-          "settings": {
-            "author": "Anónimo",
-            "location": "",
-            "date": "18 SEP 2026",
-            "rating": 5,
-            "title": "",
-            "text": "vibración 1 2 3 4 y el calor se ajusta de 45 hasta 60 grados, el cinturón se ajusta fácil aunque la entrega tardó poquito igual lo recomiendo",
-            "variant": "Color: Rosa"
-          }
-        },
-        "r3": {
-          "type": "review",
-          "settings": {
-            "author": "lau_94x",
-            "location": "",
-            "date": "14 SEP 2026",
-            "rating": 5,
-            "title": "",
-            "text": "Calienta muy bien, tiene vibraciones... todo funciona de maravilla, estoy satisfecha... gracias al vendedor 💕",
-            "variant": "Color: Blanco"
-          }
-        },
-        "r4": {
-          "type": "review",
-          "settings": {
-            "author": "Anónimo",
-            "location": "",
-            "date": "20 SEP 2026",
-            "rating": 5,
-            "title": "",
-            "text": "Lo uso en las noches viendo series en el nivel 2 o 3, no pesa y no se marca en la ropa. La pila me aguantó toda la tarde jaja",
-            "variant": "Color: Rosa"
-          }
-        },
-        "r5": {
-          "type": "review",
-          "settings": {
-            "author": "ferchii_22",
-            "location": "",
-            "date": "16 SEP 2026",
-            "rating": 5,
-            "title": "",
-            "text": "Buen producto",
-            "variant": "Color: Blanco"
-          }
-        },
-        "r6": {
-          "type": "review",
-          "settings": {
-            "author": "Sofía R.",
-            "location": "",
-            "date": "19 SEP 2026",
-            "rating": 4,
-            "title": "",
-            "text": "Me gusta mucho, solo le doy 4 porque tarda bastante en cargar completo y me hubiera gustado que trajera bolsita para guardarlo. Fuera de eso calienta muy rico y la vibración se siente relajante",
-            "variant": "Color: Rosa"
-          }
-        }
-      },
-      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"],
-      "settings": {
-        "eyebrow": "",
-        "heading": "Lo que dicen quienes ya lo usan",
-        "count_prefix": "Basado en",
-        "count_singular": "valoración",
-        "count_plural": "valoraciones",
-        "empty_heading": "Aún no hay valoraciones",
-        "empty_text": "Cuando recibas tu Aunelya, cuéntanos cómo te acompaña. Tu experiencia ayudará a otras personas a elegir.",
-        "write_label": "Compartir mi experiencia",
-        "write_link": "#aunelya-review-form"
-      }
-    },
-    "aunelya_review_form": {
-      "type": "aunelya-review-form",
-      "settings": {
-        "anchor_id": "aunelya-review-form",
-        "eyebrow": "",
-        "heading": "Comparte tu experiencia",
-        "subheading": "Cuéntanos cómo te acompaña tu Aunelya. La publicamos de forma anónima tras revisarla.",
-        "step_1": "Escríbela aquí, tarda 1 minuto.",
-        "step_2": "La revisamos para evitar spam.",
-        "step_3": "La publicamos como Anónimo."
-      }
     }
   },
-  "order": ["main", "aunelya_reviews", "aunelya_review_form", "aunelya_faq"]
+  "order": [
+    "main",
+    "aunelya_reviews",
+    "aunelya_review_form",
+    "aunelya_faq"
+  ]
 }
