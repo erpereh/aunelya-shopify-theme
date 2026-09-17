@@ -70,7 +70,7 @@
             "fallback_price": "MX$799",
             "asset_key": "pink",
             "image": "shopify://shop_images/aunelya-rosa-01-frontal.webp",
-            "image_alt": "Cinturón térmico Aunelya rosa - vista frontal del kit",
+            "image_alt": "",
             "swatch_color": "#e9b8b5"
           }
         },
@@ -82,7 +82,7 @@
             "fallback_price": "MX$799",
             "asset_key": "white",
             "image": "shopify://shop_images/aunelya-blanco-01-frontal.webp",
-            "image_alt": "Cinturón térmico Aunelya blanco - vista frontal del kit",
+            "image_alt": "",
             "swatch_color": "#f7f7f5"
           }
         }
@@ -107,7 +107,7 @@
             "asset_key": "home",
             "label": "En casa",
             "link": "",
-            "image_alt": "Mujer leyendo en casa con cinturón térmico Aunelya rosa"
+            "image_alt": ""
           }
         },
         "movement": {
@@ -116,7 +116,7 @@
             "asset_key": "movement",
             "label": "En movimiento",
             "link": "",
-            "image_alt": "Mujer usando el cinturón térmico Aunelya portátil en movimiento"
+            "image_alt": ""
           }
         },
         "routine": {
@@ -125,7 +125,7 @@
             "asset_key": "routine",
             "label": "En tu rutina",
             "link": "",
-            "image_alt": "Mujer con cinturón térmico Aunelya rosa en su rutina diaria"
+            "image_alt": ""
           }
         },
         "when_needed": {
@@ -134,7 +134,7 @@
             "asset_key": "when-needed",
             "label": "Cuando lo necesitas",
             "link": "",
-            "image_alt": "Mujer descansando con cinturón térmico Aunelya cuando lo necesita"
+            "image_alt": ""
           }
         }
       },
