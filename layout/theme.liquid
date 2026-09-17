@@ -29,7 +29,7 @@
 
     {% liquid
       assign aunelya_styles = false
-      if template.name == 'index' or template.name == 'product'
+      if template.name == 'index' or template.name == 'product' or template.name == 'blog' or template.name == 'article'
         assign aunelya_styles = true
       elsif template.name == 'page' and template.suffix == 'contact'
         assign aunelya_styles = true
@@ -45,6 +45,9 @@
     {% endif %}
     {% if template.name == 'page' and template.suffix == 'contact' %}
       {{ 'aunelya-contact.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+    {% if template.name == 'blog' or template.name == 'article' %}
+      {{ 'aunelya-blog.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {% if request.design_mode %}
