@@ -30,14 +30,20 @@
       {{ article.content }}
     </div>
 
-    {% assign related = blog.articles | where_exp: 'a', 'a.id != article.id' %}
-    {% if related.size > 0 %}
+    {% assign related_count = 0 %}
+    {% capture related_links %}
+      {% for other in blog.articles %}
+        {% if other.id != article.id and related_count < 3 %}
+          {% assign related_count = related_count | plus: 1 %}
+          <a class="aunelya-article__more-link" href="{{ other.url }}">{{ other.title }}</a>
+        {% endif %}
+      {% endfor %}
+    {% endcapture %}
+    {% if related_count > 0 %}
       <div class="aunelya-article__more">
         <h2 class="aunelya-article__more-heading">{{ section.settings.more_heading }}</h2>
         <div class="aunelya-article__more-list">
-          {% for other in related limit: 3 %}
-            <a class="aunelya-article__more-link" href="{{ other.url }}">{{ other.title }}</a>
-          {% endfor %}
+          {{ related_links }}
         </div>
       </div>
     {% endif %}
@@ -62,7 +68,7 @@
     { "type": "text", "id": "more_heading", "label": "Título de artículos relacionados", "default": "Más artículos" },
     { "type": "checkbox", "id": "show_cta", "label": "Mostrar CTA al producto", "default": true },
     { "type": "text", "id": "cta_text", "label": "Texto del CTA", "default": "¿Listo para probarlo?" },
-    { "type": "url", "id": "cta_url", "label": "Enlace del CTA", "default": "/products/cinturon-termico-aunelya" },
+    { "type": "url", "id": "cta_url", "label": "Enlace del CTA" },
     { "type": "text", "id": "cta_label", "label": "Texto del botón", "default": "Ver el cinturón térmico Aunelya" }
   ],
   "presets": [
