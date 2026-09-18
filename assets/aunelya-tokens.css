@@ -57,3 +57,48 @@
     transition: none;
   }
 }
+
+/*
+ * Legal policy pages (/policies/*) are rendered by Shopify core with a fixed
+ * .shopify-policy__* markup — theme templates cannot replace or extend it,
+ * only style it. This matches the article/page typography so it doesn't
+ * look like an unstyled default page.
+ */
+.shopify-policy__container {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.shopify-policy__title h1 {
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  font-family: var(--font-heading--family);
+  font-size: clamp(1.8rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  text-wrap: balance;
+  color: var(--aunelya-ink);
+  text-align: center;
+}
+
+.shopify-policy__body {
+  color: var(--aunelya-ink);
+  font-size: 1.06rem;
+  line-height: 1.75;
+}
+
+.shopify-policy__body p {
+  margin: 0 0 1.25rem;
+}
+
+.shopify-policy__body a {
+  color: var(--aunelya-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.shopify-policy__body strong {
+  font-weight: 650;
+}
